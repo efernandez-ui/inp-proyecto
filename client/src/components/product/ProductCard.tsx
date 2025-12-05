@@ -51,6 +51,24 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
               <StockIndicator level={stock} />
               <span className="text-xs text-gray-400">Cod: {product.code}</span>
             </div>
+            
+            <div className="flex flex-wrap gap-y-1 gap-x-4 text-xs text-gray-600 mb-4">
+              {product.attributes.rim && (
+                <div className="flex items-center gap-1">
+                  <span className="font-semibold text-gray-400">Rodado:</span> {product.attributes.rim}"
+                </div>
+              )}
+              {product.attributes.width && (
+                <div className="flex items-center gap-1">
+                  <span className="font-semibold text-gray-400">Ancho:</span> {product.attributes.width}
+                </div>
+              )}
+              {product.attributes.position && (
+                <div className="flex items-center gap-1">
+                  <span className="font-semibold text-gray-400">Posición:</span> {product.attributes.position}
+                </div>
+              )}
+            </div>
           </div>
           
           <div className="flex items-end justify-between">
