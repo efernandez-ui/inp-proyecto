@@ -62,7 +62,17 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
             <div className="font-bold text-sm text-gray-300 mb-2 flex justify-between items-center cursor-pointer">
               Marca
             </div>
-            {renderChips('brand', FILTERS.brands)}
+            <div className="max-h-60 overflow-y-auto custom-scrollbar">
+              {renderChips('brand', FILTERS.brands)}
+            </div>
+        </div>
+
+        {/* Type Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2">Tipo de Producto</div>
+            <div className="max-h-48 overflow-y-auto custom-scrollbar">
+              {renderChips('types', FILTERS.types)}
+            </div>
         </div>
 
         {/* Rim Filter */}

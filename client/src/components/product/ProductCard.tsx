@@ -1,7 +1,8 @@
 import { Product } from "@/lib/mockData";
-import { Heart, ShoppingCart, Check, X } from "lucide-react";
+import { Heart, ShoppingCart, Check, X, ArrowRightLeft, Link as LinkIcon, Info, Bike } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ProductCardProps {
   product: Product;
@@ -14,9 +15,7 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
   // Simulated Stock Levels for different regions based on the single stock value
-  // In a real app, this would come from the product data
   const getRegionStock = (region: string, baseStock: string) => {
-    // Deterministic random based on product ID and region to keep it consistent on renders
     const hash = (id + region).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const rand = hash % 10;
     
@@ -26,122 +25,216 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
     return rand > 5 ? 'mid' : 'low';
   };
 
-  const regions = ['BUE', 'CUYO', 'NEA', 'NOA'];
+  const regions = ['NOA', 'NEA', 'BUE', 'CUY'];
 
-  const StockDots = () => (
-    <div className="grid grid-cols-4 gap-1.5 mt-auto pt-2 pb-2.5 px-2.5">
+  // Battery Icon Component
+  const BatteryIcon = ({ level }: { level: string }) => {
+    let colorClass = '';
+    let fillHeight = 'h-full';
+    
+    switch(level) {
+      case 'high': 
+        colorClass = 'bg-stock-high';
+        fillHeight = 'h-full';
+        break;
+      case 'mid': 
+        colorClass = 'bg-stock-mid';
+        fillHeight = 'h-3/4';
+        break;
+      case 'low': 
+        colorClass = 'bg-stock-low';
+        fillHeight = 'h-1/2';
+        break;
+      case 'none': 
+        colorClass = 'border-stock-none border-[1.5px] bg-transparent'; // Outline only for empty? Or red empty?
+        // The image shows empty battery in red outline for 'none'
+        fillHeight = 'h-0';
+        break;
+      default:
+         colorClass = 'bg-gray-300';
+    }
+
+    if (level === 'none') {
+        return (
+            <div className="relative flex flex-col items-center justify-end w-[10px] h-[18px] border border-stock-none rounded-[1px]">
+                <div className="absolute -top-[2px] w-[4px] h-[2px] bg-stock-none"></div>
+            </div>
+        )
+    }
+
+    return (
+      <div className="relative flex flex-col items-center justify-end w-[10px] h-[18px] bg-gray-200 rounded-[1px]">
+        <div className={`w-full ${fillHeight} ${colorClass} rounded-[1px]`}></div>
+        <div className={`absolute -top-[2px] w-[4px] h-[2px] ${colorClass}`}></div>
+      </div>
+    );
+  };
+
+  const StockTable = () => (
+    <div className="grid grid-cols-4 gap-2 mt-auto pt-2 pb-2 w-full">
       {regions.map(region => {
         const level = getRegionStock(region, stock);
-        let colorClass = '';
-        let icon = null;
-        
-        switch(level) {
-          case 'high': 
-            colorClass = 'bg-stock-high border-stock-high text-white';
-            icon = '✓';
-            break;
-          case 'mid': 
-            colorClass = 'bg-stock-mid border-stock-mid text-brand-blue-900';
-            icon = '✓'; // Or maybe no icon for mid? CSS implies dots have checkmarks for low/high/bue
-            break;
-          case 'low': 
-            colorClass = 'bg-stock-low border-stock-low text-white';
-            icon = '✓';
-            break;
-          case 'none': 
-            colorClass = 'bg-stock-none border-stock-none text-white';
-            icon = '×';
-            break;
-          default:
-             colorClass = 'bg-gray-200 border-gray-200 text-gray-400';
-        }
-
         return (
           <div key={region} className="text-center flex flex-col items-center gap-1">
-             <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-black ${colorClass}`}>
-               {icon}
-             </div>
-             <span className="text-[0.65rem] font-bold text-gray-500">{region}</span>
+             <span className="text-[0.65rem] font-bold text-gray-400 uppercase">{region}</span>
+             <BatteryIcon level={level} />
           </div>
         );
       })}
     </div>
   );
 
+  const ActionIcons = () => (
+      <div className="flex justify-between items-center w-full px-2 mt-2 text-gray-400">
+          <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger><ArrowRightLeft className="w-4 h-4 hover:text-brand-blue-600 cursor-pointer" /></TooltipTrigger>
+                <TooltipContent><p>Comparar</p></TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          
+          <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger><LinkIcon className="w-4 h-4 hover:text-brand-blue-600 cursor-pointer" /></TooltipTrigger>
+                <TooltipContent><p>Copiar Link</p></TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger><Bike className="w-4 h-4 hover:text-brand-blue-600 cursor-pointer" /></TooltipTrigger>
+                <TooltipContent><p>Vehículos compatibles</p></TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger><Info className="w-4 h-4 hover:text-brand-blue-600 cursor-pointer" /></TooltipTrigger>
+                <TooltipContent><p>Más información</p></TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+      </div>
+  )
+
   if (viewMode === 'list') {
     return (
-      <div className="bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm hover:translate-x-1 transition-transform duration-200 flex">
-        <div className="w-[120px] h-[120px] shrink-0 p-2 flex items-center justify-center bg-white">
-           <img src={image} alt={title} className="max-w-[90%] max-h-full object-contain" />
+      <div className="bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row relative group">
+        {(isNew || isHot || discount > 0) && (
+            <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+              {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px] font-bold">{discount}% OFF</Badge>}
+            </div>
+        )}
+        
+        <div className="w-full sm:w-[180px] h-[180px] shrink-0 p-4 flex items-center justify-center bg-white border-r border-gray-50">
+           <img src={image} alt={title} className="max-w-full max-h-full object-contain mix-blend-multiply" />
         </div>
         
-        <div className="flex-1 min-w-0 p-4 flex flex-col justify-between">
-          <div>
-            <div className="text-[0.7rem] text-gray-600 uppercase tracking-wider font-bold mb-1">{brand}</div>
-            <h3 className="font-semibold text-[0.85rem] leading-tight text-brand-fg mb-1 truncate">{title}</h3>
-            <div className="text-xs text-brand-muted truncate">Código: {code}</div>
-            
-            <div className="flex items-center gap-2 mt-2">
-               <div className="text-xl font-extrabold text-brand-blue-700">
-                 ${price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
-               </div>
-               {discount > 0 && <span className="text-xs bg-brand-blue-600 text-white px-2 py-0.5 rounded-full">{discount}%</span>}
-            </div>
-             {originalPrice && (
-                <span className="text-xs text-gray-400 line-through">${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
-              )}
-          </div>
-        </div>
+        <div className="flex-1 min-w-0 p-5 flex flex-col">
+          <div className="flex justify-between items-start">
+             <div>
+                <div className="text-xs font-bold text-brand-blue-600 uppercase tracking-wider mb-1">{brand}</div>
+                <h3 className="font-bold text-lg leading-tight text-brand-fg mb-2 group-hover:text-brand-blue-700 transition-colors">{title}</h3>
+                
+                <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-1">
+                        <div className={`w-2 h-2 rounded-full ${stock === 'none' ? 'bg-red-500' : stock === 'low' ? 'bg-orange-500' : 'bg-green-500'}`}></div>
+                        <span className="text-xs font-bold text-gray-500 uppercase">
+                            {stock === 'none' ? 'SIN STOCK' : stock === 'low' ? 'STOCK BAJO' : 'STOCK ALTO'}
+                        </span>
+                    </div>
+                    <span className="text-xs text-gray-300">|</span>
+                    <div className="text-xs text-gray-400">Cod: <span className="text-gray-600">{code}</span></div>
+                </div>
 
-        <div className="flex flex-col justify-between p-4 border-l border-gray-100 min-w-[140px]">
-           <StockDots />
-           <Button className="w-full bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold text-xs h-9 rounded-lg mt-2">
-             AGREGAR
-           </Button>
+                <div className="flex flex-wrap gap-3 text-sm text-gray-600">
+                    <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
+                        <span className="font-semibold text-gray-500">Rodado:</span> 
+                        <span className="text-gray-800">{product.attributes.rim || 'N/A'}"</span>
+                    </div>
+                    <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
+                        <span className="font-semibold text-gray-500">Ancho:</span> 
+                        <span className="text-gray-800">{product.attributes.width || 'N/A'}</span>
+                    </div>
+                    <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
+                        <span className="font-semibold text-gray-500">Posición:</span> 
+                        <span className="text-gray-800">{product.attributes.position || 'Universal'}</span>
+                    </div>
+                </div>
+             </div>
+
+             <div className="text-right">
+                {originalPrice && (
+                    <div className="text-sm text-gray-400 line-through mb-1">${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</div>
+                )}
+                <div className="text-3xl font-black text-brand-fg">
+                    ${price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                </div>
+             </div>
+          </div>
+          
+          <div className="mt-auto pt-4 flex justify-end gap-3">
+             <Button variant="outline" className="text-gray-500 border-gray-300 hover:text-brand-blue-700 hover:border-brand-blue-700">
+                Ver Detalles
+             </Button>
+             <Button className="bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold px-8">
+                AGREGAR AL CARRITO
+             </Button>
+          </div>
         </div>
       </div>
     );
   }
 
-  // Grid View - Matching the HTML "card" style
+  // Grid View - AMA Bottle Style
   return (
-    <div className="relative bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm flex flex-col h-[380px] hover:shadow-md transition-shadow">
-      <button className="absolute top-2 right-2 z-10 text-gray-400 hover:text-brand-blue-700">
+    <div className="relative bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm flex flex-col h-full hover:shadow-lg transition-all duration-300 group">
+      <button className="absolute top-3 left-3 z-10 text-gray-400 hover:text-brand-blue-700">
          <Heart className="w-5 h-5" />
       </button>
 
-      <div className="aspect-[4/3] bg-white p-2 flex items-center justify-center">
-        <img 
-          src={image} 
-          alt={title} 
-          className="max-w-[90%] max-h-full object-contain" 
-        />
+      <div className="p-4 pb-0 flex justify-center bg-white relative">
+         <div className="w-full aspect-square flex items-center justify-center">
+            <img 
+            src={image} 
+            alt={title} 
+            className="max-w-[80%] max-h-[80%] object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" 
+            />
+         </div>
+         {/* Small brand logo placeholder if needed, or just text below */}
       </div>
 
-      <div className="p-2.5 flex flex-col flex-1">
-        <div className="text-[0.7rem] text-gray-600 uppercase tracking-wider font-bold mb-0.5">{brand}</div>
-        <h3 className="font-semibold text-[0.85rem] leading-tight text-brand-fg mb-1 line-clamp-2 h-[2.6em]">
+      <div className="px-4 pb-4 flex flex-col flex-1">
+        <h3 className="font-bold text-[0.9rem] leading-snug text-brand-blue-800 uppercase mb-1 line-clamp-2 min-h-[2.8em]">
           {title}
         </h3>
-        <div className="text-[0.75rem] text-brand-muted truncate mb-1">Código: {code}</div>
-
-        <div className="mt-auto">
-           <div className="flex items-center gap-1.5 flex-wrap">
-             <span className="text-[1.3rem] font-extrabold text-brand-blue-700 leading-none">
-               ${price.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-             </span>
-             {discount > 0 && <span className="text-[0.75rem] bg-brand-blue-600 text-white px-2 py-[2px] rounded-full font-bold">{discount}%</span>}
-           </div>
-           {originalPrice && (
-             <span className="text-[0.8rem] text-gray-400 line-through block mt-1">${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
-           )}
+        
+        <div className="text-[0.75rem] font-bold text-brand-fg mb-3">
+            Código: <span className="font-normal">{code}</span>
         </div>
 
-        <StockDots />
+        <div className="mb-2">
+           <div className="text-[0.7rem] text-gray-400 uppercase">Precio final:</div>
+           <div className="text-[1.4rem] font-extrabold text-brand-blue-600 leading-none">
+             ${price.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+           </div>
+        </div>
+        
+        {originalPrice && (
+            <div className="mb-4">
+                <div className="text-[0.7rem] text-gray-400 uppercase">Precio público:</div>
+                <div className="text-[1rem] font-medium text-orange-400 line-through">
+                    ${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+            </div>
+        )}
 
-        <div className="pt-2 border-t border-[#eef2f7] mt-1">
-           <Button className="w-full bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold text-[0.85rem] h-10 rounded-lg">
-             AGREGAR
+        <StockTable />
+        
+        <ActionIcons />
+
+        <div className="mt-4">
+           <Button className="w-full bg-intercap-purple hover:bg-brand-blue-900 text-white font-bold text-[0.75rem] h-9 rounded shadow-sm uppercase tracking-wide">
+             AGREGAR AL CARRITO
            </Button>
         </div>
       </div>
