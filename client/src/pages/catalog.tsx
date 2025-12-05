@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { LayoutGrid, List, Filter, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
 
 export default function Catalog() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -40,7 +41,6 @@ export default function Catalog() {
 
       // Usage filter
       if (filters.usage && filters.usage.length > 0) {
-        // Usage can be semicolon separated in product, so check if any of selected usages match any of product usages
         const productUsages = (product.attributes.usage || '').split(';').map((u: string) => u.trim());
         const hasMatch = filters.usage.some((u: string) => productUsages.includes(u));
         if (!hasMatch) return false;
@@ -59,110 +59,112 @@ export default function Catalog() {
   }, [filters, sortBy]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-brand-bg flex flex-col font-sans pt-16">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 py-8">
-        {/* Breadcrumbs & Title */}
-        <div className="mb-8">
-          <div className="text-sm text-gray-500 mb-2">Inicio / Catálogo / Cubiertas</div>
-          <h1 className="text-4xl font-display italic text-brand-dark">CATÁLOGO DE PRODUCTOS</h1>
-        </div>
+      <div className="flex h-[calc(100vh-64px)]">
+        {/* Sidebar (Desktop) - Fixed */}
+        <aside className="hidden lg:block w-[260px] shrink-0 h-full overflow-hidden fixed top-16 left-0 z-40 border-r border-[#111827]">
+          <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
+        </aside>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar (Desktop) */}
-          <aside className="hidden lg:block w-64 shrink-0">
-            <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
-          </aside>
+        {/* Main Content Area - Scrollable */}
+        <main className="flex-1 lg:ml-[260px] p-4 overflow-auto h-full">
+          
+          {/* Hero Section */}
+          <div className="bg-brand-blue-900 rounded-2xl p-6 text-white mb-6">
+             <h1 className="text-2xl font-bold mb-4">Encontrá el neumático para tu moto</h1>
+             <div className="flex gap-2">
+               <div className="relative flex-1 max-w-md">
+                  <Input 
+                    type="text" 
+                    placeholder="Ej: 120/70-17" 
+                    className="bg-brand-fg border-[#223] text-white h-10 w-full pl-3 rounded-[10px] placeholder:text-gray-500"
+                  />
+               </div>
+               <Button className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold rounded-[10px] px-6">
+                 Buscar
+               </Button>
+             </div>
+          </div>
 
-          {/* Content Area */}
-          <div className="flex-1">
-            {/* Controls Bar */}
-            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-6 flex flex-wrap gap-4 justify-between items-center sticky top-20 z-30">
-              
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span className="font-bold text-brand-dark">{filteredProducts.length}</span> productos encontrados
-              </div>
+          {/* Active Filters Chips */}
+          {Object.keys(filters).some(k => filters[k]?.length > 0) && (
+            <div className="flex flex-wrap gap-2 mb-6 items-center">
+              <h3 className="text-sm font-bold text-brand-fg mr-2">Filtros aplicados:</h3>
+              {Object.entries(filters).map(([key, values]: [string, any]) => (
+                values.map((val: string) => (
+                  <div key={`${key}-${val}`} className="bg-brand-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                    <span>{val}</span>
+                    <button 
+                      onClick={() => {
+                        const newVals = values.filter((v: string) => v !== val);
+                        setFilters({ ...filters, [key]: newVals });
+                      }}
+                      className="hover:text-red-200 font-bold ml-1"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))
+              ))}
+            </div>
+          )}
 
-              <div className="flex items-center gap-4 ml-auto">
-                {/* Mobile Filter Trigger */}
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="lg:hidden gap-2">
-                      <Filter className="w-4 h-4" /> Filtros
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
-                    <div className="py-4">
-                       <h2 className="font-display text-xl mb-4">Filtros</h2>
-                       <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
-                    </div>
-                  </SheetContent>
-                </Sheet>
-
+          {/* Controls Bar */}
+          <div className="flex flex-wrap gap-4 justify-between items-center mb-6">
+              <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-500 hidden sm:inline">Ordenar por:</span>
+                  <label className="text-sm text-brand-fg">Ordenar por:</label>
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] h-10 bg-brand-fg border-[#223] text-white rounded-[10px]">
                       <SelectValue placeholder="Destacados" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-brand-fg text-white border-[#223]">
                       <SelectItem value="featured">Destacados</SelectItem>
-                      <SelectItem value="price-asc">Menor Precio</SelectItem>
-                      <SelectItem value="price-desc">Mayor Precio</SelectItem>
+                      <SelectItem value="price-asc">Precio: Menor a Mayor</SelectItem>
+                      <SelectItem value="price-desc">Precio: Mayor a Menor</SelectItem>
                       <SelectItem value="newest">Más Nuevos</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
 
-                <div className="flex items-center bg-gray-100 rounded-lg p-1">
-                  <button 
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white shadow text-brand-blue' : 'text-gray-400 hover:text-gray-600'}`}
-                  >
-                    <LayoutGrid className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 rounded-md transition-all ${viewMode === 'list' ? 'bg-white shadow text-brand-blue' : 'text-gray-400 hover:text-gray-600'}`}
-                  >
-                    <List className="w-4 h-4" />
-                  </button>
-                </div>
+              <div className="flex items-center gap-2">
+                  {/* Mobile Filter Trigger */}
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button variant="outline" className="lg:hidden gap-2 bg-brand-fg text-white border-[#223]">
+                        <Filter className="w-4 h-4" /> Filtros
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto bg-brand-fg p-0 border-r-[#111827]">
+                        <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
+                    </SheetContent>
+                  </Sheet>
+
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => setViewMode('grid')}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-[8px] text-sm font-medium border transition-all ${viewMode === 'grid' ? 'bg-brand-blue-600 text-white border-transparent' : 'bg-brand-fg text-gray-200 border-[#223]'}`}
+                    >
+                      <LayoutGrid className="w-4 h-4" />
+                      Celda
+                    </button>
+                    <button 
+                      onClick={() => setViewMode('list')}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-[8px] text-sm font-medium border transition-all ${viewMode === 'list' ? 'bg-brand-blue-600 text-white border-transparent' : 'bg-brand-fg text-gray-200 border-[#223]'}`}
+                    >
+                      <List className="w-4 h-4" />
+                      Lista
+                    </button>
+                  </div>
               </div>
             </div>
 
-            {/* Active Filters Chips */}
-            {Object.keys(filters).some(k => filters[k]?.length > 0) && (
-              <div className="flex flex-wrap gap-2 mb-6">
-                {Object.entries(filters).map(([key, values]: [string, any]) => (
-                  values.map((val: string) => (
-                    <div key={`${key}-${val}`} className="bg-brand-blue/10 text-brand-blue px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 border border-brand-blue/20">
-                      <span>{val}</span>
-                      <button 
-                        onClick={() => {
-                          const newVals = values.filter((v: string) => v !== val);
-                          setFilters({ ...filters, [key]: newVals });
-                        }}
-                        className="hover:text-red-500"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))
-                ))}
-                <button 
-                  onClick={() => setFilters({})}
-                  className="text-xs text-gray-500 hover:text-red-500 underline ml-2"
-                >
-                  Limpiar todos
-                </button>
-              </div>
-            )}
-
             {/* Products Grid */}
             {filteredProducts.length > 0 ? (
-              <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}>
+              <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5' : 'grid-cols-1'}`}>
                 {filteredProducts.map((product) => (
                   <ProductCard key={product.id} product={product} viewMode={viewMode} />
                 ))}
@@ -186,16 +188,20 @@ export default function Catalog() {
 
             {/* Pagination (Mock) */}
             {filteredProducts.length > 0 && (
-              <div className="mt-12 flex justify-center">
-                <Button variant="outline" className="border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white px-8">
-                  Cargar más productos
+              <div className="mt-8 flex flex-col items-center gap-4">
+                <div className="text-sm text-gray-500">Mostrando {filteredProducts.length} productos</div>
+                <div className="w-full max-w-xs h-px bg-gray-200"></div>
+                <Button variant="outline" className="border-brand-blue-600 text-brand-blue-600 hover:bg-brand-blue-600 hover:text-white px-8 font-bold border-2 h-10">
+                  MOSTRAR MÁS
                 </Button>
               </div>
             )}
-          </div>
-        </div>
-      </main>
-      <Footer />
+
+            <div className="mt-12">
+               <Footer />
+            </div>
+        </main>
+      </div>
     </div>
   );
 }

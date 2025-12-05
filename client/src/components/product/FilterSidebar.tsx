@@ -1,9 +1,8 @@
-import { FILTERS, getUniqueValues } from "@/lib/mockData";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { FILTERS } from "@/lib/mockData";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface FilterSidebarProps {
   selectedFilters: any;
@@ -25,186 +24,92 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
     return (selectedFilters[category] || []).includes(value);
   };
 
+  const renderChips = (category: string, items: string[]) => (
+    <div className="flex flex-wrap gap-2 mt-2">
+      {items.map((item) => (
+        <div 
+          key={item}
+          onClick={() => handleCheckboxChange(category, item, !isChecked(category, item))}
+          className={`
+            cursor-pointer px-[10px] py-[6px] rounded-full text-[0.75rem] font-medium border transition-all
+            ${isChecked(category, item) 
+              ? 'bg-brand-blue-500 text-white border-transparent' 
+              : 'bg-brand-fg text-gray-200 border-[#334155] hover:border-brand-blue-500'}
+          `}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden sticky top-24">
-      <div className="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
-        <h2 className="font-bold text-brand-dark">Filtros</h2>
+    <div className="bg-brand-fg h-full text-gray-200 overflow-y-auto p-4 border-r border-[#111827]">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="font-bold text-gray-200 text-sm uppercase tracking-wider">Filtros</h2>
         <Button 
           variant="link" 
-          className="text-xs text-brand-blue p-0 h-auto"
+          className="text-xs text-brand-blue-500 p-0 h-auto hover:text-brand-blue-400"
           onClick={() => onFilterChange({})}
         >
-          Limpiar todo
+          Limpiar
         </Button>
       </div>
       
-      <div className="p-4">
-        <Accordion type="multiple" defaultValue={['brands', 'rims', 'widths']} className="w-full space-y-2">
-          
-          {/* Brand Filter */}
-          <AccordionItem value="brands" className="border-none">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
+      <div className="space-y-3">
+        {/* Brand Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2 flex justify-between items-center cursor-pointer">
               Marca
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 mt-2">
-                {FILTERS.brands.map((brand) => (
-                  <div key={brand} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`brand-${brand}`} 
-                      checked={isChecked('brand', brand)}
-                      onCheckedChange={(c) => handleCheckboxChange('brand', brand, c as boolean)}
-                    />
-                    <Label htmlFor={`brand-${brand}`} className="text-sm text-gray-600 cursor-pointer leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                      {brand}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+            </div>
+            {renderChips('brand', FILTERS.brands)}
+        </div>
 
-          {/* Rim Filter */}
-          <AccordionItem value="rims" className="border-t border-gray-100">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
-              Rodado
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {FILTERS.rims.map((rim) => (
-                  <div 
-                    key={rim}
-                    onClick={() => handleCheckboxChange('rim', rim, !isChecked('rim', rim))}
-                    className={`
-                      cursor-pointer px-3 py-1 rounded-full text-xs font-medium border transition-all
-                      ${isChecked('rim', rim) 
-                        ? 'bg-brand-blue text-white border-brand-blue shadow-sm' 
-                        : 'bg-white text-gray-600 border-gray-200 hover:border-brand-blue hover:text-brand-blue'}
-                    `}
-                  >
-                    {rim}"
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+        {/* Rim Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2">Rodado</div>
+            {renderChips('rim', FILTERS.rims)}
+        </div>
 
-          {/* Width Filter */}
-          <AccordionItem value="widths" className="border-t border-gray-100">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
-              Ancho
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 mt-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                {FILTERS.widths.map((width) => (
-                  <div key={width} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`width-${width}`} 
-                      checked={isChecked('width', width)}
-                      onCheckedChange={(c) => handleCheckboxChange('width', width, c as boolean)}
-                    />
-                    <Label htmlFor={`width-${width}`} className="text-sm text-gray-600 cursor-pointer">
-                      {width}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+        {/* Width Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2">Ancho</div>
+            <div className="flex flex-wrap gap-2 mt-2 max-h-48 overflow-y-auto custom-scrollbar">
+              {FILTERS.widths.map((width) => (
+                <div 
+                  key={width}
+                  onClick={() => handleCheckboxChange('width', width, !isChecked('width', width))}
+                  className={`
+                    cursor-pointer px-[10px] py-[6px] rounded-full text-[0.75rem] font-medium border transition-all
+                    ${isChecked('width', width) 
+                      ? 'bg-brand-blue-500 text-white border-transparent' 
+                      : 'bg-brand-fg text-gray-200 border-[#334155] hover:border-brand-blue-500'}
+                  `}
+                >
+                  {width}
+                </div>
+              ))}
+            </div>
+        </div>
 
-          {/* Ratio Filter */}
-          <AccordionItem value="ratios" className="border-t border-gray-100">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
-              Perfil / Relación
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 mt-2">
-                {FILTERS.ratios.map((ratio) => (
-                  <div key={ratio} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`ratio-${ratio}`} 
-                      checked={isChecked('ratio', ratio)}
-                      onCheckedChange={(c) => handleCheckboxChange('ratio', ratio, c as boolean)}
-                    />
-                    <Label htmlFor={`ratio-${ratio}`} className="text-sm text-gray-600 cursor-pointer">
-                      {ratio}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+        {/* Ratio Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2">Perfil / Relación</div>
+            {renderChips('ratio', FILTERS.ratios)}
+        </div>
+        
+        {/* Terrain Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2">Terreno</div>
+            {renderChips('terrainType', FILTERS.terrainTypes)}
+        </div>
 
-          {/* Terrain Filter */}
-          <AccordionItem value="terrainTypes" className="border-t border-gray-100">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
-              Tipo de Terreno
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 mt-2">
-                {FILTERS.terrainTypes.map((type) => (
-                  <div key={type} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`terrain-${type}`} 
-                      checked={isChecked('terrainType', type)}
-                      onCheckedChange={(c) => handleCheckboxChange('terrainType', type, c as boolean)}
-                    />
-                    <Label htmlFor={`terrain-${type}`} className="text-sm text-gray-600 cursor-pointer">
-                      {type}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+        {/* Position Filter */}
+        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
+            <div className="font-bold text-sm text-gray-300 mb-2">Posición</div>
+            {renderChips('position', FILTERS.positions)}
+        </div>
 
-          {/* Usage Filter */}
-          <AccordionItem value="usages" className="border-t border-gray-100">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
-              Uso
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 mt-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                {FILTERS.usages.map((usage) => (
-                  <div key={usage} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`usage-${usage}`} 
-                      checked={isChecked('usage', usage)}
-                      onCheckedChange={(c) => handleCheckboxChange('usage', usage, c as boolean)}
-                    />
-                    <Label htmlFor={`usage-${usage}`} className="text-sm text-gray-600 cursor-pointer">
-                      {usage}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-          {/* Position Filter */}
-          <AccordionItem value="positions" className="border-t border-gray-100">
-            <AccordionTrigger className="py-2 hover:no-underline text-sm font-bold text-gray-700 hover:text-brand-blue">
-              Posición
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-2 mt-2">
-                {FILTERS.positions.map((position) => (
-                  <div key={position} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`position-${position}`} 
-                      checked={isChecked('position', position)}
-                      onCheckedChange={(c) => handleCheckboxChange('position', position, c as boolean)}
-                    />
-                    <Label htmlFor={`position-${position}`} className="text-sm text-gray-600 cursor-pointer">
-                      {position}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-        </Accordion>
       </div>
     </div>
   );

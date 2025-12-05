@@ -9,137 +9,140 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
-  const { id, title, price, originalPrice, image, brand, stock, isNew, isHot } = product;
+  const { id, title, price, originalPrice, image, brand, stock, isNew, isHot, code } = product;
 
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
-  const StockIndicator = ({ level }: { level: string }) => {
-    const config = {
-      high: { color: "bg-green-500", text: "Stock Alto", icon: Check },
-      mid: { color: "bg-yellow-400", text: "Stock Medio", icon: Check },
-      low: { color: "bg-orange-500", text: "Stock Bajo", icon: Check },
-      none: { color: "bg-red-500", text: "Sin Stock", icon: X },
-    }[level] || { color: "bg-gray-400", text: "Consultar", icon: X };
-
-    return (
-      <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-gray-500">
-        <div className={`w-2 h-2 rounded-full ${config.color}`} />
-        {config.text}
-      </div>
-    );
+  // Simulated Stock Levels for different regions based on the single stock value
+  // In a real app, this would come from the product data
+  const getRegionStock = (region: string, baseStock: string) => {
+    // Deterministic random based on product ID and region to keep it consistent on renders
+    const hash = (id + region).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const rand = hash % 10;
+    
+    if (baseStock === 'none') return 'none';
+    if (baseStock === 'low') return rand > 5 ? 'none' : 'low';
+    if (baseStock === 'high') return rand > 2 ? 'high' : 'mid';
+    return rand > 5 ? 'mid' : 'low';
   };
+
+  const regions = ['BUE', 'CUYO', 'NEA', 'NOA'];
+
+  const StockDots = () => (
+    <div className="grid grid-cols-4 gap-1.5 mt-auto pt-2 pb-2.5 px-2.5">
+      {regions.map(region => {
+        const level = getRegionStock(region, stock);
+        let colorClass = '';
+        let icon = null;
+        
+        switch(level) {
+          case 'high': 
+            colorClass = 'bg-stock-high border-stock-high text-white';
+            icon = '✓';
+            break;
+          case 'mid': 
+            colorClass = 'bg-stock-mid border-stock-mid text-brand-blue-900';
+            icon = '✓'; // Or maybe no icon for mid? CSS implies dots have checkmarks for low/high/bue
+            break;
+          case 'low': 
+            colorClass = 'bg-stock-low border-stock-low text-white';
+            icon = '✓';
+            break;
+          case 'none': 
+            colorClass = 'bg-stock-none border-stock-none text-white';
+            icon = '×';
+            break;
+          default:
+             colorClass = 'bg-gray-200 border-gray-200 text-gray-400';
+        }
+
+        return (
+          <div key={region} className="text-center flex flex-col items-center gap-1">
+             <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-black ${colorClass}`}>
+               {icon}
+             </div>
+             <span className="text-[0.65rem] font-bold text-gray-500">{region}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   if (viewMode === 'list') {
     return (
-      <div className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-blue-100 transition-all duration-300 flex">
-        <div className="w-48 h-48 shrink-0 p-4 bg-gray-50 flex items-center justify-center relative">
-          {(isNew || isHot || discount > 0) && (
-            <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
-              {isNew && <Badge className="bg-blue-600 hover:bg-blue-700 text-[10px]">NUEVO</Badge>}
-              {isHot && <Badge className="bg-orange-500 hover:bg-orange-600 text-[10px]">HOT</Badge>}
-              {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px]">{discount}% OFF</Badge>}
-            </div>
-          )}
-          <img src={image} alt={title} className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500" />
+      <div className="bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm hover:translate-x-1 transition-transform duration-200 flex">
+        <div className="w-[120px] h-[120px] shrink-0 p-2 flex items-center justify-center bg-white">
+           <img src={image} alt={title} className="max-w-[90%] max-h-full object-contain" />
         </div>
         
-        <div className="flex-1 p-6 flex flex-col justify-between">
+        <div className="flex-1 min-w-0 p-4 flex flex-col justify-between">
           <div>
-            <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">{brand}</div>
-            <h3 className="font-bold text-gray-900 text-lg mb-2 group-hover:text-blue-700 transition-colors">{title}</h3>
-            <div className="flex items-center gap-4 mb-4">
-              <StockIndicator level={stock} />
-              <span className="text-xs text-gray-400">Cod: {product.code}</span>
-            </div>
+            <div className="text-[0.7rem] text-gray-600 uppercase tracking-wider font-bold mb-1">{brand}</div>
+            <h3 className="font-semibold text-[0.85rem] leading-tight text-brand-fg mb-1 truncate">{title}</h3>
+            <div className="text-xs text-brand-muted truncate">Código: {code}</div>
             
-            <div className="flex flex-wrap gap-y-1 gap-x-4 text-xs text-gray-600 mb-4">
-              {product.attributes.rim && (
-                <div className="flex items-center gap-1">
-                  <span className="font-semibold text-gray-400">Rodado:</span> {product.attributes.rim}"
-                </div>
-              )}
-              {product.attributes.width && (
-                <div className="flex items-center gap-1">
-                  <span className="font-semibold text-gray-400">Ancho:</span> {product.attributes.width}
-                </div>
-              )}
-              {product.attributes.position && (
-                <div className="flex items-center gap-1">
-                  <span className="font-semibold text-gray-400">Posición:</span> {product.attributes.position}
-                </div>
-              )}
+            <div className="flex items-center gap-2 mt-2">
+               <div className="text-xl font-extrabold text-brand-blue-700">
+                 ${price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+               </div>
+               {discount > 0 && <span className="text-xs bg-brand-blue-600 text-white px-2 py-0.5 rounded-full">{discount}%</span>}
             </div>
+             {originalPrice && (
+                <span className="text-xs text-gray-400 line-through">${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
+              )}
           </div>
-          
-          <div className="flex items-end justify-between">
-            <div>
-              {originalPrice && (
-                <span className="text-sm text-gray-400 line-through block mb-1">${originalPrice.toLocaleString()}</span>
-              )}
-              <div className="text-3xl font-display font-bold text-brand-dark">
-                ${price.toLocaleString()}
-              </div>
-            </div>
-            
-            <div className="flex gap-2">
-              <Button variant="outline" size="icon" className="rounded-lg border-gray-200 hover:border-red-200 hover:text-red-500">
-                <Heart className="w-5 h-5" />
-              </Button>
-              <Button className="bg-brand-blue hover:bg-blue-700 text-white rounded-lg px-6 font-bold shadow-lg shadow-blue-900/20">
-                Agregar <ShoppingCart className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
+        </div>
+
+        <div className="flex flex-col justify-between p-4 border-l border-gray-100 min-w-[140px]">
+           <StockDots />
+           <Button className="w-full bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold text-xs h-9 rounded-lg mt-2">
+             AGREGAR
+           </Button>
         </div>
       </div>
     );
   }
 
-  // Grid View
+  // Grid View - Matching the HTML "card" style
   return (
-    <div className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 hover:border-blue-100 transition-all duration-300 flex flex-col h-full relative">
-      <button className="absolute top-3 right-3 z-20 text-gray-300 hover:text-red-500 transition-colors">
-        <Heart className="w-6 h-6" />
+    <div className="relative bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm flex flex-col h-[380px] hover:shadow-md transition-shadow">
+      <button className="absolute top-2 right-2 z-10 text-gray-400 hover:text-brand-blue-700">
+         <Heart className="w-5 h-5" />
       </button>
 
-      <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
-        {isNew && <Badge className="bg-blue-600 hover:bg-blue-700 text-[10px]">NUEVO</Badge>}
-        {isHot && <Badge className="bg-orange-500 hover:bg-orange-600 text-[10px]">HOT</Badge>}
-        {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px]">{discount}% OFF</Badge>}
-      </div>
-
-      <div className="aspect-[4/3] p-6 bg-gray-50 flex items-center justify-center overflow-hidden relative">
+      <div className="aspect-[4/3] bg-white p-2 flex items-center justify-center">
         <img 
           src={image} 
           alt={title} 
-          className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500" 
+          className="max-w-[90%] max-h-full object-contain" 
         />
       </div>
 
-      <div className="p-4 flex flex-col flex-1">
-        <div className="text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-1">{brand}</div>
-        <h3 className="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-blue-700 transition-colors min-h-[2.5em]">
+      <div className="p-2.5 flex flex-col flex-1">
+        <div className="text-[0.7rem] text-gray-600 uppercase tracking-wider font-bold mb-0.5">{brand}</div>
+        <h3 className="font-semibold text-[0.85rem] leading-tight text-brand-fg mb-1 line-clamp-2 h-[2.6em]">
           {title}
         </h3>
-        
-        <div className="mt-auto pt-4 border-t border-gray-50">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              {originalPrice && (
-                <span className="text-[10px] text-gray-400 line-through block">${originalPrice.toLocaleString()}</span>
-              )}
-              <div className="text-xl font-display font-bold text-brand-dark">
-                ${price.toLocaleString()}
-              </div>
-            </div>
-            <div className="text-right">
-               <StockIndicator level={stock} />
-            </div>
-          </div>
-          
-          <Button className="w-full bg-brand-blue hover:bg-blue-700 text-white rounded-lg font-bold shadow-md shadow-blue-900/10 group-hover:shadow-blue-900/20 transition-all">
-            Comprar
-          </Button>
+        <div className="text-[0.75rem] text-brand-muted truncate mb-1">Código: {code}</div>
+
+        <div className="mt-auto">
+           <div className="flex items-center gap-1.5 flex-wrap">
+             <span className="text-[1.3rem] font-extrabold text-brand-blue-700 leading-none">
+               ${price.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+             </span>
+             {discount > 0 && <span className="text-[0.75rem] bg-brand-blue-600 text-white px-2 py-[2px] rounded-full font-bold">{discount}%</span>}
+           </div>
+           {originalPrice && (
+             <span className="text-[0.8rem] text-gray-400 line-through block mt-1">${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
+           )}
+        </div>
+
+        <StockDots />
+
+        <div className="pt-2 border-t border-[#eef2f7] mt-1">
+           <Button className="w-full bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold text-[0.85rem] h-10 rounded-lg">
+             AGREGAR
+           </Button>
         </div>
       </div>
     </div>
