@@ -1,90 +1,63 @@
-import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from "lucide-react";
+import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-dark text-gray-300 pt-16 pb-8 border-t border-white/5">
+    <footer className="bg-white border-t border-gray-200 pt-12 pb-6">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-2 bg-brand-blue rounded-sm" />
-              <span className="font-display text-2xl tracking-wide italic text-white">
-                INTERCAP
-              </span>
-            </div>
-            <p className="text-sm leading-relaxed text-gray-400">
-              Líder en distribución de repuestos y accesorios para motocicletas. Calidad y compromiso en cada envío.
-            </p>
-            <div className="flex gap-4 pt-2">
-              <a href="#" className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all">
-                <Youtube size={20} />
-              </a>
-            </div>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h3 className="text-white font-bold mb-6">Navegación</h3>
-            <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-brand-blue transition-colors">Inicio</a></li>
-              <li><a href="#" className="hover:text-brand-blue transition-colors">Catálogo Completo</a></li>
-              <li><a href="#" className="hover:text-brand-blue transition-colors">Ofertas Especiales</a></li>
-              <li><a href="#" className="hover:text-brand-blue transition-colors">Nuestras Sucursales</a></li>
-              <li><a href="#" className="hover:text-brand-blue transition-colors">Contacto</a></li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-white font-bold mb-6">Contacto</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-brand-blue shrink-0" />
-                <span>Av. Principal 1234,<br />Ciudad Autónoma de Buenos Aires</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-brand-blue shrink-0" />
-                <span>0800-555-MOTO (6686)</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-brand-blue shrink-0" />
-                <span>ventas@intercap.com.ar</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-white font-bold mb-6">Newsletter</h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Suscríbete para recibir las últimas novedades y ofertas exclusivas.
-            </p>
-            <div className="flex gap-2">
-              <input 
-                type="email" 
-                placeholder="Tu email" 
-                className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm w-full focus:outline-none focus:border-brand-blue"
-              />
-              <button className="bg-brand-blue text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-600 transition-colors">
-                OK
-              </button>
-            </div>
-          </div>
+        
+        {/* About Box */}
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 p-8 text-center mb-12 shadow-sm">
+           <p className="text-lg font-medium text-gray-700 mb-6">
+             Desde el año 1991 somos expertos en el negocio de repuestos y accesorios para motos
+           </p>
+           <Button className="bg-intercap-blue hover:bg-blue-600 text-white font-bold rounded-full px-8">
+             Conocé más de Nosotros <ArrowRight className="w-4 h-4 ml-2" />
+           </Button>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left border-t border-gray-100 pt-8">
+           <div>
+             <h4 className="font-bold text-gray-800 mb-4 uppercase text-sm tracking-wider">Contacto</h4>
+             <ul className="space-y-3 text-sm text-gray-600">
+               <li className="flex items-center justify-center md:justify-start gap-2">
+                 <MapPin className="w-4 h-4 text-intercap-blue" /> Belgrano 777, Reconquista, Santa Fe
+               </li>
+               <li className="flex items-center justify-center md:justify-start gap-2">
+                 <Phone className="w-4 h-4 text-intercap-blue" /> 0810-888-21130
+               </li>
+               <li className="flex items-center justify-center md:justify-start gap-2">
+                 <Mail className="w-4 h-4 text-intercap-blue" /> info@intercap.com.ar
+               </li>
+             </ul>
+           </div>
+           
+           <div>
+             <h4 className="font-bold text-gray-800 mb-4 uppercase text-sm tracking-wider">Horarios</h4>
+             <ul className="space-y-2 text-sm text-gray-600">
+               <li>Lunes a Viernes: 8:00 - 12:00 / 16:00 - 20:00</li>
+               <li>Sábados: 8:30 - 12:30</li>
+             </ul>
+           </div>
+
+           <div>
+             <h4 className="font-bold text-gray-800 mb-4 uppercase text-sm tracking-wider">Síguenos</h4>
+             <div className="flex justify-center md:justify-start gap-4">
+               <a href="#" className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                 <Facebook className="w-5 h-5" />
+               </a>
+               <a href="#" className="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                 <Instagram className="w-5 h-5" />
+               </a>
+               <a href="#" className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                 <Youtube className="w-5 h-5" />
+               </a>
+             </div>
+           </div>
+        </div>
+
+        <div className="mt-12 border-t border-gray-100 pt-6 text-center text-xs text-gray-400">
           <p>© 2025 Intercap S.A. Todos los derechos reservados.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-gray-300">Términos y Condiciones</a>
-            <a href="#" className="hover:text-gray-300">Privacidad</a>
-          </div>
         </div>
       </div>
     </footer>

@@ -1,115 +1,104 @@
 import { Link, useLocation } from "wouter";
-import { Search, ShoppingCart, Menu, X, Phone, MapPin } from "lucide-react";
-import { useState } from "react";
+import { Search, ShoppingCart, Menu, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function Header() {
   const [location] = useLocation();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  const isActive = (path: string) => location === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-brand-dark text-white shadow-lg">
-      {/* Top Bar */}
-      <div className="hidden md:block bg-black/20 py-1 text-xs text-gray-300">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <p>Envíos a todo el país | El mejor catálogo de productos</p>
-          <div className="flex gap-4">
-            <span className="flex items-center gap-1"><Phone size={12} /> 0800-555-MOTO</span>
-            <span className="flex items-center gap-1"><MapPin size={12} /> Sucursales</span>
-          </div>
-        </div>
+    <div className="flex flex-col w-full">
+      {/* Top Bar - Green */}
+      <div className="bg-intercap-green text-intercap-purple text-[11px] font-bold py-1 text-center tracking-wide uppercase">
+        Envíos a todo el país y el mejor catálogo de productos y repuestos para motos
       </div>
 
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        {/* Logo */}
-        <Link href="/">
-          <a className="flex items-center gap-2 group">
-            <div className="h-8 w-2 bg-brand-blue rounded-sm group-hover:h-6 transition-all" />
-            <span className="font-display text-2xl tracking-wide italic text-white">
-              INTERCAP
-            </span>
-          </a>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1">
+      {/* Main Header - Purple */}
+      <header className="bg-intercap-purple py-4">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-4 justify-between">
+          
+          {/* Logo */}
           <Link href="/">
-            <a className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${isActive('/') ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20' : 'text-gray-300 hover:bg-white/5 hover:text-white'}`}>
-              Inicio
+            <a className="flex items-center gap-2 group shrink-0">
+               {/* Simulating the logo from screenshot with icon + text */}
+               <div className="flex flex-col items-start leading-none text-white">
+                 <div className="flex items-center gap-1">
+                   <div className="bg-white/10 p-1 rounded">
+                     <ShoppingCart className="text-white w-6 h-6" /> 
+                   </div>
+                   <div className="flex flex-col">
+                     <span className="font-bold text-xl italic tracking-tighter">e-biz</span>
+                     <span className="text-[10px] tracking-widest uppercase opacity-80">Intercap</span>
+                   </div>
+                 </div>
+               </div>
             </a>
           </Link>
-          <Link href="/catalogo">
-            <a className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${isActive('/catalogo') ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20' : 'text-gray-300 hover:bg-white/5 hover:text-white'}`}>
-              Catálogo
-            </a>
-          </Link>
-          <a href="#" className="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:bg-white/5 hover:text-white transition-all">
-            Ofertas
-          </a>
-          <a href="#" className="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:bg-white/5 hover:text-white transition-all">
-            Contacto
-          </a>
-        </nav>
 
-        {/* Search & Actions */}
-        <div className="flex items-center gap-3 ml-auto md:ml-0">
-          <div className="relative hidden lg:block w-64">
-            <Input 
-              type="search" 
-              placeholder="Buscar productos..." 
-              className="h-9 bg-black/30 border-white/10 text-white placeholder:text-gray-400 focus-visible:ring-brand-blue focus-visible:border-brand-blue pl-9 rounded-xl"
-            />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          {/* Search Bar */}
+          <div className="flex-1 max-w-2xl w-full relative">
+            <div className="relative">
+              <Input 
+                type="search" 
+                placeholder="¿Qué estas Buscando?" 
+                className="h-10 rounded-full bg-white text-gray-800 border-transparent pl-5 pr-12 placeholder:text-gray-400 w-full focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
+              <button className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-intercap-purple hover:bg-gray-100 rounded-full transition-colors">
+                <Search className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          <Button size="icon" variant="ghost" className="lg:hidden text-gray-300 hover:text-white hover:bg-white/10">
-            <Search className="w-5 h-5" />
-          </Button>
-
-          <Button size="icon" variant="ghost" className="relative text-gray-300 hover:text-white hover:bg-white/10 rounded-xl">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-blue rounded-full ring-2 ring-brand-dark" />
-          </Button>
-
-          {/* Mobile Menu */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button size="icon" variant="ghost" className="md:hidden text-gray-300 hover:text-white hover:bg-white/10">
-                <Menu className="w-6 h-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="bg-brand-dark border-r border-white/10 text-white w-[300px] p-0">
-              <div className="p-6 border-b border-white/10">
-                 <span className="font-display text-2xl tracking-wide italic text-white">
-                  INTERCAP
-                </span>
-              </div>
-              <div className="flex flex-col p-4 gap-2">
-                <Link href="/">
-                  <a className={`px-4 py-3 rounded-lg font-semibold transition-all flex items-center justify-between ${isActive('/') ? 'bg-brand-blue text-white' : 'text-gray-300 hover:bg-white/5'}`}>
-                    Inicio
-                  </a>
-                </Link>
-                <Link href="/catalogo">
-                  <a className={`px-4 py-3 rounded-lg font-semibold transition-all flex items-center justify-between ${isActive('/catalogo') ? 'bg-brand-blue text-white' : 'text-gray-300 hover:bg-white/5'}`}>
-                    Catálogo
-                  </a>
-                </Link>
-                <a href="#" className="px-4 py-3 rounded-lg font-semibold text-gray-300 hover:bg-white/5 transition-all">
-                  Ofertas
-                </a>
-                <a href="#" className="px-4 py-3 rounded-lg font-semibold text-gray-300 hover:bg-white/5 transition-all">
-                  Contacto
-                </a>
-              </div>
-            </SheetContent>
-          </Sheet>
+          {/* Auth Buttons */}
+          <div className="flex items-center gap-2 shrink-0">
+             <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-white rounded text-xs font-bold px-4 h-8">
+               INGRESÁ
+             </Button>
+             <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-bold px-4 h-8">
+               SOLICITÁ ACCESO
+             </Button>
+             
+             {/* Mobile Menu Trigger */}
+             <Sheet>
+                <SheetTrigger asChild>
+                  <Button size="icon" variant="ghost" className="md:hidden text-white ml-2">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="bg-intercap-purple text-white border-r-white/10">
+                  <nav className="flex flex-col gap-4 mt-8">
+                    <Link href="/catalogo"><a className="text-lg font-bold">Catálogo</a></Link>
+                    <a href="#" className="text-lg">¿Quiénes Somos?</a>
+                    <a href="#" className="text-lg">Quiero ser Cliente</a>
+                    <a href="#" className="text-lg">Sucursales</a>
+                    <a href="#" className="text-lg">Autogestión</a>
+                  </nav>
+                </SheetContent>
+             </Sheet>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Navigation Bar - Darker Purple */}
+      <nav className="bg-intercap-dark-purple text-white text-sm hidden md:block">
+        <div className="container mx-auto px-4">
+          <ul className="flex items-center gap-8 h-10">
+            <li>
+              <Link href="/catalogo">
+                <a className="flex items-center gap-1 font-bold hover:text-intercap-green transition-colors">
+                  Catálogo <span className="text-[10px]">▼</span>
+                </a>
+              </Link>
+            </li>
+            <li><a href="#" className="hover:text-intercap-green transition-colors">¿Quiénes Somos?</a></li>
+            <li><a href="#" className="hover:text-intercap-green transition-colors">Quiero ser Cliente</a></li>
+            <li><a href="#" className="hover:text-intercap-green transition-colors">Sucursales</a></li>
+            <li><a href="#" className="hover:text-intercap-green transition-colors">Autogestión</a></li>
+            <li><a href="#" className="hover:text-intercap-green transition-colors">Exportar Lista</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   );
 }

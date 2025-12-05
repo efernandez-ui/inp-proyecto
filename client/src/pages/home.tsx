@@ -3,10 +3,9 @@ import { Footer } from "@/components/layout/Footer";
 import { PRODUCTS } from "@/lib/mockData";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Star, TrendingUp, ShieldCheck, Truck } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ChevronRight, ChevronLeft, Battery, Zap, Cable, Disc, Monitor, Droplet, Cog, Settings } from "lucide-react";
 import { Link } from "wouter";
-
-// Helper for carousel
 import {
   Carousel,
   CarouselContent,
@@ -14,203 +13,216 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function Home() {
-  // Get some featured products
-  const featuredProducts = PRODUCTS.slice(0, 8);
-  const newArrivals = PRODUCTS.filter(p => p.isNew).slice(0, 8);
+  // Filter products for "Oferta" section
+  const offerProducts = PRODUCTS.slice(0, 5);
+
+  const categories = [
+    { name: "Baterias", icon: Battery, color: "bg-blue-100 text-blue-600" },
+    { name: "Bujias", icon: Zap, color: "bg-yellow-100 text-yellow-600" },
+    { name: "Cables", icon: Cable, color: "bg-gray-100 text-gray-600" },
+    { name: "Camaras", icon: Disc, color: "bg-orange-100 text-orange-600" },
+    { name: "Cubiertas", icon: Disc, color: "bg-slate-100 text-slate-600" },
+    { name: "Electronica", icon: Monitor, color: "bg-purple-100 text-purple-600" },
+    { name: "Lubricantes", icon: Droplet, color: "bg-blue-100 text-blue-800" },
+    { name: "Partes motor", icon: Cog, color: "bg-red-100 text-red-600" },
+    { name: "Transmision", icon: Settings, color: "bg-green-100 text-green-600" },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-white flex flex-col font-sans">
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative bg-brand-dark overflow-hidden">
-          {/* Abstract Background */}
-          <div className="absolute inset-0 opacity-20 pointer-events-none">
-             <div className="absolute -top-[50%] -left-[20%] w-[80%] h-[200%] bg-gradient-to-r from-blue-600 to-transparent rotate-12 blur-3xl" />
-             <div className="absolute top-[20%] right-[0%] w-[50%] h-[100%] bg-gradient-to-l from-brand-blue to-transparent -rotate-12 blur-3xl" />
-          </div>
-
-          <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6 animate-in slide-in-from-left duration-700">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-300 text-sm font-medium">
-                  <Star className="w-4 h-4 fill-current" /> Distribuidor Oficial
-                </div>
-                <h1 className="text-4xl md:text-6xl font-display italic text-white leading-tight">
-                  POTENCIA <br/>
-                  <span className="text-brand-blue">TU RODADO</span>
-                </h1>
-                <p className="text-lg text-gray-300 max-w-lg">
-                  Encuentra la más amplia variedad de cubiertas, repuestos y accesorios para tu moto. Calidad garantizada y envíos a todo el país.
-                </p>
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <Link href="/catalogo">
-                    <a className="bg-brand-blue hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-blue-900/50 transition-all hover:scale-105">
-                      Ver Catálogo
-                    </a>
-                  </Link>
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-6 rounded-xl text-lg h-auto">
-                    Nuestras Marcas
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Hero Image Placeholder - ideally a cool bike or tire composition */}
-              <div className="relative animate-in slide-in-from-right duration-700 delay-200 hidden md:block">
-                <div className="relative z-10 w-full aspect-square bg-gradient-to-br from-white/5 to-transparent rounded-full border border-white/10 backdrop-blur-sm flex items-center justify-center p-12">
-                  <img 
-                    src="https://placehold.co/600x600/png?text=Motorcycle+Tire" 
-                    alt="Hero Tire" 
-                    className="w-full h-full object-contain drop-shadow-2xl mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000"
-                  />
-                </div>
-                {/* Floating elements */}
-                <div className="absolute top-10 right-10 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white shadow-xl">
-                  <div className="text-xs text-gray-300 uppercase tracking-wider font-bold">Oferta Especial</div>
-                  <div className="text-2xl font-display italic">25% OFF</div>
-                  <div className="text-sm text-blue-300">En Pirelli</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Bar */}
-        <section className="bg-white border-b border-gray-100 py-8">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue">
-                  <Truck className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-brand-dark">Envíos a todo el país</h3>
-                  <p className="text-sm text-gray-500">Despachamos en 24hs hábiles</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-brand-dark">Garantía Oficial</h3>
-                  <p className="text-sm text-gray-500">Productos 100% originales</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-brand-dark">Mejores Precios</h3>
-                  <p className="text-sm text-gray-500">Venta mayorista y minorista</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Categories Grid */}
-        <section className="py-16 container mx-auto px-4">
-          <div className="flex justify-between items-end mb-8">
-            <div>
-              <h2 className="text-3xl font-display italic text-brand-dark">CATEGORÍAS</h2>
-              <p className="text-gray-500 mt-2">Explora nuestro catálogo por tipo de producto</p>
-            </div>
-            <Button variant="ghost" className="text-brand-blue hover:text-blue-700">
-              Ver todas <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {['Cubiertas', 'Cámaras', 'Transmisión', 'Lubricantes'].map((cat, i) => (
-              <Link key={i} href="/catalogo">
-                <a className="group relative aspect-[4/5] rounded-2xl overflow-hidden cursor-pointer">
-                  <img 
-                    src={`https://placehold.co/400x500/png?text=${cat}`} 
-                    alt={cat}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                  <div className="absolute bottom-0 left-0 p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                    <h3 className="text-xl font-bold font-display italic">{cat}</h3>
-                    <span className="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity delay-100 flex items-center gap-1">
-                      Explorar <ChevronRight className="w-3 h-3" />
-                    </span>
+        {/* Main Slider */}
+        <section className="relative overflow-hidden bg-gray-100">
+          <Carousel 
+            className="w-full" 
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
+            opts={{
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {/* Slide 1 - NGK (Based on screenshot) */}
+              <CarouselItem>
+                <div className="relative w-full h-[300px] md:h-[450px] bg-gradient-to-r from-white via-red-50 to-red-600 overflow-hidden">
+                  <div className="container mx-auto h-full flex items-center relative z-10">
+                    <div className="w-full grid md:grid-cols-2 gap-8 items-center px-8">
+                       <div className="space-y-4">
+                          <h2 className="text-5xl md:text-7xl font-display italic text-red-600 drop-shadow-sm tracking-tighter transform -skew-x-12">
+                            REINGRESO
+                          </h2>
+                          <div className="w-32 h-32 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-3xl border-4 border-white shadow-lg transform -rotate-12">
+                            NGK
+                          </div>
+                       </div>
+                       <div className="flex justify-end">
+                          {/* Mockup of spark plugs */}
+                          <img src="https://placehold.co/500x400/transparent/png?text=Spark+Plugs" alt="NGK Bujias" className="object-contain max-h-[350px]" />
+                       </div>
+                    </div>
                   </div>
+                  {/* Diagonal divider */}
+                  <div className="absolute top-0 right-0 w-2/3 h-full bg-red-600 transform -skew-x-12 translate-x-1/4 z-0" />
+                  
+                  {/* Promo Text Box */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 shadow-2xl rotate-2 border-4 border-yellow-400 hidden md:block z-20">
+                    <h3 className="text-red-600 font-bold text-xl text-center uppercase border-b-2 border-red-100 pb-2 mb-2">Escala de Descuentos</h3>
+                    <ul className="space-y-2 text-sm font-bold text-gray-700">
+                      <li className="flex justify-between gap-4"><span>1 A 199 UNID.</span> <span className="text-red-600">PRECIO LISTA</span></li>
+                      <li className="flex justify-between gap-4"><span>200 A 599 UNID.</span> <span className="text-red-600">-5% OFF</span></li>
+                      <li className="flex justify-between gap-4"><span>+600 UNID.</span> <span className="text-red-600">-10% OFF</span></li>
+                    </ul>
+                    <Button className="w-full mt-4 bg-yellow-400 hover:bg-yellow-500 text-red-900 font-bold rounded-none uppercase">
+                      Ver Más
+                    </Button>
+                  </div>
+                </div>
+              </CarouselItem>
+
+              {/* Slide 2 - Generic */}
+              <CarouselItem>
+                <div className="relative w-full h-[300px] md:h-[450px] bg-gradient-to-r from-blue-900 to-blue-600">
+                  <div className="container mx-auto h-full flex items-center justify-center text-white">
+                     <h2 className="text-5xl font-display italic">NUEVOS INGRESOS</h2>
+                  </div>
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            
+            <CarouselPrevious className="left-4 bg-white/50 hover:bg-white border-none" />
+            <CarouselNext className="right-4 bg-white/50 hover:bg-white border-none" />
+          </Carousel>
+        </section>
+
+        {/* Categories Section */}
+        <section className="py-12 container mx-auto px-4">
+          <h3 className="text-xl font-bold text-gray-800 mb-8">Nuestras categorías</h3>
+          
+          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-6">
+            {categories.map((cat, idx) => (
+              <Link key={idx} href="/catalogo">
+                <a className="flex flex-col items-center gap-3 group cursor-pointer">
+                  <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center ${cat.color} bg-opacity-20 group-hover:scale-110 transition-transform duration-300 shadow-sm border border-gray-100`}>
+                    <cat.icon className="w-8 h-8" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-xs md:text-sm font-bold text-gray-700 text-center group-hover:text-intercap-purple transition-colors">
+                    {cat.name}
+                  </span>
                 </a>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Featured Products Carousel */}
-        <section className="py-16 bg-white border-y border-gray-100">
+        {/* Promo Banners - Side by Side */}
+        <section className="py-8 container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-6">
+            <a href="#" className="block rounded-xl overflow-hidden group relative h-[200px] bg-black">
+              <img 
+                src="https://placehold.co/800x400/111/fff?text=SUPER+CITY" 
+                alt="Super City" 
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+              />
+              <div className="absolute bottom-6 left-6 text-white">
+                <h4 className="text-2xl font-display italic text-yellow-400">SUPER CITY</h4>
+                <p className="text-sm font-medium">Cubiertas de alto rendimiento</p>
+              </div>
+            </a>
+            <a href="#" className="block rounded-xl overflow-hidden group relative h-[200px] bg-black">
+              <img 
+                src="https://placehold.co/800x400/2e3192/fff?text=BIG+BORE" 
+                alt="Big Bore" 
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+              />
+              <div className="absolute bottom-6 left-6 text-white">
+                <h4 className="text-2xl font-display italic text-green-400">BIG BORE</h4>
+                <p className="text-sm font-medium">Carburadores de competición</p>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        {/* Featured Products */}
+        <section className="py-12 bg-gray-50 border-t border-gray-200">
           <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center mb-10">
-               <h2 className="text-3xl font-display italic text-brand-dark">DESTACADOS</h2>
-               <div className="hidden md:flex gap-2">
-                 {/* Carousel controls would go here if creating a custom controller */}
+            <div className="flex items-center justify-between mb-8">
+               <h3 className="text-xl font-bold text-gray-800 border-l-4 border-intercap-purple pl-3">
+                 Cubiertas en Oferta
+               </h3>
+               <div className="flex gap-2">
+                 <Button variant="outline" size="icon" className="rounded-full w-8 h-8 h-8">
+                   <ChevronLeft className="w-4 h-4" />
+                 </Button>
+                 <Button variant="outline" size="icon" className="rounded-full w-8 h-8 h-8">
+                   <ChevronRight className="w-4 h-4" />
+                 </Button>
                </div>
             </div>
-            
-            <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-              <CarouselContent className="-ml-4">
-                {featuredProducts.map((product) => (
-                  <CarouselItem key={product.id} className="pl-4 md:basis-1/2 lg:basis-1/4">
-                    <div className="h-full">
-                      <ProductCard product={product} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden md:flex" />
-              <CarouselNext className="hidden md:flex" />
-            </Carousel>
-          </div>
-        </section>
 
-        {/* Banner Promo */}
-        <section className="container mx-auto px-4 py-16">
-          <div className="rounded-3xl overflow-hidden bg-gradient-to-r from-brand-blue to-blue-600 relative text-white shadow-2xl shadow-blue-900/30">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay" />
-            <div className="grid md:grid-cols-2 gap-8 p-12 items-center relative z-10">
-              <div className="space-y-6">
-                <span className="bg-white text-brand-blue font-bold px-4 py-1 rounded-full text-sm uppercase tracking-wider">Oferta Limitada</span>
-                <h2 className="text-4xl md:text-5xl font-display italic">KIT TRANSMISIÓN <br/> COMPLETO</h2>
-                <p className="text-blue-100 text-lg">Lleva el rendimiento de tu moto al siguiente nivel con nuestros kits de transmisión de competición.</p>
-                <Button className="bg-brand-dark hover:bg-black text-white border-none px-8 py-6 rounded-xl text-lg font-bold">
-                  Comprar Ahora
-                </Button>
-              </div>
-              <div className="flex justify-center">
-                <img src="https://placehold.co/500x300/png?text=Kit+Transmision" alt="Kit" className="drop-shadow-2xl transform hover:scale-105 transition-transform duration-500" />
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {offerProducts.map((product) => (
+                <div key={product.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group">
+                  <div className="relative aspect-square p-4 bg-white flex items-center justify-center border-b border-gray-100">
+                     {product.originalPrice && (
+                       <span className="absolute top-2 right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">
+                         OFERTA
+                       </span>
+                     )}
+                     <img src={product.image} alt={product.title} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform" />
+                  </div>
+                  <div className="p-3">
+                    <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">{product.brand}</p>
+                    <h4 className="text-sm font-bold text-gray-800 leading-tight min-h-[2.5em] line-clamp-2 mb-2 hover:text-intercap-purple cursor-pointer">
+                      {product.title}
+                    </h4>
+                    <p className="text-xs text-gray-400 mb-3">Código: {product.code}</p>
+                    
+                    <Button className="w-full bg-intercap-purple hover:bg-indigo-900 text-white text-xs font-bold h-8 rounded">
+                      VER MÁS
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
+        
+        {/* Footer Brand Strip */}
+        <div className="bg-gray-100 py-8 border-t border-gray-200">
+           <div className="container mx-auto px-4 flex justify-center">
+              <img src="https://placehold.co/200x60/transparent/png?text=MOTUL" className="opacity-50 hover:opacity-100 transition-opacity mx-4" />
+              <img src="https://placehold.co/200x60/transparent/png?text=NGK" className="opacity-50 hover:opacity-100 transition-opacity mx-4" />
+              <img src="https://placehold.co/200x60/transparent/png?text=PIRELLI" className="opacity-50 hover:opacity-100 transition-opacity mx-4 hidden md:block" />
+              <img src="https://placehold.co/200x60/transparent/png?text=DUNLOP" className="opacity-50 hover:opacity-100 transition-opacity mx-4 hidden md:block" />
+           </div>
+        </div>
 
-        {/* New Arrivals Grid */}
-        <section className="py-16 container mx-auto px-4 mb-16">
-          <h2 className="text-3xl font-display italic text-brand-dark mb-8">RECIÉN LLEGADOS</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {newArrivals.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Link href="/catalogo">
-               <a className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 rounded-xl text-gray-600 font-bold hover:bg-brand-dark hover:text-white hover:border-transparent transition-all">
-                 Ver todos los productos
-               </a>
-            </Link>
+        {/* Newsletter */}
+        <section className="py-12 bg-white text-center border-t border-gray-200">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Recibí Novedades</h3>
+            <p className="text-gray-500 mb-6 text-sm">¡Suscríbite a nuestro Newsletter para estar al tanto de los últimos lanzamientos y promociones!</p>
+            
+            <form className="flex gap-2 max-w-md mx-auto">
+               <Input type="email" placeholder="Ingresá tu mail" className="flex-1" />
+               <Button className="bg-intercap-blue hover:bg-blue-600 text-white font-bold px-6">
+                 SUSCRIBIRSE
+               </Button>
+            </form>
           </div>
         </section>
 
       </main>
+      
+      {/* Main Footer */}
       <Footer />
     </div>
   );
