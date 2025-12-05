@@ -35,6 +35,20 @@ export default function Catalog() {
       // Ratio filter
       if (filters.ratio && filters.ratio.length > 0 && !filters.ratio.includes(product.attributes.ratio)) return false;
 
+      // Terrain filter
+      if (filters.terrainType && filters.terrainType.length > 0 && !filters.terrainType.includes(product.attributes.terrainType)) return false;
+
+      // Usage filter
+      if (filters.usage && filters.usage.length > 0) {
+        // Usage can be semicolon separated in product, so check if any of selected usages match any of product usages
+        const productUsages = (product.attributes.usage || '').split(';').map((u: string) => u.trim());
+        const hasMatch = filters.usage.some((u: string) => productUsages.includes(u));
+        if (!hasMatch) return false;
+      }
+
+      // Position filter
+      if (filters.position && filters.position.length > 0 && !filters.position.includes(product.attributes.position)) return false;
+
       return true;
     }).sort((a, b) => {
       if (sortBy === 'price-asc') return a.price - b.price;
