@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { PRODUCTS } from "@/lib/mockData";
+import { PRODUCTS } from "@/lib/products";
 import { ProductCard } from "@/components/product/ProductCard";
 import { FilterSidebar } from "@/components/product/FilterSidebar";
 import { Button } from "@/components/ui/button";
@@ -27,27 +27,23 @@ export default function Catalog() {
       // Brand filter
       if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
       
-      // Width filter
-      if (filters.width && filters.width.length > 0 && !filters.width.includes(product.attributes.width)) return false;
+      // Type filter
+      if (filters.type && filters.type.length > 0 && !filters.type.includes(product.type)) return false;
       
-      // Rim filter
-      if (filters.rim && filters.rim.length > 0 && !filters.rim.includes(product.attributes.rim)) return false;
-      
-      // Ratio filter
-      if (filters.ratio && filters.ratio.length > 0 && !filters.ratio.includes(product.attributes.ratio)) return false;
+      // Subtype filter
+      if (filters.subtype && filters.subtype.length > 0 && !filters.subtype.includes(product.subtype)) return false;
 
-      // Terrain filter
-      if (filters.terrainType && filters.terrainType.length > 0 && !filters.terrainType.includes(product.attributes.terrainType)) return false;
-
-      // Usage filter
-      if (filters.usage && filters.usage.length > 0) {
-        const productUsages = (product.attributes.usage || '').split(';').map((u: string) => u.trim());
-        const hasMatch = filters.usage.some((u: string) => productUsages.includes(u));
-        if (!hasMatch) return false;
+      // State filter
+      if (filters.state && filters.state.length > 0) {
+        const matchesState = filters.state.some((s: string) => {
+             if (s === 'isHot') return (product.originalPrice && product.originalPrice > product.price);
+             if (s === 'isNew') return product.isNew;
+             if (s === 'nac') return product.origin === 'Nacional';
+             if (s === 'imp') return product.origin === 'Importado';
+             return false;
+        });
+        if (!matchesState) return false;
       }
-
-      // Position filter
-      if (filters.position && filters.position.length > 0 && !filters.position.includes(product.attributes.position)) return false;
 
       return true;
     }).sort((a, b) => {

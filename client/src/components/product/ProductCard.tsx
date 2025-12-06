@@ -1,5 +1,5 @@
-import { Product } from "@/lib/mockData";
-import { Heart, ShoppingCart, Check, X, ArrowRightLeft, Link as LinkIcon, Info, Bike } from "lucide-react";
+import { Product } from "@/lib/products";
+import { Heart, ArrowRightLeft, Link as LinkIcon, Info, Bike } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -10,54 +10,33 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
-  const { id, title, price, originalPrice, image, brand, stock, isNew, isHot, code } = product;
+  const { id, title, price, originalPrice, image, brand, stock, isNew, code, width, ratio, rim, type, subtype } = product;
 
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
-  // Simulated Stock Levels for different regions based on the single stock value
-  const getRegionStock = (region: string, baseStock: string) => {
-    const hash = (id + region).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const rand = hash % 10;
-    
-    if (baseStock === 'none') return 'none';
-    if (baseStock === 'low') return rand > 5 ? 'none' : 'low';
-    if (baseStock === 'high') return rand > 2 ? 'high' : 'mid';
-    return rand > 5 ? 'mid' : 'low';
-  };
-
-  const regions = ['NOA', 'NEA', 'BUE', 'CUY'];
-
   // Battery Icon Component
-  const BatteryIcon = ({ level }: { level: string }) => {
+  const BatteryIcon = ({ level }: { level: number }) => {
     let colorClass = '';
-    let fillHeight = 'h-full';
+    let fillHeight = 'h-0';
     
-    switch(level) {
-      case 'high': 
-        colorClass = 'bg-stock-high';
+    if (level >= 8) {
+        colorClass = 'bg-green-500';
         fillHeight = 'h-full';
-        break;
-      case 'mid': 
-        colorClass = 'bg-stock-mid';
+    } else if (level >= 4) {
+        colorClass = 'bg-yellow-500';
         fillHeight = 'h-3/4';
-        break;
-      case 'low': 
-        colorClass = 'bg-stock-low';
+    } else if (level >= 1) {
+        colorClass = 'bg-orange-500';
         fillHeight = 'h-1/2';
-        break;
-      case 'none': 
-        colorClass = 'border-stock-none border-[1.5px] bg-transparent'; // Outline only for empty? Or red empty?
-        // The image shows empty battery in red outline for 'none'
+    } else {
+        colorClass = 'border-red-500 border-[1.5px] bg-transparent';
         fillHeight = 'h-0';
-        break;
-      default:
-         colorClass = 'bg-gray-300';
     }
 
-    if (level === 'none') {
+    if (level === 0) {
         return (
-            <div className="relative flex flex-col items-center justify-end w-[10px] h-[18px] border border-stock-none rounded-[1px]">
-                <div className="absolute -top-[2px] w-[4px] h-[2px] bg-stock-none"></div>
+            <div className="relative flex flex-col items-center justify-end w-[10px] h-[18px] border border-red-500 rounded-[1px]">
+                <div className="absolute -top-[2px] w-[4px] h-[2px] bg-red-500"></div>
             </div>
         )
     }
@@ -70,14 +49,17 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
     );
   };
 
+  const regions = ['NOA', 'NEA', 'BUE', 'CUYO'];
+
   const StockTable = () => (
     <div className="grid grid-cols-4 gap-2 mt-auto pt-2 pb-2 w-full">
       {regions.map(region => {
-        const level = getRegionStock(region, stock);
+        // @ts-ignore
+        const qty = stock[region] || 0;
         return (
           <div key={region} className="text-center flex flex-col items-center gap-1">
-             <span className="text-[0.65rem] font-bold text-gray-400 uppercase">{region}</span>
-             <BatteryIcon level={level} />
+             <span className="text-[0.65rem] font-bold text-gray-400 uppercase">{region === 'CUYO' ? 'CUY' : region}</span>
+             <BatteryIcon level={qty} />
           </div>
         );
       })}
@@ -116,12 +98,15 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
       </div>
   )
 
+  const isHot = discount > 15;
+
   if (viewMode === 'list') {
     return (
       <div className="bg-white border border-[#eaeef3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row relative group">
         {(isNew || isHot || discount > 0) && (
             <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
               {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px] font-bold">{discount}% OFF</Badge>}
+              {isNew && <Badge className="bg-blue-500 hover:bg-blue-600 text-[10px] font-bold">NUEVO</Badge>}
             </div>
         )}
         
@@ -137,10 +122,19 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
                 
                 <div className="flex items-center gap-2 mb-3">
                     <div className="flex items-center gap-1">
-                        <div className={`w-2 h-2 rounded-full ${stock === 'none' ? 'bg-red-500' : stock === 'low' ? 'bg-orange-500' : 'bg-green-500'}`}></div>
-                        <span className="text-xs font-bold text-gray-500 uppercase">
-                            {stock === 'none' ? 'SIN STOCK' : stock === 'low' ? 'STOCK BAJO' : 'STOCK ALTO'}
-                        </span>
+                        {/* Summary stock for list view */}
+                        {/* @ts-ignore */}
+                        {Object.values(stock).some(v => v > 0) ? (
+                            <>
+                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                <span className="text-xs font-bold text-gray-500 uppercase">EN STOCK</span>
+                            </>
+                        ) : (
+                            <>
+                                <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                                <span className="text-xs font-bold text-gray-500 uppercase">SIN STOCK</span>
+                            </>
+                        )}
                     </div>
                     <span className="text-xs text-gray-300">|</span>
                     <div className="text-xs text-gray-400">Cod: <span className="text-gray-600">{code}</span></div>
@@ -149,21 +143,23 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
                 <div className="flex flex-wrap gap-3 text-sm text-gray-600">
                     <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
                         <span className="font-semibold text-gray-500">Rodado:</span> 
-                        <span className="text-gray-800">{product.attributes.rim || 'N/A'}"</span>
+                        <span className="text-gray-800">{rim || 'N/A'}"</span>
                     </div>
                     <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
                         <span className="font-semibold text-gray-500">Ancho:</span> 
-                        <span className="text-gray-800">{product.attributes.width || 'N/A'}</span>
+                        <span className="text-gray-800">{width || 'N/A'}</span>
                     </div>
-                    <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
-                        <span className="font-semibold text-gray-500">Posición:</span> 
-                        <span className="text-gray-800">{product.attributes.position || 'Universal'}</span>
-                    </div>
+                    {type && (
+                      <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100">
+                          <span className="font-semibold text-gray-500">Tipo:</span> 
+                          <span className="text-gray-800">{type}</span>
+                      </div>
+                    )}
                 </div>
              </div>
 
              <div className="text-right">
-                {originalPrice && (
+                {originalPrice && originalPrice > price && (
                     <div className="text-sm text-gray-400 line-through mb-1">${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</div>
                 )}
                 <div className="text-3xl font-black text-brand-fg">
@@ -192,6 +188,13 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
          <Heart className="w-5 h-5" />
       </button>
 
+      {(isNew || isHot || discount > 0) && (
+          <div className="absolute top-2 right-2 flex flex-col gap-1 z-10 items-end">
+            {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px] font-bold px-1.5 h-5">{discount}%</Badge>}
+            {isNew && <Badge className="bg-blue-500 hover:bg-blue-600 text-[10px] font-bold px-1.5 h-5">NEW</Badge>}
+          </div>
+      )}
+
       <div className="p-4 pb-0 flex justify-center bg-white relative">
          <div className="w-full aspect-square flex items-center justify-center">
             <img 
@@ -200,16 +203,16 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
             className="max-w-[80%] max-h-[80%] object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" 
             />
          </div>
-         {/* Small brand logo placeholder if needed, or just text below */}
       </div>
 
       <div className="px-4 pb-4 flex flex-col flex-1">
-        <h3 className="font-bold text-[0.9rem] leading-snug text-brand-blue-800 uppercase mb-1 line-clamp-2 min-h-[2.8em]">
+        <div className="text-[0.65rem] font-bold text-brand-blue-600 mb-1">{brand}</div>
+        <h3 className="font-bold text-[0.85rem] leading-snug text-brand-fg uppercase mb-1 line-clamp-2 min-h-[2.8em]" title={title}>
           {title}
         </h3>
         
         <div className="text-[0.75rem] font-bold text-brand-fg mb-3">
-            Código: <span className="font-normal">{code}</span>
+            <span className="text-gray-400 font-normal">Cod:</span> {code}
         </div>
 
         <div className="mb-2">
@@ -219,7 +222,7 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
            </div>
         </div>
         
-        {originalPrice && (
+        {originalPrice && originalPrice > price && (
             <div className="mb-4">
                 <div className="text-[0.7rem] text-gray-400 uppercase">Precio público:</div>
                 <div className="text-[1rem] font-medium text-orange-400 line-through">

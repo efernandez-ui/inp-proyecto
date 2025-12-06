@@ -1,8 +1,10 @@
-import { FILTERS } from "@/lib/mockData";
+import { FILTERS } from "@/lib/products";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useState } from "react";
 
 interface FilterSidebarProps {
   selectedFilters: any;
@@ -24,101 +26,181 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
     return (selectedFilters[category] || []).includes(value);
   };
 
-  const renderChips = (category: string, items: string[]) => (
-    <div className="flex flex-wrap gap-2 mt-2">
-      {items.map((item) => (
-        <div 
-          key={item}
-          onClick={() => handleCheckboxChange(category, item, !isChecked(category, item))}
-          className={`
-            cursor-pointer px-[10px] py-[6px] rounded-full text-[0.75rem] font-medium border transition-all
-            ${isChecked(category, item) 
-              ? 'bg-brand-blue-500 text-white border-transparent' 
-              : 'bg-brand-fg text-gray-200 border-[#334155] hover:border-brand-blue-500'}
-          `}
-        >
-          {item}
-        </div>
-      ))}
-    </div>
-  );
+  // Mock data for "Tu Moto"
+  const MOTO_BRANDS = ["Honda", "Yamaha", "Suzuki", "Kawasaki", "BMW", "KTM", "Ducati"];
+  const MOTO_MODELS: Record<string, string[]> = {
+    "Honda": ["CB 190", "Tornado 250", "Wave 110", "Titan 150"],
+    "Yamaha": ["FZ 25", "Crypton", "YBR 125", "XTZ 125"],
+    "Suzuki": ["GN 125", "Gixxer 150", "AX 100"],
+    "Kawasaki": ["Ninja 400", "Versys 650", "KLR 650"],
+    "BMW": ["GS 1200", "GS 850", "G 310"],
+    "KTM": ["Duke 200", "Duke 390", "Adventure 390"],
+    "Ducati": ["Scrambler", "Monster", "Multistrada"]
+  };
+
+  const [selectedMotoBrand, setSelectedMotoBrand] = useState<string>("");
 
   return (
     <div className="bg-brand-fg h-full text-gray-200 overflow-y-auto p-4 border-r border-[#111827]">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-6">
         <h2 className="font-bold text-gray-200 text-sm uppercase tracking-wider">Filtros</h2>
         <Button 
           variant="link" 
           className="text-xs text-brand-blue-500 p-0 h-auto hover:text-brand-blue-400"
-          onClick={() => onFilterChange({})}
+          onClick={() => {
+            onFilterChange({});
+            setSelectedMotoBrand("");
+          }}
         >
           Limpiar
         </Button>
       </div>
       
-      <div className="space-y-3">
-        {/* Brand Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2 flex justify-between items-center cursor-pointer">
-              Marca
-            </div>
-            <div className="max-h-60 overflow-y-auto custom-scrollbar">
-              {renderChips('brand', FILTERS.brands)}
-            </div>
-        </div>
-
-        {/* Type Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2">Tipo de Producto</div>
-            <div className="max-h-48 overflow-y-auto custom-scrollbar">
-              {renderChips('types', FILTERS.types)}
-            </div>
-        </div>
-
-        {/* Rim Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2">Rodado</div>
-            {renderChips('rim', FILTERS.rims)}
-        </div>
-
-        {/* Width Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2">Ancho</div>
-            <div className="flex flex-wrap gap-2 mt-2 max-h-48 overflow-y-auto custom-scrollbar">
-              {FILTERS.widths.map((width) => (
-                <div 
-                  key={width}
-                  onClick={() => handleCheckboxChange('width', width, !isChecked('width', width))}
-                  className={`
-                    cursor-pointer px-[10px] py-[6px] rounded-full text-[0.75rem] font-medium border transition-all
-                    ${isChecked('width', width) 
-                      ? 'bg-brand-blue-500 text-white border-transparent' 
-                      : 'bg-brand-fg text-gray-200 border-[#334155] hover:border-brand-blue-500'}
-                  `}
-                >
-                  {width}
-                </div>
-              ))}
-            </div>
-        </div>
-
-        {/* Ratio Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2">Perfil / Relación</div>
-            {renderChips('ratio', FILTERS.ratios)}
-        </div>
+      <div className="space-y-6">
         
-        {/* Terrain Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2">Terreno</div>
-            {renderChips('terrainType', FILTERS.terrainTypes)}
-        </div>
+        {/* 1. ESTADO */}
+        <section>
+          <h3 className="font-bold text-sm text-brand-blue-500 mb-3 uppercase tracking-wide">Estado</h3>
+          <div className="space-y-2">
+            {[
+              { id: 'isHot', label: 'Ofertas' },
+              { id: 'isNew', label: 'Novedades' },
+              { id: 'nac', label: 'Solo Nac.' },
+              { id: 'imp', label: 'Importado' }
+            ].map((item) => (
+              <div key={item.id} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`state-${item.id}`} 
+                  checked={isChecked('state', item.id)}
+                  onCheckedChange={(checked) => handleCheckboxChange('state', item.id, checked as boolean)}
+                  className="border-gray-500 data-[state=checked]:bg-brand-blue-600 data-[state=checked]:border-brand-blue-600"
+                />
+                <Label htmlFor={`state-${item.id}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer text-gray-300">
+                  {item.label}
+                </Label>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        {/* Position Filter */}
-        <div className="bg-[#0b1226] border border-[#1f2937] rounded-xl p-3">
-            <div className="font-bold text-sm text-gray-300 mb-2">Posición</div>
-            {renderChips('position', FILTERS.positions)}
-        </div>
+        <div className="h-px bg-gray-800 w-full" />
+
+        {/* 2. TU MOTO */}
+        <section>
+          <h3 className="font-bold text-sm text-brand-blue-500 mb-3 uppercase tracking-wide">Tu Moto</h3>
+          <div className="space-y-3">
+            <div className="space-y-1">
+              <Label className="text-xs text-gray-400">Selecciona Marca</Label>
+              <Select value={selectedMotoBrand} onValueChange={setSelectedMotoBrand}>
+                <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-white h-9">
+                  <SelectValue placeholder="Marca" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#0b1226] border-gray-700 text-white">
+                  {MOTO_BRANDS.map(brand => (
+                    <SelectItem key={brand} value={brand}>{brand}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-xs text-gray-400">Selecciona Modelo</Label>
+              <Select disabled={!selectedMotoBrand}>
+                <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-white h-9 disabled:opacity-50">
+                  <SelectValue placeholder="Modelo" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#0b1226] border-gray-700 text-white">
+                  {selectedMotoBrand && MOTO_MODELS[selectedMotoBrand]?.map(model => (
+                    <SelectItem key={model} value={model}>{model}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </section>
+
+        <div className="h-px bg-gray-800 w-full" />
+
+        {/* 3. CATEGORIAS (TIPO -> SUBTIPO -> MARCA) */}
+        <section>
+           {/* TIPO */}
+          <Accordion type="single" collapsible className="w-full" defaultValue="tipo">
+            <AccordionItem value="tipo" className="border-b-0">
+              <AccordionTrigger className="py-2 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 uppercase font-bold">
+                TIPO
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 pt-1 pl-1">
+                  {FILTERS.types.map((type) => (
+                    <div key={type} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`type-${type}`} 
+                        checked={isChecked('type', type)}
+                        onCheckedChange={(checked) => handleCheckboxChange('type', type, checked as boolean)}
+                        className="h-4 w-4 border-gray-600 data-[state=checked]:bg-brand-blue-600"
+                      />
+                      <Label htmlFor={`type-${type}`} className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors">
+                        {type}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          {/* SUBTIPO */}
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="subtipo" className="border-b-0">
+              <AccordionTrigger className="py-2 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 uppercase font-bold">
+                SUBTIPO
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 pt-1 pl-1">
+                  {FILTERS.subtypes.map((st) => (
+                    <div key={st} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`subtype-${st}`} 
+                        checked={isChecked('subtype', st)}
+                        onCheckedChange={(checked) => handleCheckboxChange('subtype', st, checked as boolean)}
+                        className="h-4 w-4 border-gray-600 data-[state=checked]:bg-brand-blue-600"
+                      />
+                      <Label htmlFor={`subtype-${st}`} className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors">
+                        {st}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          {/* MARCA */}
+          <Accordion type="single" collapsible className="w-full" defaultValue="marca">
+            <AccordionItem value="marca" className="border-b-0">
+              <AccordionTrigger className="py-2 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 uppercase font-bold">
+                MARCA
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 pt-1 pl-1">
+                  {FILTERS.brands.map((brand) => (
+                    <div key={brand} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`brand-${brand}`} 
+                        checked={isChecked('brand', brand)}
+                        onCheckedChange={(checked) => handleCheckboxChange('brand', brand, checked as boolean)}
+                        className="h-4 w-4 border-gray-600 data-[state=checked]:bg-brand-blue-600"
+                      />
+                      <Label htmlFor={`brand-${brand}`} className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors">
+                        {brand}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </section>
 
       </div>
     </div>
