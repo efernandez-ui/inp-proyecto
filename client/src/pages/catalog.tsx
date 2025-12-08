@@ -21,8 +21,14 @@ export default function Catalog() {
   const [sortBy, setSortBy] = useState('featured');
   const [filters, setFilters] = useState<any>({});
 
+  const [itemsPerPage, setItemsPerPage] = useState<number>(40);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   // Filter logic
   const filteredProducts = useMemo(() => {
+    // Reset to page 1 when filters change
+    setCurrentPage(1);
+
     return PRODUCTS.filter(product => {
       // Brand filter
       if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
@@ -53,6 +59,13 @@ export default function Catalog() {
       return 0; // featured default
     });
   }, [filters, sortBy]);
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="min-h-screen bg-brand-bg flex flex-col font-sans pt-16">
@@ -124,6 +137,23 @@ export default function Catalog() {
                     </SelectContent>
                   </Select>
                 </div>
+
+                <div className="flex items-center gap-2 hidden sm:flex">
+                  <label className="text-sm text-brand-fg">Mostrar:</label>
+                  <Select value={itemsPerPage.toString()} onValueChange={(v) => {
+                    setItemsPerPage(Number(v));
+                    setCurrentPage(1);
+                  }}>
+                    <SelectTrigger className="w-[80px] h-10 bg-brand-fg border-[#223] text-white rounded-[10px]">
+                      <SelectValue placeholder="40" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-brand-fg text-white border-[#223]">
+                      <SelectItem value="40">40</SelectItem>
+                      <SelectItem value="80">80</SelectItem>
+                      <SelectItem value="120">120</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div className="flex items-center gap-2">
@@ -161,7 +191,7 @@ export default function Catalog() {
             {/* Products Grid */}
             {filteredProducts.length > 0 ? (
               <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5' : 'grid-cols-1'}`}>
-                {filteredProducts.map((product) => (
+                {paginatedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} viewMode={viewMode} />
                 ))}
               </div>
@@ -182,14 +212,60 @@ export default function Catalog() {
               </div>
             )}
 
-            {/* Pagination (Mock) */}
+            {/* Pagination Controls */}
             {filteredProducts.length > 0 && (
               <div className="mt-8 flex flex-col items-center gap-4">
-                <div className="text-sm text-gray-500">Mostrando {filteredProducts.length} productos</div>
-                <div className="w-full max-w-xs h-px bg-gray-200"></div>
-                <Button variant="outline" className="border-brand-blue-600 text-brand-blue-600 hover:bg-brand-blue-600 hover:text-white px-8 font-bold border-2 h-10">
-                  MOSTRAR MÁS
-                </Button>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="border-gray-200"
+                  >
+                    Anterior
+                  </Button>
+                  
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      let pageNum = i + 1;
+                      if (totalPages > 5) {
+                        if (currentPage > 3) {
+                          pageNum = currentPage - 2 + i;
+                        }
+                        if (pageNum > totalPages) {
+                          pageNum = totalPages - (4 - i);
+                        }
+                      }
+                      
+                      return (
+                        <Button
+                          key={pageNum}
+                          variant={currentPage === pageNum ? "default" : "outline"}
+                          size="sm"
+                          className={`w-8 h-8 p-0 ${currentPage === pageNum ? "bg-brand-blue-600 text-white" : "text-gray-600 border-gray-200"}`}
+                          onClick={() => setCurrentPage(pageNum)}
+                        >
+                          {pageNum}
+                        </Button>
+                      );
+                    })}
+                  </div>
+
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="border-gray-200"
+                  >
+                    Siguiente
+                  </Button>
+                </div>
               </div>
             )}
 

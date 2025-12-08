@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Racing+Sans+One&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -53,8 +54,8 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Racing Sans One', cursive;
+  --font-sans: 'Gotham', 'Montserrat', 'Inter', sans-serif;
+  --font-display: 'Gotham', 'Montserrat', 'Racing Sans One', cursive;
   
   --radius: 0.5rem;
 }
