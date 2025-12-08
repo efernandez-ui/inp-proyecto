@@ -1,11 +1,9 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PRODUCTS } from "@/lib/products";
-import { ProductCard } from "@/components/product/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronRight, ChevronLeft, Battery, Zap, Cable, Disc, Monitor, Droplet, Cog, Settings } from "lucide-react";
-import { Link } from "wouter";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -14,28 +12,25 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { CategoriesStrip } from "@/components/home/CategoriesStrip";
+import { TireFinder } from "@/components/home/TireFinder";
 
 export default function Home() {
   // Filter products for "Oferta" section
   const offerProducts = PRODUCTS.slice(0, 5);
 
-  const categories = [
-    { name: "Baterias", icon: Battery, color: "bg-blue-100 text-blue-600" },
-    { name: "Bujias", icon: Zap, color: "bg-yellow-100 text-yellow-600" },
-    { name: "Cables", icon: Cable, color: "bg-gray-100 text-gray-600" },
-    { name: "Camaras", icon: Disc, color: "bg-orange-100 text-orange-600" },
-    { name: "Cubiertas", icon: Disc, color: "bg-slate-100 text-slate-600" },
-    { name: "Electronica", icon: Monitor, color: "bg-purple-100 text-purple-600" },
-    { name: "Lubricantes", icon: Droplet, color: "bg-blue-100 text-blue-800" },
-    { name: "Partes motor", icon: Cog, color: "bg-red-100 text-red-600" },
-    { name: "Transmision", icon: Settings, color: "bg-green-100 text-green-600" },
-  ];
-
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-white flex flex-col font-sans pt-16">
       <Header />
       
       <main className="flex-1">
+        
+        {/* Categories Strip */}
+        <CategoriesStrip />
+
+        {/* Tire Finder */}
+        <TireFinder />
+
         {/* Main Slider */}
         <section className="relative overflow-hidden bg-gray-100">
           <Carousel 
@@ -102,25 +97,7 @@ export default function Home() {
           </Carousel>
         </section>
 
-        {/* Categories Section */}
-        <section className="py-12 container mx-auto px-4">
-          <h3 className="text-xl font-bold text-gray-800 mb-8">Nuestras categorías</h3>
-          
-          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-6">
-            {categories.map((cat, idx) => (
-              <Link key={idx} href="/catalogo">
-                <a className="flex flex-col items-center gap-3 group cursor-pointer">
-                  <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center ${cat.color} bg-opacity-20 group-hover:scale-110 transition-transform duration-300 shadow-sm border border-gray-100`}>
-                    <cat.icon className="w-8 h-8" strokeWidth={1.5} />
-                  </div>
-                  <span className="text-xs md:text-sm font-bold text-gray-700 text-center group-hover:text-intercap-purple transition-colors">
-                    {cat.name}
-                  </span>
-                </a>
-              </Link>
-            ))}
-          </div>
-        </section>
+        {/* Categories Section - REMOVED */}
 
         {/* Promo Banners - Side by Side */}
         <section className="py-8 container mx-auto px-4">

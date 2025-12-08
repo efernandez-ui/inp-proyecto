@@ -31,17 +31,19 @@ export function Header() {
           </nav>
 
           {/* Search Bar */}
-          <div className="flex-1 max-w-sm w-full ml-auto flex items-center gap-2">
+          <div className="flex-1 max-w-lg w-full ml-auto flex items-center gap-2">
             <div className="relative w-full hidden md:block">
               <Input 
                 type="search" 
-                placeholder="Search" 
-                className="h-[38px] rounded-[10px] bg-[#0b1226] text-gray-200 border-[#223] px-3 placeholder:text-gray-500 w-full focus-visible:ring-1 focus-visible:ring-brand-blue-600"
+                placeholder="¿Qué estás buscando?" 
+                className="h-[44px] rounded-[6px] bg-white text-gray-800 border-none px-4 placeholder:text-gray-400 w-full focus-visible:ring-2 focus-visible:ring-brand-blue-500 shadow-sm font-medium"
               />
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             </div>
             
-            <button className="flex items-center justify-center w-[36px] h-[36px] rounded-[10px] bg-[#0b1226] text-gray-200 border border-[#223] hover:border-brand-blue-600 transition-colors">
+            <button className="flex items-center justify-center w-[44px] h-[44px] rounded-[6px] bg-[#0b1226] text-gray-200 border border-[#223] hover:border-brand-blue-600 transition-colors relative">
               <ShoppingCart className="w-5 h-5" />
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full text-[10px] font-bold flex items-center justify-center text-white">0</div>
             </button>
           </div>
 
