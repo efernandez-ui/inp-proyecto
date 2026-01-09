@@ -175,41 +175,6 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
         <div className="h-px bg-gray-800 w-full" />
 
         <section>
-          <h3 className="font-bold text-sm text-brand-blue-500 mb-3 uppercase tracking-wide">Tu Moto</h3>
-          <div className="space-y-3">
-            <div className="space-y-1">
-              <Label className="text-xs text-gray-400">Selecciona Marca</Label>
-              <Select value={selectedMotoBrand} onValueChange={setSelectedMotoBrand}>
-                <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-white h-9" data-testid="select-moto-brand">
-                  <SelectValue placeholder="Marca" />
-                </SelectTrigger>
-                <SelectContent className="bg-[#0b1226] border-gray-700 text-white">
-                  {MOTO_BRANDS.map(brand => (
-                    <SelectItem key={brand} value={brand}>{brand}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-1">
-              <Label className="text-xs text-gray-400">Selecciona Modelo</Label>
-              <Select disabled={!selectedMotoBrand}>
-                <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-white h-9 disabled:opacity-50" data-testid="select-moto-model">
-                  <SelectValue placeholder="Modelo" />
-                </SelectTrigger>
-                <SelectContent className="bg-[#0b1226] border-gray-700 text-white">
-                  {selectedMotoBrand && MOTO_MODELS[selectedMotoBrand]?.map(model => (
-                    <SelectItem key={model} value={model}>{model}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </section>
-
-        <div className="h-px bg-gray-800 w-full" />
-
-        <section>
           <Accordion type="multiple" className="w-full" defaultValue={["categoria"]}>
             
             <AccordionItem value="categoria" className="border-b border-gray-800">
@@ -228,7 +193,7 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
                     placeholder="Buscar categoría..."
                     value={categorySearch}
                     onChange={(e) => setCategorySearch(e.target.value)}
-                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-gray-500"
+                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-[#9CA3AF]"
                     data-testid="input-category-search"
                   />
                 </div>
@@ -270,7 +235,7 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
                     placeholder="Buscar subtipo..."
                     value={subtipoSearch}
                     onChange={(e) => setSubtipoSearch(e.target.value)}
-                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-gray-500"
+                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-[#9CA3AF]"
                     data-testid="input-subtipo-search"
                   />
                 </div>
@@ -316,7 +281,7 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
                     placeholder="Buscar marca..."
                     value={marcaSearch}
                     onChange={(e) => setMarcaSearch(e.target.value)}
-                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-gray-500"
+                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-[#9CA3AF]"
                     data-testid="input-marca-search"
                   />
                 </div>
