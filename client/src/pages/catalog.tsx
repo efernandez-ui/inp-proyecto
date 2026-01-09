@@ -12,15 +12,24 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { LayoutGrid, List, Filter, Download, ChevronDown, X } from "lucide-react";
+import { LayoutGrid, List, Filter, Download, ChevronDown, X, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+
+// Extract unique values from products
+const uniqueBrands = Array.from(new Set(PRODUCTS.map(p => p.brand))).sort();
+const uniqueWidths = Array.from(new Set(PRODUCTS.map(p => p.width).filter(w => w && w !== 0))).sort((a, b) => Number(a) - Number(b));
+const uniqueRatios = Array.from(new Set(PRODUCTS.map(p => p.ratio).filter(r => r && r !== 0))).sort((a, b) => Number(a) - Number(b));
+const uniqueRims = Array.from(new Set(PRODUCTS.map(p => p.rim).filter(r => r && r !== 0))).sort((a, b) => Number(a) - Number(b));
+const uniqueTypes = Array.from(new Set(PRODUCTS.map(p => p.type).filter(Boolean))).sort();
+const uniqueSubtypes = Array.from(new Set(PRODUCTS.map(p => p.subtype).filter(Boolean))).sort();
 
 export default function Catalog() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('relevante');
   const [filters, setFilters] = useState<any>({});
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(40);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -46,20 +55,86 @@ export default function Catalog() {
     velocidad: ''
   });
 
+  const handleTireSearch = () => {
+    const newFilters = { ...filters };
+    if (tireSearch.ancho) newFilters.width = [tireSearch.ancho];
+    if (tireSearch.relacionAspecto) newFilters.ratio = [tireSearch.relacionAspecto];
+    if (tireSearch.rodado) newFilters.rim = [tireSearch.rodado];
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
+
+  const handleMotoSearch = () => {
+    // For demo purposes, just show a message
+    alert(`Buscando cubiertas para: ${motoSearch.fabricante} ${motoSearch.modelo} ${motoSearch.cilindrada}cc ${motoSearch.anio}`);
+  };
+
+  const clearTireSearch = () => {
+    setTireSearch({
+      ancho: '',
+      relacionAspecto: '',
+      rodado: '',
+      carga: '',
+      velocidad: ''
+    });
+    setFilters((prev: any) => {
+      const { width, ratio, rim, ...rest } = prev;
+      return rest;
+    });
+  };
+
   const filteredProducts = useMemo(() => {
     setCurrentPage(1);
 
     return PRODUCTS.filter(product => {
+      // Text search
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch = 
+          product.title.toLowerCase().includes(query) ||
+          product.brand.toLowerCase().includes(query) ||
+          product.code.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
+      }
+
+      // Brand filter
       if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
+      
+      // Type filter
       if (filters.type && filters.type.length > 0 && !filters.type.includes(product.type)) return false;
+      
+      // Subtype filter
       if (filters.subtype && filters.subtype.length > 0 && !filters.subtype.includes(product.subtype)) return false;
 
+      // Width filter (from tire search or sidebar)
+      if (filters.width && filters.width.length > 0) {
+        const productWidth = String(product.width);
+        if (!filters.width.includes(productWidth)) return false;
+      }
+
+      // Ratio filter
+      if (filters.ratio && filters.ratio.length > 0) {
+        const productRatio = String(product.ratio);
+        if (!filters.ratio.includes(productRatio)) return false;
+      }
+
+      // Rim filter
+      if (filters.rim && filters.rim.length > 0) {
+        const productRim = String(product.rim);
+        if (!filters.rim.includes(productRim)) return false;
+      }
+
+      // State filters
       if (filters.state && filters.state.length > 0) {
         const matchesState = filters.state.some((s: string) => {
              if (s === 'isHot') return (product.originalPrice && product.originalPrice > product.price);
              if (s === 'isNew') return product.isNew;
              if (s === 'nac') return product.origin === 'Nacional';
              if (s === 'imp') return product.origin === 'Importado';
+             if (s === 'inStock') {
+               const totalStock = Object.values(product.stock).reduce((a, b) => a + b, 0);
+               return totalStock > 0;
+             }
              return false;
         });
         if (!matchesState) return false;
@@ -70,9 +145,11 @@ export default function Catalog() {
       if (sortBy === 'menor-precio') return a.price - b.price;
       if (sortBy === 'mayor-precio') return b.price - a.price;
       if (sortBy === 'novedades') return (a.isNew ? -1 : 1);
+      if (sortBy === 'a-z') return a.title.localeCompare(b.title);
+      if (sortBy === 'z-a') return b.title.localeCompare(a.title);
       return 0;
     });
-  }, [filters, sortBy]);
+  }, [filters, sortBy, searchQuery]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedProducts = filteredProducts.slice(
@@ -88,6 +165,17 @@ export default function Catalog() {
 
   const clearAllFilters = () => {
     setFilters({});
+    setSearchQuery('');
+    clearTireSearch();
+  };
+
+  const getActiveFilterCount = () => {
+    let count = 0;
+    Object.values(filters).forEach((val: any) => {
+      if (Array.isArray(val)) count += val.length;
+    });
+    if (searchQuery) count++;
+    return count;
   };
 
   return (
@@ -96,11 +184,38 @@ export default function Catalog() {
       
       <div className="flex h-[calc(100vh-64px)]">
         <aside className="hidden lg:block w-[260px] shrink-0 h-full overflow-hidden fixed top-16 left-0 z-40 border-r border-[#111827]">
-          <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
+          <FilterSidebar 
+            selectedFilters={filters} 
+            onFilterChange={setFilters}
+            products={PRODUCTS}
+          />
         </aside>
 
         <main className="flex-1 lg:ml-[260px] p-4 overflow-auto h-full">
           
+          {/* Global Search */}
+          <div className="bg-brand-fg rounded-xl p-4 mb-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Buscar por nombre, código o marca..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-11 bg-white border-gray-200 text-gray-900 text-base placeholder:text-gray-400"
+                data-testid="input-global-search"
+              />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Search Section - Two Search Forms */}
           <div className="bg-brand-blue-900 rounded-xl p-4 mb-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -110,7 +225,7 @@ export default function Catalog() {
                 <h2 className="text-white font-bold text-lg mb-3">Buscador por Moto</h2>
                 <div className="flex flex-wrap gap-2 items-center">
                   <Select value={motoSearch.fabricante} onValueChange={(v) => setMotoSearch({...motoSearch, fabricante: v})}>
-                    <SelectTrigger className="w-[130px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[130px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-moto-fabricante">
                       <SelectValue placeholder="FABRICANTE" />
                     </SelectTrigger>
                     <SelectContent>
@@ -123,7 +238,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.modelo} onValueChange={(v) => setMotoSearch({...motoSearch, modelo: v})}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-moto-modelo">
                       <SelectValue placeholder="MODELO" />
                     </SelectTrigger>
                     <SelectContent>
@@ -134,7 +249,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.cilindrada} onValueChange={(v) => setMotoSearch({...motoSearch, cilindrada: v})}>
-                    <SelectTrigger className="w-[120px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[120px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-moto-cilindrada">
                       <SelectValue placeholder="CILINDRADA" />
                     </SelectTrigger>
                     <SelectContent>
@@ -146,7 +261,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.version} onValueChange={(v) => setMotoSearch({...motoSearch, version: v})}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-moto-version">
                       <SelectValue placeholder="VERSION" />
                     </SelectTrigger>
                     <SelectContent>
@@ -157,7 +272,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.anio} onValueChange={(v) => setMotoSearch({...motoSearch, anio: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-moto-anio">
                       <SelectValue placeholder="AÑO" />
                     </SelectTrigger>
                     <SelectContent>
@@ -169,7 +284,11 @@ export default function Catalog() {
                     </SelectContent>
                   </Select>
 
-                  <Button className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold h-9 px-6">
+                  <Button 
+                    className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold h-9 px-6"
+                    onClick={handleMotoSearch}
+                    data-testid="button-moto-search"
+                  >
                     BUSCAR
                   </Button>
                 </div>
@@ -180,53 +299,40 @@ export default function Catalog() {
                 <h2 className="text-white font-bold text-lg mb-3">Buscador de Cubiertas</h2>
                 <div className="flex flex-wrap gap-2 items-center">
                   <Select value={tireSearch.ancho} onValueChange={(v) => setTireSearch({...tireSearch, ancho: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-tire-ancho">
                       <SelectValue placeholder="Ancho" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="90">90</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                      <SelectItem value="110">110</SelectItem>
-                      <SelectItem value="120">120</SelectItem>
-                      <SelectItem value="130">130</SelectItem>
-                      <SelectItem value="140">140</SelectItem>
-                      <SelectItem value="150">150</SelectItem>
-                      <SelectItem value="160">160</SelectItem>
-                      <SelectItem value="180">180</SelectItem>
-                      <SelectItem value="190">190</SelectItem>
+                      {uniqueWidths.map(w => (
+                        <SelectItem key={String(w)} value={String(w)}>{w}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
                   <Select value={tireSearch.relacionAspecto} onValueChange={(v) => setTireSearch({...tireSearch, relacionAspecto: v})}>
-                    <SelectTrigger className="w-[140px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[140px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-tire-ratio">
                       <SelectValue placeholder="Relación Aspecto" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="55">55</SelectItem>
-                      <SelectItem value="60">60</SelectItem>
-                      <SelectItem value="70">70</SelectItem>
-                      <SelectItem value="80">80</SelectItem>
-                      <SelectItem value="90">90</SelectItem>
+                      {uniqueRatios.map(r => (
+                        <SelectItem key={String(r)} value={String(r)}>{r}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
                   <Select value={tireSearch.rodado} onValueChange={(v) => setTireSearch({...tireSearch, rodado: v})}>
-                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-tire-rodado">
                       <SelectValue placeholder="Rodado" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="14">14"</SelectItem>
-                      <SelectItem value="15">15"</SelectItem>
-                      <SelectItem value="16">16"</SelectItem>
-                      <SelectItem value="17">17"</SelectItem>
-                      <SelectItem value="18">18"</SelectItem>
-                      <SelectItem value="19">19"</SelectItem>
-                      <SelectItem value="21">21"</SelectItem>
+                      {uniqueRims.map(r => (
+                        <SelectItem key={String(r)} value={String(r)}>{r}"</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
                   <Select value={tireSearch.carga} onValueChange={(v) => setTireSearch({...tireSearch, carga: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-tire-carga">
                       <SelectValue placeholder="Carga" />
                     </SelectTrigger>
                     <SelectContent>
@@ -238,7 +344,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={tireSearch.velocidad} onValueChange={(v) => setTireSearch({...tireSearch, velocidad: v})}>
-                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
+                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]" data-testid="select-tire-velocidad">
                       <SelectValue placeholder="Velocidad" />
                     </SelectTrigger>
                     <SelectContent>
@@ -249,9 +355,24 @@ export default function Catalog() {
                     </SelectContent>
                   </Select>
 
-                  <Button className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold h-9 px-6">
+                  <Button 
+                    className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold h-9 px-6"
+                    onClick={handleTireSearch}
+                    data-testid="button-tire-search"
+                  >
                     BUSCAR
                   </Button>
+                  
+                  {(tireSearch.ancho || tireSearch.relacionAspecto || tireSearch.rodado) && (
+                    <Button 
+                      variant="ghost"
+                      className="text-gray-300 hover:text-white h-9 px-3"
+                      onClick={clearTireSearch}
+                      data-testid="button-tire-clear"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -297,7 +418,7 @@ export default function Catalog() {
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <span>Ordenar por</span>
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="w-[140px] h-8 bg-transparent border-[#334155] text-white text-sm">
+                    <SelectTrigger className="w-[140px] h-8 bg-transparent border-[#334155] text-white text-sm" data-testid="select-sort">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-brand-fg border-[#334155]">
@@ -306,6 +427,8 @@ export default function Catalog() {
                       <SelectItem value="menor-precio" className="text-white">Menor precio</SelectItem>
                       <SelectItem value="mayor-precio" className="text-white">Mayor Precio</SelectItem>
                       <SelectItem value="novedades" className="text-white">Novedades</SelectItem>
+                      <SelectItem value="a-z" className="text-white">A - Z</SelectItem>
+                      <SelectItem value="z-a" className="text-white">Z - A</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -370,10 +493,13 @@ export default function Catalog() {
                   <SheetTrigger asChild>
                     <Button variant="outline" className="lg:hidden gap-2 bg-transparent text-white border-[#334155]">
                       <Filter className="w-4 h-4" /> Filtros
+                      {getActiveFilterCount() > 0 && (
+                        <span className="bg-brand-blue-600 text-white text-xs px-1.5 rounded-full">{getActiveFilterCount()}</span>
+                      )}
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto bg-brand-fg p-0 border-r-[#111827]">
-                    <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
+                    <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} products={PRODUCTS} />
                   </SheetContent>
                 </Sheet>
               </div>
@@ -384,7 +510,7 @@ export default function Catalog() {
           <div className="bg-brand-fg rounded-xl p-3 mb-4">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="text-sm text-gray-400">
-                Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
+                Mostrando {filteredProducts.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
               </div>
               
               <div className="flex items-center gap-2">
@@ -428,7 +554,7 @@ export default function Catalog() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
+                  disabled={currentPage === totalPages || totalPages === 0}
                   className="text-gray-400 hover:text-white disabled:opacity-30"
                 >
                   &gt;
@@ -438,14 +564,27 @@ export default function Catalog() {
           </div>
 
           {/* Applied Filters Chips */}
-          {Object.keys(filters).some(k => filters[k]?.length > 0) && (
+          {(Object.keys(filters).some(k => filters[k]?.length > 0) || searchQuery) && (
             <div className="bg-brand-fg rounded-xl p-3 mb-4">
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-sm text-gray-400 mr-2">Filtros Aplicados:</span>
+                
+                {searchQuery && (
+                  <div className="bg-brand-blue-600 text-white px-3 py-1 rounded text-xs font-medium flex items-center gap-2">
+                    <span>Búsqueda: "{searchQuery}"</span>
+                    <button 
+                      onClick={() => setSearchQuery('')}
+                      className="hover:text-red-300 font-bold"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
+                
                 {Object.entries(filters).map(([key, values]: [string, any]) => (
-                  values.map((val: string) => (
+                  values?.map((val: string) => (
                     <div key={`${key}-${val}`} className="bg-brand-blue-600 text-white px-3 py-1 rounded text-xs font-medium flex items-center gap-2">
-                      <span>{val}</span>
+                      <span>{key === 'width' ? `Ancho: ${val}` : key === 'ratio' ? `Ratio: ${val}` : key === 'rim' ? `Rodado: ${val}"` : val}</span>
                       <button 
                         onClick={() => {
                           const newVals = values.filter((v: string) => v !== val);
@@ -485,7 +624,7 @@ export default function Catalog() {
               <Button 
                 variant="outline" 
                 className="mt-6"
-                onClick={() => setFilters({})}
+                onClick={clearAllFilters}
               >
                 Limpiar filtros
               </Button>
