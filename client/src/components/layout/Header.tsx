@@ -25,9 +25,6 @@ export function Header() {
           <nav className="hidden lg:flex gap-4 ml-4">
             <Link href="/"><a className={`text-gray-200 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-brand-blue-700/30 hover:opacity-100 opacity-90 transition-all ${location === '/' ? 'bg-brand-blue-700/30 opacity-100' : ''}`}>HOME</a></Link>
             <Link href="/catalogo"><a className={`text-gray-200 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-brand-blue-700/30 hover:opacity-100 opacity-90 transition-all ${location === '/catalogo' ? 'bg-brand-blue-700/30 opacity-100' : ''}`}>CATALOGO</a></Link>
-            <a href="#" className="text-gray-200 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-brand-blue-700/30 hover:opacity-100 opacity-90 transition-all">CARRITO</a>
-            <a href="#" className="text-gray-200 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-brand-blue-700/30 hover:opacity-100 opacity-90 transition-all">ADMINISTRACION</a>
-            <a href="#" className="text-gray-200 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-brand-blue-700/30 hover:opacity-100 opacity-90 transition-all">VENTAS ESPECIALES</a>
           </nav>
 
           {/* Search Bar */}
@@ -59,9 +56,6 @@ export function Header() {
                   <nav className="flex flex-col gap-4 mt-8">
                     <Link href="/"><a className="text-lg font-bold">Home</a></Link>
                     <Link href="/catalogo"><a className="text-lg font-bold">Catálogo</a></Link>
-                    <a href="#" className="text-lg">Carrito</a>
-                    <a href="#" className="text-lg">Administración</a>
-                    <a href="#" className="text-lg">Ventas Especiales</a>
                   </nav>
                 </SheetContent>
              </Sheet>

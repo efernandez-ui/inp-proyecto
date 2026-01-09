@@ -110,7 +110,7 @@ export default function Catalog() {
                 <h2 className="text-white font-bold text-lg mb-3">Buscador por Moto</h2>
                 <div className="flex flex-wrap gap-2 items-center">
                   <Select value={motoSearch.fabricante} onValueChange={(v) => setMotoSearch({...motoSearch, fabricante: v})}>
-                    <SelectTrigger className="w-[130px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[130px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="FABRICANTE" />
                     </SelectTrigger>
                     <SelectContent>
@@ -123,7 +123,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.modelo} onValueChange={(v) => setMotoSearch({...motoSearch, modelo: v})}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="MODELO" />
                     </SelectTrigger>
                     <SelectContent>
@@ -134,7 +134,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.cilindrada} onValueChange={(v) => setMotoSearch({...motoSearch, cilindrada: v})}>
-                    <SelectTrigger className="w-[120px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[120px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="CILINDRADA" />
                     </SelectTrigger>
                     <SelectContent>
@@ -146,7 +146,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.version} onValueChange={(v) => setMotoSearch({...motoSearch, version: v})}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="VERSION" />
                     </SelectTrigger>
                     <SelectContent>
@@ -157,7 +157,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={motoSearch.anio} onValueChange={(v) => setMotoSearch({...motoSearch, anio: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="AÑO" />
                     </SelectTrigger>
                     <SelectContent>
@@ -180,7 +180,7 @@ export default function Catalog() {
                 <h2 className="text-white font-bold text-lg mb-3">Buscador de Cubiertas</h2>
                 <div className="flex flex-wrap gap-2 items-center">
                   <Select value={tireSearch.ancho} onValueChange={(v) => setTireSearch({...tireSearch, ancho: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="Ancho" />
                     </SelectTrigger>
                     <SelectContent>
@@ -198,7 +198,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={tireSearch.relacionAspecto} onValueChange={(v) => setTireSearch({...tireSearch, relacionAspecto: v})}>
-                    <SelectTrigger className="w-[140px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[140px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="Relación Aspecto" />
                     </SelectTrigger>
                     <SelectContent>
@@ -211,7 +211,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={tireSearch.rodado} onValueChange={(v) => setTireSearch({...tireSearch, rodado: v})}>
-                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="Rodado" />
                     </SelectTrigger>
                     <SelectContent>
@@ -226,7 +226,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={tireSearch.carga} onValueChange={(v) => setTireSearch({...tireSearch, carga: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="Carga" />
                     </SelectTrigger>
                     <SelectContent>
@@ -238,7 +238,7 @@ export default function Catalog() {
                   </Select>
 
                   <Select value={tireSearch.velocidad} onValueChange={(v) => setTireSearch({...tireSearch, velocidad: v})}>
-                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm">
+                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
                       <SelectValue placeholder="Velocidad" />
                     </SelectTrigger>
                     <SelectContent>
