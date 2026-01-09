@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Product } from "@/lib/products";
-import { Heart, ArrowRightLeft, Link as LinkIcon, Info, Bike } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Heart, ArrowRightLeft, Link as LinkIcon, Info, Bike, ShoppingCart, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import styles from "./ProductCard.module.css";
@@ -11,46 +11,53 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
-  const { id, title, price, originalPrice, image, brand, stock, isNew, code, width, ratio, rim, type, subtype } = product;
+  const { id, title, price, originalPrice, image, brand, stock, isNew, code } = product;
+  const [quantity, setQuantity] = useState(1);
+  const [addedQuantity, setAddedQuantity] = useState(0);
 
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+  
+  // Precio público = precio original, Precio lista = precio original + 10%
+  const precioPublico = originalPrice;
+  const precioLista = originalPrice ? originalPrice * 1.1 : price * 1.1;
 
-  // Battery Icon Component
-  const BatteryIcon = ({ level }: { level: number }) => {
-    if (level === 0) {
-        return (
-            <div className={styles.batteryIcon}>
-                <div className={`${styles.batteryEmpty} ${styles.batteryTop}`}></div>
-            </div>
-        )
-    }
-
-    let fillClass = styles.batteryHigh;
-    if (level >= 4 && level < 8) {
-        fillClass = styles.batteryMid;
-    } else if (level < 4) {
-        fillClass = styles.batteryLow;
-    }
-
-    return (
-      <div className={styles.batteryIcon}>
-        <div className={`${styles.batteryFill} ${fillClass}`}></div>
-        <div className={`${styles.batteryTop}`} style={{backgroundColor: level >= 8 ? 'rgb(34 197 94)' : level >= 4 ? 'rgb(234 179 8)' : 'rgb(234 88 12)'}}></div>
-      </div>
-    );
+  const handleAdd = () => {
+    setAddedQuantity(prev => prev + quantity);
+    setQuantity(1);
   };
 
-  const regions = ['NOA', 'NEA', 'BUE', 'CUYO'];
+  const handleRemove = () => {
+    setAddedQuantity(0);
+  };
 
-  const StockTable = () => (
-    <div className={styles.stockTable}>
+  const incrementQuantity = () => setQuantity(prev => prev + 1);
+  const decrementQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
+
+  const regions = [
+    { key: 'NOA', color: '#22c55e' },
+    { key: 'NEA', color: '#f59e0b' },
+    { key: 'BUE', color: '#f59e0b' },
+    { key: 'CUYO', color: '#22c55e' }
+  ];
+
+  const getStockColor = (qty: number) => {
+    if (qty === 0) return '#ef4444';
+    if (qty <= 3) return '#f59e0b';
+    return '#22c55e';
+  };
+
+  const StockBars = () => (
+    <div className={styles.stockBars}>
       {regions.map(region => {
         // @ts-ignore
-        const qty = stock[region] || 0;
+        const qty = stock[region.key] || 0;
         return (
-          <div key={region} className={styles.stockRegion}>
-             <span className={styles.regionLabel}>{region === 'CUYO' ? 'CUY' : region}</span>
-             <BatteryIcon level={qty} />
+          <div key={region.key} className={styles.stockBarRegion}>
+            <span className={styles.regionLabel}>{region.key === 'CUYO' ? 'CUY' : region.key}</span>
+            <div 
+              className={styles.stockBar} 
+              style={{ backgroundColor: getStockColor(qty) }}
+            />
           </div>
         );
       })}
@@ -58,109 +65,118 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
   );
 
   const ActionIcons = () => (
-      <div className={styles.actionIcons}>
-          <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger><ArrowRightLeft className={styles.actionIcon} /></TooltipTrigger>
-                <TooltipContent><p>Comparar</p></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          
-          <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger><LinkIcon className={styles.actionIcon} /></TooltipTrigger>
-                <TooltipContent><p>Copiar Link</p></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+    <div className={styles.actionIcons}>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger><Heart className={styles.actionIcon} /></TooltipTrigger>
+          <TooltipContent><p>Favoritos</p></TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger><ArrowRightLeft className={styles.actionIcon} /></TooltipTrigger>
+          <TooltipContent><p>Comparar</p></TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger><LinkIcon className={styles.actionIcon} /></TooltipTrigger>
+          <TooltipContent><p>Copiar Link</p></TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
-          <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger><Bike className={styles.actionIcon} /></TooltipTrigger>
-                <TooltipContent><p>Vehículos compatibles</p></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger><Bike className={styles.actionIcon} /></TooltipTrigger>
+          <TooltipContent><p>Vehículos compatibles</p></TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
-          <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger><Info className={styles.actionIcon} /></TooltipTrigger>
-                <TooltipContent><p>Más información</p></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-      </div>
-  )
-
-  const isHot = discount > 15;
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger><Info className={styles.actionIcon} /></TooltipTrigger>
+          <TooltipContent><p>Más información</p></TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
+  );
 
   if (viewMode === 'list') {
     return (
-      <div className={`${styles.listCard} sm:flex-row flex flex-col`}>
-        {(isNew || isHot || discount > 0) && (
-            <div className={styles.listBadges}>
-              {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px] font-bold">{discount}% OFF</Badge>}
-              {isNew && <Badge className="bg-blue-500 hover:bg-blue-600 text-[10px] font-bold">NUEVO</Badge>}
-            </div>
+      <div className={styles.listCard} data-testid={`card-product-${id}`}>
+        {discount > 0 && (
+          <div className={styles.listBadges}>
+            <Badge className="bg-red-600 hover:bg-red-700 text-[11px] font-bold rounded-full px-2">{discount}%</Badge>
+          </div>
         )}
         
         <div className={styles.listImageWrapper}>
-           <img src={image} alt={title} className="max-w-full max-h-full object-contain mix-blend-multiply" />
+          <img src={image} alt={title} className="max-w-full max-h-full object-contain mix-blend-multiply" />
         </div>
         
         <div className={styles.listContent}>
           <div className={styles.listHeader}>
-             <div className={styles.listInfo}>
-                <div className={styles.listBrand}>{brand}</div>
-                <h3 className={styles.listTitle}>{title}</h3>
-                
-                <div className={styles.listStatusSection}>
-                    <div className="flex items-center gap-1">
-                        {/* @ts-ignore */}
-                        {Object.values(stock).some(v => v > 0) ? (
-                            <>
-                                <div className={`${styles.statusDot} ${styles.statusDotGreen}`}></div>
-                                <span className={styles.statusText}>EN STOCK</span>
-                            </>
-                        ) : (
-                            <>
-                                <div className={`${styles.statusDot} ${styles.statusDotRed}`}></div>
-                                <span className={styles.statusText}>SIN STOCK</span>
-                            </>
-                        )}
-                    </div>
-                    <span className={styles.separator}>|</span>
-                    <div className={styles.codeInfo}>Cod: <span className="text-gray-600">{code}</span></div>
-                </div>
+            <div className={styles.listInfo}>
+              <div className={styles.listBrand}>{brand}</div>
+              <h3 className={styles.listTitle}>{title}</h3>
+              <div className={styles.codeInfo}>Cod: {code}</div>
+              
+              <div className={styles.presentacion}>
+                <div className={styles.presentacionTitle}>PRESENTACIÓN</div>
+                <ul className={styles.presentacionList}>
+                  <li>1° Envase Botella 1 UNI</li>
+                  <li>2° Envase Cajas 12 UNI</li>
+                </ul>
+              </div>
 
-                <div className={styles.listSpecs}>
-                    <div className={styles.specItem}>
-                        <span className={styles.specLabel}>Rodado:</span> 
-                        <span className={styles.specValue}>{rim || 'N/A'}"</span>
-                    </div>
-                    <div className={styles.specItem}>
-                        <span className={styles.specLabel}>Ancho:</span> 
-                        <span className={styles.specValue}>{width || 'N/A'}</span>
-                    </div>
-                    {type && (
-                      <div className={styles.specItem}>
-                          <span className={styles.specLabel}>Tipo:</span> 
-                          <span className={styles.specValue}>{type}</span>
-                      </div>
-                    )}
-                </div>
-             </div>
+              <StockBars />
+            </div>
 
-             <div className={styles.listPrice}>
-                {originalPrice && originalPrice > price && (
-                    <div className={styles.listPriceOriginal}>${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</div>
-                )}
-                <div className={styles.listPriceFinal}>
-                    ${price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+            <div className={styles.listPriceSection}>
+              <div className={styles.priceRow}>
+                <span className={styles.priceLabelSmall}>PRECIO FINAL:</span>
+                <span className={styles.priceFinal}>${price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div className={styles.priceRow}>
+                <span className={styles.priceLabelSmall}>PRECIO LISTA:</span>
+                <span className={styles.priceStriked}>${precioLista.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div className={styles.priceRow}>
+                <span className={styles.priceLabelSmall}>PRECIO PÚBLICO:</span>
+                <span className={styles.pricePublico}>${precioPublico?.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
+                {discount > 0 && <Badge className="bg-orange-500 hover:bg-orange-600 text-[10px] ml-2">{discount}%</Badge>}
+              </div>
+
+              {addedQuantity === 0 ? (
+                <div className={styles.addSection}>
+                  <button className={styles.addButton} onClick={handleAdd} data-testid={`button-add-${id}`}>
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    AGREGAR AL CARRO
+                  </button>
+                  <div className={styles.quantitySelector}>
+                    <span className={styles.quantityValue}>{quantity}</span>
+                    <div className={styles.quantityControls}>
+                      <button onClick={incrementQuantity} className={styles.quantityBtn} data-testid={`button-increment-${id}`}>
+                        <ChevronUp className="w-3 h-3" />
+                      </button>
+                      <button onClick={decrementQuantity} className={styles.quantityBtn} data-testid={`button-decrement-${id}`}>
+                        <ChevronDown className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-             </div>
-          </div>
-          
-          <div className={styles.listButtons}>
-             <button className={styles.detailsBtn}>Ver Detalles</button>
-             <button className={styles.cartBtn}>AGREGAR AL CARRITO</button>
+              ) : (
+                <div className={styles.removeSection}>
+                  <button className={styles.removeButton} onClick={handleRemove} data-testid={`button-remove-${id}`}>
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    QUITAR
+                  </button>
+                  <div className={styles.addedBadge}>{addedQuantity} UNI</div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -169,61 +185,102 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
 
   // Grid View
   return (
-    <div className={styles.gridCard}>
-      <button className={styles.favoriteBtn}>
-         <Heart className="w-5 h-5" />
-      </button>
+    <div className={styles.gridCard} data-testid={`card-product-${id}`}>
+      <div className={styles.sideActions}>
+        <ActionIcons />
+      </div>
 
-      {(isNew || isHot || discount > 0) && (
-          <div className={styles.badges}>
-            {discount > 0 && <Badge className="bg-red-600 hover:bg-red-700 text-[10px] font-bold px-1.5 h-5">{discount}%</Badge>}
-            {isNew && <Badge className="bg-blue-500 hover:bg-blue-600 text-[10px] font-bold px-1.5 h-5">NEW</Badge>}
-          </div>
+      {discount > 0 && (
+        <div className={styles.badges}>
+          <Badge className="bg-red-600 hover:bg-red-700 text-[11px] font-bold rounded-full px-2.5 py-1">{discount}%</Badge>
+        </div>
       )}
 
       <div className={styles.imageWrapper}>
-         <div className={styles.imageContainer}>
-            <img 
-            src={image} 
-            alt={title} 
-            className={styles.productImage}
-            />
-         </div>
+        <div className={styles.imageContainer}>
+          <button className={styles.navBtn + " " + styles.navBtnLeft}>‹</button>
+          <img src={image} alt={title} className={styles.productImage} />
+          <button className={styles.navBtn + " " + styles.navBtnRight}>›</button>
+        </div>
+        <div className={styles.imageDots}>
+          <span className={styles.dot + " " + styles.dotActive}></span>
+          <span className={styles.dot}></span>
+          <span className={styles.dot}></span>
+        </div>
+        <div className={styles.imageLogos}>
+          <img src="https://via.placeholder.com/30x20/e5e7eb/9ca3af?text=e-bit" alt="e-bit" className={styles.logoSmall} />
+          <img src="https://via.placeholder.com/40x20/e5e7eb/9ca3af?text=INTERCAP" alt="INTERCAP" className={styles.logoSmall} />
+        </div>
       </div>
 
       <div className={styles.content}>
         <div className={styles.brand}>{brand}</div>
-        <h3 className={styles.title} title={title}>
-          {title}
-        </h3>
+        <h3 className={styles.title} title={title}>{title}</h3>
         
         <div className={styles.code}>
-            <span className={styles.codeLabel}>Cod:</span> {code}
+          <span className={styles.codeLabel}>Cod:</span> {code}
+        </div>
+
+        <div className={styles.presentacion}>
+          <ul className={styles.presentacionListCompact}>
+            <li>1° Envase Botella 1 UNI</li>
+            <li>2° Envase Cajas 10 UNI</li>
+          </ul>
         </div>
 
         <div className={styles.priceSection}>
-           <div className={styles.priceLabel}>Precio final:</div>
-           <div className={styles.price}>
-             ${price.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-           </div>
+          <div className={styles.priceLabel}>PRECIO FINAL:</div>
+          <div className={styles.price}>
+            ${price.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
         </div>
         
-        {originalPrice && originalPrice > price && (
-            <div className={styles.originalPrice}>
-                <div className={styles.originalPriceLabel}>Precio público:</div>
-                <div className={styles.originalPriceValue}>
-                    ${originalPrice.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </div>
+        <div className={styles.priceSecondary}>
+          <div className={styles.priceLabel}>PRECIO LISTA:</div>
+          <div className={styles.priceStrikedSmall}>
+            ${precioLista.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+        </div>
+
+        <div className={styles.pricePublicoSection}>
+          <div className={styles.priceLabel}>PRECIO PÚBLICO:</div>
+          <div className={styles.pricePublicoRow}>
+            <span className={styles.pricePublicoValue}>
+              ${precioPublico?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </span>
+            {discount > 0 && <Badge className="bg-orange-500 hover:bg-orange-600 text-[9px] ml-1.5 px-1.5 py-0.5">{discount}%</Badge>}
+          </div>
+        </div>
+
+        <StockBars />
+
+        {addedQuantity === 0 ? (
+          <div className={styles.addSectionGrid}>
+            <button className={styles.addButtonGrid} onClick={handleAdd} data-testid={`button-add-${id}`}>
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              AGREGAR
+            </button>
+            <div className={styles.quantitySelectorGrid}>
+              <span className={styles.quantityValue}>{quantity}</span>
+              <div className={styles.quantityControls}>
+                <button onClick={incrementQuantity} className={styles.quantityBtn} data-testid={`button-increment-${id}`}>
+                  <ChevronUp className="w-3 h-3" />
+                </button>
+                <button onClick={decrementQuantity} className={styles.quantityBtn} data-testid={`button-decrement-${id}`}>
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              </div>
             </div>
+          </div>
+        ) : (
+          <div className={styles.removeSectionGrid}>
+            <button className={styles.removeButtonGrid} onClick={handleRemove} data-testid={`button-remove-${id}`}>
+              <Trash2 className="w-4 h-4 mr-2" />
+              QUITAR
+            </button>
+            <div className={styles.addedBadgeGrid}>{addedQuantity} UNI</div>
+          </div>
         )}
-
-        <StockTable />
-        
-        <ActionIcons />
-
-        <button className={styles.addButton}>
-          AGREGAR AL CARRITO
-        </button>
       </div>
     </div>
   );
