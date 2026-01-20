@@ -50,33 +50,9 @@ export default function Catalog() {
     setCurrentPage(1);
 
     return PRODUCTS.filter(product => {
-      // 1. Category Filter
-      if (filters.categoria && filters.categoria.length > 0) {
-        if (!product.type || !filters.categoria.includes(product.type)) return false;
-      }
-
-      // 2. Subtype Filter
-      if (filters.subtipo && filters.subtipo.length > 0) {
-        if (!product.subtype || !filters.subtipo.includes(product.subtype)) return false;
-      }
-
-      // 3. Brand Filter
-      if (filters.marca && filters.marca.length > 0) {
-        if (!filters.marca.includes(product.brand)) return false;
-      }
-
-      // 4. Attributes Filter (Conditional)
-      if (filters.categoria?.length === 1) {
-        const activeAttrFilters = Object.entries(filters).filter(([key]) => key.startsWith('attr_'));
-        for (const [key, selectedValues] of activeAttrFilters) {
-          if (!selectedValues || (selectedValues as string[]).length === 0) continue;
-          const attrKey = key.replace('attr_', '');
-          const productAttrValue = product.attrs?.[attrKey];
-          if (!productAttrValue || !(selectedValues as string[]).includes(String(productAttrValue))) {
-            return false;
-          }
-        }
-      }
+      if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
+      if (filters.type && filters.type.length > 0 && !filters.type.includes(product.type)) return false;
+      if (filters.subtype && filters.subtype.length > 0 && !filters.subtype.includes(product.subtype)) return false;
 
       if (filters.state && filters.state.length > 0) {
         const matchesState = filters.state.some((s: string) => {
@@ -120,7 +96,7 @@ export default function Catalog() {
       
       <div className="flex h-[calc(100vh-64px)]">
         <aside className="hidden lg:block w-[260px] shrink-0 h-full overflow-hidden fixed top-16 left-0 z-40 border-r border-[#111827]">
-          <FilterSidebar products={PRODUCTS} selectedFilters={filters} onFilterChange={setFilters} />
+          <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
         </aside>
 
         <main className="flex-1 lg:ml-[260px] p-4 overflow-auto h-full">
@@ -397,7 +373,7 @@ export default function Catalog() {
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto bg-brand-fg p-0 border-r-[#111827]">
-                    <FilterSidebar products={PRODUCTS} selectedFilters={filters} onFilterChange={setFilters} />
+                    <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
                   </SheetContent>
                 </Sheet>
               </div>
