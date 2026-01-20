@@ -1,0 +1,3171 @@
+{
+  "ACCESORIOS": {
+    "ALARGA Y ACORTA AMORTIGUADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "CINTA ALTA TEMPERATURA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "DESCRIPCION",
+        "MATERIAL",
+        "MEDIDAS ANCHO (mm)",
+        "MEDIDAS LARGO (cm)",
+        "USO"
+      ]
+    },
+    "CINTA DE AMARRE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO (mm)",
+        "COLOR",
+        "LARGO (mm)",
+        "MATERIAL",
+        "PESO ADMISIBLE (kg)",
+        "TIPO DE GANCHO"
+      ]
+    },
+    "DEFENSAS MOTOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR"
+      ]
+    },
+    "ESPEJOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "CURVATURA",
+        "DESCRIPCION 2",
+        "DIAMETRO DE ROSCA (mm)",
+        "FORMA",
+        "MODELO",
+        "SENTIDO DE LA ROSCA"
+      ]
+    },
+    "LINGAS Y TRABAS DE SEGURIDAD": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALARMA",
+        "COLOR",
+        "CUBRE SUCIEDAD EN CERRADURA",
+        "DESCRIPCION 2",
+        "DIAMETRO (mm)",
+        "DIAMETRO DEL PIN (mm)",
+        "LARGO (mm)",
+        "MATERIAL",
+        "MATERIAL REVESTIMIENTO",
+        "MODELO",
+        "REVESTIMIENTO",
+        "TIPO DE CERRADURA",
+        "TIPO DE LLAVE"
+      ]
+    },
+    "PORTABAULES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PORTAEQUIPAJES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA (CM)",
+        "ANCHO (CM)",
+        "CAPACIDAD",
+        "CODIGO",
+        "CODIGO:",
+        "COLOR",
+        "LARGO (CM)",
+        "MATERIAL",
+        "MATERIAL: METAL",
+        "OBSERVACIONES",
+        "ORIGEN",
+        "PESO KG",
+        "PIEZAS",
+        "POSICION"
+      ]
+    },
+    "PROTECTORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "VARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR"
+      ]
+    }
+  },
+  "ACRILICOS Y FAROLES": {
+    "FAROLES DE GIRO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR LAMPARA",
+        "COLOR OPTICA",
+        "MATERIAL DE COBERTOR",
+        "MATERIAL OPTICA",
+        "POSICION",
+        "VOLTAJE (V)"
+      ]
+    },
+    "FAROLES DELANTEROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR LAMPARA",
+        "COLOR OPTICA",
+        "MATERIAL DE COBERTOR",
+        "MATERIAL OPTICA",
+        "POSICION"
+      ]
+    },
+    "FAROLES TRASEROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR LAMPARA",
+        "COLOR OPTICA",
+        "DESCRIPCION 2",
+        "DESCRPCION",
+        "LINEA",
+        "MATERIAL DE COBERTOR",
+        "MATERIAL OPTICA",
+        "MEDIDAS (MM)",
+        "MODELO",
+        "POSICION",
+        "TIPO DE CORRIENTE",
+        "VOLTAJE (v)"
+      ]
+    }
+  },
+  "AMORTIGUADORES": {
+    "AMORTIGUADORES TRASEROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO ORIFICIO INFERIOR (MM)",
+        "DIAMETRO ORIFICIO SUPERIOR (MM)",
+        "DISTANCIA ENTRE CENTROS (MM)",
+        "MEDIDA ACLAJE SUPERIOR (MM)",
+        "MEDIDA ANCLAJE INFERIOR (MM)",
+        "MEDIDA ANCLAJE SUPERIOR (MM)",
+        "ORIGEN"
+      ]
+    },
+    "KIT DE SERVICIO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIÁMETRO EXTERNO (mm)",
+        "DIÁMETRO VÁSTAGO (mm)"
+      ]
+    }
+  },
+  "ARTICULOS DE LIMPIEZA": {
+    "LIMPIEZA CERA LUSTRE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "COMPOSICIÓN",
+        "DESCRIPCION",
+        "ENVASE",
+        "LINEA",
+        "RESISTENCIA",
+        "RUBRO"
+      ]
+    },
+    "LIMPIEZA PASTA PULIR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "COMPOSICIÓN",
+        "DESCRIPCION",
+        "ENVASE",
+        "LINEA",
+        "RUBRO"
+      ]
+    }
+  },
+  "BARRALES": {
+    "BUJES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "BUJE EXTERNO (mm)",
+        "BUJE INTERNO (mm)",
+        "DIÁMETRO (mm)",
+        "ORIGEN"
+      ]
+    },
+    "GUARDAPOLVO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIÁMETRO (mm)",
+        "ORIGEN"
+      ]
+    },
+    "KIT DE FRICCION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIÁMETRO (mm)",
+        "ORIGEN"
+      ]
+    },
+    "TAPONES DE BARRAL": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "BATERIAS": {
+    "BATERIAS CONVENCIONALES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "AMPERAJE (amp)",
+        "BORNE NEGATIVO",
+        "BORNE POSITIVO",
+        "CODIGO DE YUASA",
+        "MODELO",
+        "TIPO DE BORNE",
+        "VOLTAJE (v)"
+      ]
+    },
+    "BATERIAS LIBRE MANTENIMIENTO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO DE YUASA",
+        "MODELO"
+      ]
+    },
+    "TECNOLOGIA AGM": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ACTIVADA DE FABRICA",
+        "ALTO (mm)",
+        "AMPERAJE (En Uso)",
+        "AMPERAJE (amp)",
+        "ANCHO (mm)",
+        "BORNE NEGATIVO",
+        "BORNE POSITIVO",
+        "CCA",
+        "CODIGO DE YUASA",
+        "CONTIENE MANUAL DE USO",
+        "DESCRIPCiON 2",
+        "LARGO (mm)",
+        "MODELO",
+        "PESO BRUTO (kg)",
+        "TECNOLOGIA",
+        "TIPO DE BORNE",
+        "VOLTAJE (v)"
+      ]
+    }
+  },
+  "BUJES": {
+    "BUJES HORQUILLON": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "BUJES SEPARADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "BUJIAS": {
+    "BUJIAS ENCENDIDO": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": [
+        "AISLADOR CERAMICO PROYECTADO",
+        "ALTURA DE AISLADOR (mm)",
+        "CANTIDAD ELECTRODOS DE MASA",
+        "CATIDAD ELECTRODOS DE MASA",
+        "CODIGO BMW",
+        "CODIGO BOSCH",
+        "CODIGO BRISK",
+        "CODIGO CHAMPION",
+        "CODIGO DENSO",
+        "CODIGO DUCATI",
+        "CODIGO FERRAZZI",
+        "CODIGO HONDA",
+        "CODIGO KAWASAKI",
+        "CODIGO KTM",
+        "CODIGO MAGNETI MARELLI",
+        "CODIGO NGK",
+        "CODIGO PROVEEDOR",
+        "CODIGO SUZUKI",
+        "CODIGO TORCH",
+        "CODIGO WEGA",
+        "CODIGO YAMAHA",
+        "CONFIGURACION DE MASA",
+        "CONSTRUCCION",
+        "DESCRIPCION 2",
+        "DIAMETRO DE ROSCA (mm)",
+        "DISEÑO PUNTA ELECTRODO DE MASA",
+        "GRADO TERMICO",
+        "LONGITUD DE ROSCA (in)",
+        "LONGITUD DE ROSCA (mm)",
+        "LUZ (mm)",
+        "MATERIAL ELECTRODO CENTRAL",
+        "MATERIAL ELECTRODO DE MASA",
+        "MATERIAL PUNTA ELECTRODO CENTRAL",
+        "ORIGEN",
+        "PASO ROSCA (mm)",
+        "RESISTENCIA (kohm)",
+        "TAMAÑO DEL HEXAGONO (in)",
+        "TAMAÑO DEL HEXAGONO (mm)",
+        "TIPO DE ASIENTO",
+        "TIPO TERMINAL ELECTRICO"
+      ]
+    }
+  },
+  "CABLES": {
+    "CABLES ACELERADOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO CABLE ACERO (mm)",
+        "DIAMETRO DE ROSCA (mm)",
+        "LARGO FUNDA (cm)",
+        "LARGO TOTAL (cm)",
+        "MATERIALES",
+        "TERMINAL"
+      ]
+    },
+    "CABLES BUJIAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "CABLES CEBADOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO CABLE ACERO (mm)",
+        "DIAMETRO DE ROSCA (mm)",
+        "LARGO FUNDA (cm)",
+        "LARGO TOTAL (cm)",
+        "MATERIALES",
+        "TERMINAL"
+      ]
+    },
+    "CABLES EMBRAGUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO CABLE ACERO (mm)",
+        "DIAMETRO DE ROSCA (mm)",
+        "LARGO FUNDA (cm)",
+        "LARGO REGISTRO (cm)",
+        "LARGO TOTAL (cm)",
+        "MATERIALES",
+        "PASO ROSCA (mm)",
+        "TERMINAL"
+      ]
+    },
+    "CABLES FRENO DELANTERO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO CABLE ACERO (mm)",
+        "DIAMETRO DE ROSCA (mm)",
+        "LARGO FUNDA (cm)",
+        "LARGO TOTAL (cm)",
+        "MATERIALES",
+        "TERMINAL"
+      ]
+    },
+    "CABLES FRENO TRASERO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "MATERIALES"
+      ]
+    },
+    "CABLES VELOCIMETRO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO CABLE ACERO (mm)",
+        "DIAMETRO EXTREMO RUEDA (mm)",
+        "DIAMETRO INTERNO EXTREMO TABLERO (mm)",
+        "LARGO FUNDA (cm)",
+        "LARGO TOTAL (cm)",
+        "MATERIALES",
+        "PASO ROSCA (mm)",
+        "TERMINAL"
+      ]
+    }
+  },
+  "CAMARAS": {
+    "CAMARAS ATV": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APTO PARA MEDIDAS DE CUBIERTA",
+        "MEDIDA",
+        "MODELO",
+        "RODADO",
+        "TIPO DE PICO (TRA)"
+      ]
+    },
+    "CAMARAS CICLOMOTOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APTO PARA MEDIDAS DE CUBIERTA",
+        "MATERIAL",
+        "MEDIDA",
+        "RODADO",
+        "TIPO DE PICO (DIN)",
+        "TIPO DE PICO (ETRTO)",
+        "TIPO DE PICO (TRA)"
+      ]
+    },
+    "CAMARAS MOTO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APTO PARA MEDIDAS DE CUBIERTA",
+        "DESCRIPCION2",
+        "ESPESOR DE PARED (mm)",
+        "MATERIAL",
+        "MEDIDA",
+        "MODELO",
+        "RODADO",
+        "TIPO DE PICO (DIN)",
+        "TIPO DE PICO (ETRTO)",
+        "TIPO DE PICO (TRA)"
+      ]
+    },
+    "CAMARAS SCOOTER": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APTO PARA MEDIDAS DE CUBIERTA",
+        "MATERIAL",
+        "MEDIDA",
+        "RODADO",
+        "TIPO DE PICO (DIN)",
+        "TIPO DE PICO (ETRTO)",
+        "TIPO DE PICO (TRA)"
+      ]
+    },
+    "MOUSSE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APTO PARA MEDIDAS DE CUBIERTA",
+        "INCLUYE",
+        "MEDIDA",
+        "MODELO",
+        "ORIGEN",
+        "RODADO",
+        "SENSACION DE PRESION NEUMATICO BLANDO (psi)",
+        "SENSACION DE PRESION NEUMATICO DURO (psi)",
+        "SENSACION DE PRESION NEUMATICO MEDIO (psi)"
+      ]
+    }
+  },
+  "CAPUCHONES DE BUJIAS": {
+    "CAPUCHONES DE BUJIAS": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": [
+        "ANGULO DE CODO",
+        "COLOR",
+        "DIAMETRO DE ROSCA DE LA BUJIA ADMISIBLE (mm)",
+        "DIAMETRO MAXIMO CABLE BUJIA (mm)",
+        "DIAMETRO MINIMO CABLE BUJIA (mm)",
+        "MATERIAL",
+        "MATERIAL AISLANTE",
+        "MODELO",
+        "RESISTENCIA (kohm)",
+        "TERMINAL DE LA BUJIA",
+        "TIPO AISLANTE"
+      ]
+    }
+  },
+  "CASCOS": {
+    "REPUESTOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "VISERAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "CUBIERTAS": {
+    "CUBIERTAS ATV": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "% ON/OFF",
+        "ACTIVIDAD",
+        "ALTURA TOTAL",
+        "ALTURA TOTAL (mm)",
+        "ANCHO",
+        "ANCHO (mm)",
+        "ANCHO LLANTA (in)",
+        "CANTIDAD DE TELAS",
+        "CLASE DE VEHICULO",
+        "CODIFICACION",
+        "CONSTRUCCION",
+        "DUREZA TERRENO",
+        "INDICE DE CARGA",
+        "INDICE DE VELOCIDAD",
+        "MEDIDA",
+        "MODELO",
+        "MONTAJE",
+        "ORIGEN",
+        "POSICION",
+        "PRESION MAXIMA DE INFLADO (psi)",
+        "PROFUNDIDAD DE BANDA DE RODADURA (mm)",
+        "RELACION DE ASPECTO",
+        "RELACION DE ASPECTO (mm)",
+        "RODADO",
+        "TIPO DE SUELO",
+        "TIPO DE TERRENO",
+        "USO"
+      ]
+    },
+    "CUBIERTAS CICLOMOTOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO",
+        "ANCHO (mm)",
+        "CANTIDAD DE TELAS",
+        "CLASE DE VEHICULO",
+        "CODIFICACION",
+        "CONSTRUCCION",
+        "INDICE DE CARGA",
+        "INDICE DE VELOCIDAD",
+        "MEDIDA",
+        "MODELO",
+        "MONTAJE",
+        "ORIGEN",
+        "POSICION",
+        "RELACION DE ASPECTO",
+        "RELACION DE ASPECTO (mm)",
+        "RODADO",
+        "TIPO DE SUELO",
+        "TIPO DE TERRENO",
+        "USO"
+      ]
+    },
+    "CUBIERTAS MOTO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "% ON/OFF",
+        "ACTIVIDAD",
+        "ALTURA TOTAL EN SERVICIO (mm)",
+        "ANCHO",
+        "ANCHO (mm)",
+        "ANCHO EN SERVICIO (mm)",
+        "ANCHO LLANTA (in)",
+        "CANTIDAD DE TELAS",
+        "CLASE DE VEHICULO",
+        "CODIFICACION",
+        "COMPUESTO",
+        "CONSTRUCCION",
+        "DESCRIPCION",
+        "DUREZA TERRENO",
+        "EAN CODE",
+        "INDICE DE CARGA",
+        "INDICE DE VELOCIDAD",
+        "INDICE DE VELOCIDAD:",
+        "MAX PSI",
+        "MAXIMO ANCHO LLANTA (in)",
+        "MEDIDA",
+        "MINIMO ANCHO LLANTA (in)",
+        "MODELO",
+        "MONTAJE",
+        "ORIGEN",
+        "PESO (kg)",
+        "POSICION",
+        "PRESION DE INFLADO (psi)",
+        "PRESION MAXIMA DE INFLADO (psi)",
+        "PROFUNDIDAD DE BANDA DE RODADURA (mm)",
+        "RELACION DE ASPECTO",
+        "RELACION DE ASPECTO (mm)",
+        "RODADO",
+        "TIPO DE SUELO",
+        "TIPO DE TERRENO",
+        "USO"
+      ]
+    },
+    "CUBIERTAS SCOOTER": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "% ON/OFF",
+        "ACTIVIDAD",
+        "ALTURA TOTAL EN SERVICIO (mm)",
+        "ANCHO",
+        "ANCHO (mm)",
+        "ANCHO EN SERVICIO (mm)",
+        "ANCHO LLANTA (in)",
+        "CANTIDAD DE TELAS",
+        "CLASE DE VEHICULO",
+        "CODIFICACION",
+        "CONSTRUCCION",
+        "DUREZA TERRENO",
+        "INDICE DE CARGA",
+        "INDICE DE VELOCIDAD",
+        "MAXIMO ANCHO LLANTA (in)",
+        "MEDIDA",
+        "MINIMO ANCHO LLANTA (in)",
+        "MODELO",
+        "MONTAJE",
+        "ORIGEN",
+        "POSICION",
+        "RELACION DE ASPECTO",
+        "RELACION DE ASPECTO (mm)",
+        "RODADO",
+        "TIPO DE SUELO",
+        "TIPO DE TERRENO",
+        "USO"
+      ]
+    }
+  },
+  "EJES": {
+    "EJES DELANTEROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EJES HORQUILLON": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EJES PRIMARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EJES SECUNDARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EJES TRASEROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EJES VARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "ELECTRONICA": {
+    "ALARMAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO PROVEEDOR",
+        "LINEA",
+        "VOLTAJE (v)"
+      ]
+    },
+    "BOBINAS COMPETICION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD DE PINES",
+        "CODIGO PROVEEDOR",
+        "CORRIENTE MAXIMA (mA)",
+        "DESCRIPCION 2",
+        "DIAMETRO CABLE (mm)",
+        "ENERGIA (mj)",
+        "INDUCTANCIA (mH)",
+        "LARGO CABLE (cm)",
+        "LINEA",
+        "RELACION TRANSFORMACION",
+        "RESISTENCIA PRIMARIO (kohm)",
+        "RESISTENCIA SECUNDARIO (kohm)",
+        "TIEMPO (mS)",
+        "VOLTAJE (v)",
+        "VOLTAJE SALIDA (v)"
+      ]
+    },
+    "BOBINAS DE ALIMENTACION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "DISTANCIA ENTRE CENTRO DE AGUJEROS (mm)",
+        "EQUIVALENCIAS PIETCARD",
+        "LINEA",
+        "RESISTENCIA (ohm)",
+        "SENSOR",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "BOBINAS DE ALTA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "DESCRIPCION 2",
+        "DISTANCIA ENTRE CENTRO DE AGUJEROS (mm)",
+        "EQUIVALENCIAS PIETCARD",
+        "LARGO CABLE (cm)",
+        "LINEA",
+        "RESISTENCIA (ohm)",
+        "TIPO DE CORRIENTE",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)",
+        "VOLTAJE SALIDA (v)"
+      ]
+    },
+    "BOCINAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "CAJA NEGRA DIGITAL": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "AVANCE/ATRASO",
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINE",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "CORTE (rpm)",
+        "DESCRIPCION",
+        "DESCRIPCION 2",
+        "DESCRIPCION 3",
+        "DESCRIPCION 4",
+        "EQUIVALENCIAS PIETCARD",
+        "LINEA",
+        "OEM",
+        "ORIGEN",
+        "TIPO DE CORRIENTE",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "TIPO MOTOR",
+        "VOLTAJE (v)"
+      ]
+    },
+    "CDI NACIONAL": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "AVANCE/ATRASO",
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "CORTE (rpm)",
+        "DESCRIPCION 2",
+        "DESCRIPCION 3",
+        "DESCRIPCION 4",
+        "EQUIVALENCIAS PIETCARD",
+        "INCLUYE SENSOR",
+        "LINEA",
+        "SENSOR",
+        "TIPO DE CORRIENTE",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "DESTELLADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "EQUIVALENCIAS PIETCARD",
+        "LINEA",
+        "TIPO DE CORRIENTE",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "TIPO LAMPARA",
+        "VOLTAJE (v)"
+      ]
+    },
+    "ENCENDIDOS COMPETICION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "ALTURA NUCLEO (mm)",
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CANTIDAD DE POLOS",
+        "CODIGO PROVEEDOR",
+        "DIAMETRO EXTERNO (mm)",
+        "DIAMETRO INTERNO (mm)",
+        "DISTANCIA ENTRE CENTRO DE AGUJEROS (mm)",
+        "INCLUYE SENSOR",
+        "LINEA",
+        "SENSOR",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "ENCENDIDOS ELECTRONICOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "ALTURA NUCLEO (mm)",
+        "AVANCE/ATRASO",
+        "BOBINAS DE ALIMENTACION (un)",
+        "BOBINAS DE CARGA (un)",
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CANTIDAD DE POLOS",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "DESCRIPCION",
+        "DESCRIPCION 2",
+        "DIAMETRO EXTERNO (mm)",
+        "DIAMETRO INTERNO (mm)",
+        "DISTANCIA ENTRE CENTRO DE AGUJEROS (mm)",
+        "EQUIVALENCIAS PIETCARD",
+        "INCLUYE SENSOR",
+        "LAMPARA LED DELANTERA",
+        "LINEA",
+        "MONOFASICO/TRIFASICO",
+        "ORIGEN",
+        "REGULADOR VOLTAJE",
+        "RESISTENCIA (kohm)",
+        "SENSOR",
+        "SENTIDO DE GIRO",
+        "TIPO DE CORRIENTE",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "TIPO VOLANTE",
+        "VOLTAJE (v)",
+        "VOLTAJE (v)/(amp)"
+      ]
+    },
+    "ESTABILIZADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "CODIGO DZE",
+        "CODIGO PROVEEDOR",
+        "LINEA",
+        "TIPO DE CORRIENTE",
+        "VOLTAJE (v)"
+      ]
+    },
+    "INSTALACIONES ELECTRICAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "CODIGO PROVEEDOR",
+        "LINEA",
+        "TIPO MOTOR"
+      ]
+    },
+    "MODULOS DE BOCINA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO PROVEEDOR",
+        "LINEA",
+        "VOLTAJE (v)"
+      ]
+    },
+    "MODULOS ECU": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "AVANCE/ATRASO",
+        "CODIGO PROVEEDOR",
+        "CORTE RPM",
+        "LINEA",
+        "PROGRAMACION",
+        "VENTAJAS"
+      ]
+    },
+    "MOTOR DE ARRANQUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD DE DIENTES",
+        "CODIGO OEM",
+        "ORIGEN",
+        "SENTIDO DE GIRO",
+        "TENSION (VOLTAJE)",
+        "Ø ENGRANAJE (mm)"
+      ]
+    },
+    "PLAQUETAS PORTA CARBONES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "LINEA"
+      ]
+    },
+    "RECTIFICADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "AMPERAJE (amp)",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "LINEA",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "REGULADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "AMPERAJE (amp)",
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "DESCRIPCION 1",
+        "DESCRIPCION 2",
+        "DISTANCIA ENTRE CENTRO DE AGUJEROS (mm)",
+        "EQUIVALENCIAS PIETCARD",
+        "LINEA",
+        "MONOFASICO/TRIFASICO",
+        "ORIGEN",
+        "TECNOLOGIA",
+        "TIPO DE CORRIENTE",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "RELAY DE ARRANQUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "AMPERAJE (amp)",
+        "CANTIDAD DE PINES",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "EQUIVALENCIAS PIETCARD",
+        "LINEA",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "SENSORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALIMENTACION",
+        "CODIGO DZE",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "DISTANCIA ENTRE CENTRO DE AGUJEROS (mm)",
+        "EQUIVALENCIAS PIETCARD",
+        "LINEA",
+        "MONOFASICO/TRIFASICO",
+        "RESISTENCIA (ohm)"
+      ]
+    },
+    "UNIDAD DE CONTROL": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CABLE EXTERNO A FICHA",
+        "CANTIDAD DE PINES",
+        "CODIGO OEM",
+        "CODIGO PROVEEDOR",
+        "LINEA",
+        "TIPO DE FICHA (MACHO/HEMBRA)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "VOLANTE MAGNETICO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO PROVEEDOR"
+      ]
+    }
+  },
+  "GOMAS": {
+    "GOMAS CENTRIFUGO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "GOMAS VARIAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "HERRAMIENTAS": {
+    "ALICATES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "MATERIAL"
+      ]
+    },
+    "CALIBRES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ESCALA",
+        "MATERIAL",
+        "MEDIDA (MM)",
+        "MIDE",
+        "PILA",
+        "VISOR"
+      ]
+    },
+    "CEPILLOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "MATERIAL"
+      ]
+    },
+    "COMPRESORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "AMPERAJE MÁXIMO",
+        "APTO PARA",
+        "CAPACIDAD DE BATERIAS",
+        "CAUDAL DE AIRE",
+        "DIAMETRO CILINDRO",
+        "LUZ LEDS",
+        "MEDIDA DE PRESIÓN EN NEUMÁTICOS",
+        "NIVEL DE RUIDO",
+        "PANTALLA DIGITAL",
+        "PARADA AUTOMÁTICA",
+        "PESO",
+        "POTENCIA",
+        "PRESIÓN MÁXIMA",
+        "TIEMPO DE CARGA",
+        "TIEMPO DE INFLADO",
+        "VOLTAJE"
+      ]
+    },
+    "CORTACADENA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "OEM",
+        "ORIGEN",
+        "PASO"
+      ]
+    },
+    "DESTORNILLADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "DIAMETRO (mm)",
+        "ENCASTRE DE AGARRE",
+        "LARGO (mm)",
+        "MATERIAL"
+      ]
+    },
+    "ELEVADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EXTRACTORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "DIAMETRO DE ROSCA (mm)",
+        "LONGITUD DE ROSCA (mm)",
+        "MATERIAL",
+        "MEDIDA",
+        "OEM",
+        "ORIGEN",
+        "PASO",
+        "SENTIDO ROSCA"
+      ]
+    },
+    "HERRAMIENTAS NEUMATICAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CONEXIÓN DE AIRE",
+        "CONSUMO DE AIRE",
+        "ENCASTRE DE AGARRE",
+        "PRESION DE AIRE",
+        "TORQUE MAXIMO",
+        "VELOCIDAD"
+      ]
+    },
+    "JUEGO DE HERRAMIENTAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "ENCASTRE DE AGARRE",
+        "MATERIAL",
+        "MEDIDA"
+      ]
+    },
+    "LLAVE SACA BUJIAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "DIAMETRO (mm)",
+        "ENCASTRE DE AGARRE",
+        "MATERIAL",
+        "OEM",
+        "ORIGEN"
+      ]
+    },
+    "LLAVES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "ENCASTRE DE AGARRE",
+        "LARGO (mm)",
+        "MATERIAL",
+        "MEDIDA",
+        "ORIGEN"
+      ]
+    },
+    "MARTILLOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "MATERIAL"
+      ]
+    },
+    "MEDICION ELECTRICA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ACA",
+        "DCA",
+        "DESCRIPCION 2",
+        "OBSERVACIONES",
+        "OEM",
+        "OHM",
+        "VOLTAJE AC",
+        "VOLTAJE DC"
+      ]
+    },
+    "PALANCAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "OEM",
+        "ORIGEN"
+      ]
+    },
+    "PINZAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DESCRIPCION 2",
+        "LARGO (mm)",
+        "MATERIAL"
+      ]
+    },
+    "TALLER/USO PROFESIONAL": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ACOPLE",
+        "BATERÍAS",
+        "DESCRIPCION 2",
+        "DIAMETRO (mm)",
+        "EAN",
+        "ENCASTRE DE AGARRE",
+        "ENTRADA DE AIRE",
+        "MATERIAL",
+        "MATERIAL DE PISTOLA",
+        "MEDIDA",
+        "OEM",
+        "ORIGEN",
+        "PANTALLA",
+        "PASO",
+        "RANGO DE PRECISIÓN",
+        "RANGO DE PRESIÓN"
+      ]
+    },
+    "TORQUIMETROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ENCASTRE DE AGARRE",
+        "LARGO (mm)",
+        "MATERIAL",
+        "TORQUE MAXIMO"
+      ]
+    },
+    "TUBOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ENCASTRE DE AGARRE",
+        "MEDIDA"
+      ]
+    }
+  },
+  "INDUMENTARIA": {
+    "BARBIJOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "CALZADOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "IMPERMEABILIDAD",
+        "MATERIAL",
+        "MATERIAL EXTERIOR",
+        "MATERIAL INTERIOR",
+        "MODELO",
+        "ORIGEN",
+        "Observaciones",
+        "TALLE"
+      ]
+    },
+    "CAMPERAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO DE HOMBROS (CM)",
+        "ANCHO DE PECHO (CM)",
+        "CINTURA (CM)",
+        "COLOR",
+        "COLUMNA DE AGUA (MM)",
+        "GÉNERO",
+        "IMPERMEABILIDAD",
+        "INTERIOR TÉRMICO",
+        "LARGO DE ESPALDA (CM)",
+        "LARGO DE MANGA (CM)",
+        "LARGO FRONTAL (CM)",
+        "MATERIAL",
+        "MATERIAL EXTERNO",
+        "MATERIAL INTERNO",
+        "MODELO",
+        "OBSERVACIÓN",
+        "ORIGEN",
+        "PROTECCIÓN",
+        "PROTECCIÓN CODOS",
+        "PROTECCIÓN ESPALDA",
+        "PROTECCIÓN HOMBROS",
+        "PUÑO DE MANGA (CM)",
+        "REFLECTIVO",
+        "SISTEMA DE AJUSTES EN BRAZOS",
+        "SISTEMA DE AJUSTES EN CADERA",
+        "TALLE",
+        "TEMPORADA",
+        "USO",
+        "VELCROS",
+        "VENTILACIÓN"
+      ]
+    },
+    "CODERA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "BICEPS (CM)",
+        "COLOR",
+        "GÉNERO",
+        "IMPERMEABILIDAD",
+        "INTERIOR TÉRMICO",
+        "MATERIAL",
+        "MODELO",
+        "OBSERVACIÓN",
+        "ORIGEN",
+        "PROTECCIÓN",
+        "PROTECCIÓN CODOS",
+        "REFLECTIVO",
+        "TALLE",
+        "TEMPORADA",
+        "USO",
+        "VELCROS",
+        "VENTILACIÓN"
+      ]
+    },
+    "CUBREMANOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "GRAMAGE (mm)",
+        "IMPERMEABILIDAD",
+        "MATERIAL",
+        "MATERIAL EXTERIOR",
+        "MATERIAL INTERIOR",
+        "OBSERVACIÓN",
+        "ORIGEN",
+        "Observaciones",
+        "REFLECTIVO",
+        "TALLE",
+        "TEMPORADA",
+        "USO",
+        "VELCROS"
+      ]
+    },
+    "GUANTES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "CONTORNO DE PALMA (CM)",
+        "DESCRIPCIÓN2",
+        "GÉNERO",
+        "IMPERMEABILIDAD",
+        "MATERIAL",
+        "MODELO",
+        "ORIGEN",
+        "PROTECCIÓN",
+        "REFLECTIVO",
+        "TALLE",
+        "TECNOLOGÍA SMART TOUCH",
+        "TEMPORADA",
+        "USO",
+        "VELCROS"
+      ]
+    },
+    "PANTALONES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ACABADO DEL RUEDO (CM)",
+        "CADERA (CM)",
+        "CINTURA (CM)",
+        "COLOR",
+        "GÉNERO",
+        "IMPERMEABILIDAD",
+        "INTERIOR TÉRMICO",
+        "LARGO ENTREPIERNAS (CM)",
+        "LARGO FRONTAL (CM)",
+        "MATERIAL",
+        "MATERIAL EXTERIOR",
+        "MATERIAL EXTERNO",
+        "MATERIAL INTERIOR",
+        "MATERIAL INTERNO",
+        "MODELO",
+        "OBSERVACIÓN",
+        "ORIGEN",
+        "Observaciones",
+        "PARTE SUPERIOR DE PIERNA (CM)",
+        "PROTECCIÓN",
+        "PROTECCIÓN CADERA",
+        "PROTECCIÓN RODILLAS",
+        "REFLECTIVO",
+        "SISTEMA DE AJUSTES EN CADERA",
+        "TALLE",
+        "TEMPORADA",
+        "TIRO (CM)",
+        "USO",
+        "VELCROS",
+        "VENTILACIÓN"
+      ]
+    },
+    "POLAINAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "GRAMAGE (mm)",
+        "IMPERMEABILIDAD",
+        "MATERIAL",
+        "MATERIAL EXTERIOR",
+        "MATERIAL INTERIOR",
+        "ORIGEN",
+        "Observaciones",
+        "TALLE",
+        "VELCROS"
+      ]
+    },
+    "RODILLERA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "CONTORNO DE LA PIERNA (13 CM DESDE LA RODILLA PARA ARRIBA)",
+        "CONTORNO DE LA PIERNA (3 CM DESDE LA RODILLA PARA ARRIBA)",
+        "GÉNERO",
+        "IMPERMEABILIDAD",
+        "INTERIOR TÉRMICO",
+        "MATERIAL",
+        "MODELO",
+        "OBSERVACIÓN",
+        "ORIGEN",
+        "PROTECCIÓN",
+        "PROTECCIÓN CODOS",
+        "REFLECTIVO",
+        "TALLE",
+        "TEMPORADA",
+        "USO",
+        "VELCROS",
+        "VENTILACIÓN"
+      ]
+    },
+    "SHORT": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CADERA (CM)",
+        "CINTURA (CM)",
+        "COLOR",
+        "IMPERMEABILIDAD",
+        "MATERIAL",
+        "MATERIAL INTERNO",
+        "OBSERVACIÓN",
+        "ORIGEN",
+        "PROTECCIÓN",
+        "PROTECCIÓN CADERA",
+        "REFLECTIVO",
+        "TALLE",
+        "TEMPORADA",
+        "VELCROS"
+      ]
+    },
+    "TRAJES DE LLUVIA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "GRAMAGE (mm)",
+        "IMPERMEABILIDAD",
+        "MATERIAL",
+        "MATERIAL EXTERIOR",
+        "MATERIAL INTERIOR",
+        "MODELO",
+        "ORIGEN",
+        "Observaciones",
+        "REFLECTIVO",
+        "TALLE",
+        "VELCROS"
+      ]
+    }
+  },
+  "KIT DE VENTA": {
+    "CAJA DE BUJIA": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": []
+    },
+    "CUBIERTAS + CAMARAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO",
+        "ANCHO (mm)",
+        "ANCHO DELANTERA (mm)",
+        "ANCHO TRASERA (mm)",
+        "CANTIDAD DE TELAS",
+        "CLASE DE VEHICULO",
+        "CODIFICACION",
+        "CODIFICACION DELANTERA",
+        "CODIFICACION TRASERA",
+        "COMP1",
+        "COMP2",
+        "CONSTRUCCION",
+        "CONSTRUCCION DELANTERA",
+        "CONSTRUCCION TRASERA",
+        "INDICE DE CARGA",
+        "INDICE DE CARGA DELANTERA",
+        "INDICE DE CARGA TRASERA",
+        "INDICE DE VELOCIDAD",
+        "INDICE DE VELOCIDAD DELANTERA",
+        "INDICE DE VELOCIDAD TRASERA",
+        "MEDIDA",
+        "MEDIDA DELANTERA",
+        "MEDIDA TRASERA",
+        "MODELO",
+        "MONTAJE",
+        "ORIGEN",
+        "POSICION",
+        "RELACION DE ASPECTO",
+        "RELACION DE ASPECTO (mm)",
+        "RELACION DE ASPECTO DELANTERA (mm)",
+        "RELACION DE ASPECTO TRASERA (mm)",
+        "RODADO",
+        "RODADO DELANTERA",
+        "RODADO TRASERA",
+        "TIPO DE SUELO",
+        "TIPO DE TERRENO",
+        "USO"
+      ]
+    },
+    "JUEGO DE CAMARAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APTO PARA MEDIDAS DE CUBIERTA",
+        "MATERIAL",
+        "MEDIDA",
+        "RODADO",
+        "TIPO DE PICO (DIN)",
+        "TIPO DE PICO (ETRTO)",
+        "TIPO DE PICO (TRA)"
+      ]
+    },
+    "JUEGO DE FILTROS": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": []
+    },
+    "JUEGO FAROS Y FAROLES DE GIRO": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": []
+    },
+    "JUEGO TRAJES DE LLUVIA": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": []
+    },
+    "JUEGOS/LIOS DE CUBIERTAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "% ON/OFF",
+        "ACTIVIDAD",
+        "ALTURA TOTAL",
+        "ALTURA TOTAL (mm)",
+        "ANCHO",
+        "ANCHO (mm)",
+        "ANCHO DELANTERA",
+        "ANCHO DELANTERA (mm)",
+        "ANCHO TRASERA",
+        "ANCHO TRASERA (mm)",
+        "CLASE DE VEHICULO",
+        "CODIFICACION",
+        "CODIFICACION DELANTERA",
+        "CODIFICACION TRASERA",
+        "COMP1",
+        "COMP2",
+        "CONSTRUCCION",
+        "CONSTRUCCION DELANTERA",
+        "CONSTRUCCION TRASERA",
+        "DUREZA TERRENO",
+        "INDICE DE CARGA",
+        "INDICE DE CARGA DELANTERA",
+        "INDICE DE CARGA TRASERA",
+        "INDICE DE VELOCIDAD",
+        "INDICE DE VELOCIDAD DELANTERA",
+        "INDICE DE VELOCIDAD TRASERA",
+        "MEDIDA",
+        "MEDIDA DELANTERA",
+        "MEDIDA TRASERA",
+        "MODELO",
+        "MONTAJE",
+        "MONTAJE DELANTERA",
+        "MONTAJE TRASERA",
+        "ORIGEN",
+        "POSICION",
+        "RELACION DE ASPECTO",
+        "RELACION DE ASPECTO (mm)",
+        "RELACION DE ASPECTO DELANTERA",
+        "RELACION DE ASPECTO DELANTERA (mm)",
+        "RELACION DE ASPECTO TRASERA",
+        "RELACION DE ASPECTO TRASERA (mm)",
+        "RODADO",
+        "RODADO DELANTERA",
+        "RODADO TRASERA",
+        "TIPO DE SUELO",
+        "TIPO DE TERRENO",
+        "USO"
+      ]
+    },
+    "KIT DE TRANSMISIÓN": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "CANTIDAD AGUJEROS SUJECION CORONA",
+        "CANTIDAD AGUJEROS SUJECION PIÑON",
+        "CANTIDAD DIENTES CORONA",
+        "CANTIDAD DIENTES PIÑON",
+        "CANTIDAD ESLABONES CADENA",
+        "CANTIDAD ESTRIAS",
+        "COLOR",
+        "DIAMETRO AGUJEROS CORONA (mm)",
+        "DIAMETRO AGUJEROS PIÑON (mm)",
+        "DIAMETRO CENTRO CORONA (mm)",
+        "DIAMETRO EXTERNO ESTRIA (mm)",
+        "DIAMETRO INTERNO ESTRIA (mm)",
+        "DISTANCIA AJUGEROS SUJECION PIÑON (mm)",
+        "DISTANCIA ENTRE CENTROS DE AGUJEROS SUJECION CORONA (mm)",
+        "ESPESOR PIÑON (mm)",
+        "LINEA",
+        "MATERIAL",
+        "ORIGEN",
+        "PASO",
+        "SELLO",
+        "TIPO DE UNION",
+        "TIPO SELLO"
+      ]
+    }
+  },
+  "LAMPARAS": {
+    "LAMPARAS DELANTERAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "BASE",
+        "CODIGO PHILIPS",
+        "EAN1",
+        "EAN3",
+        "LINEA",
+        "MODELO",
+        "ORIGEN",
+        "POTENCIA (w)",
+        "TECNOLOGIA",
+        "TEMPERATURA DE COLOR (k)",
+        "VOLTAJE (v)"
+      ]
+    },
+    "LAMPARAS SIN CULOTE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "BASE",
+        "CODIGO PHILIPS",
+        "EAN1",
+        "EAN3",
+        "LINEA",
+        "MODELO",
+        "ORIGEN",
+        "POTENCIA (w)",
+        "TECNOLOGIA",
+        "VOLTAJE (v)"
+      ]
+    },
+    "LAMPARAS STOP/GIRO/POS. 1 POLO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "BASE",
+        "CODIGO PHILIPS",
+        "EAN1",
+        "EAN3",
+        "LINEA",
+        "MODELO",
+        "ORIGEN",
+        "POTENCIA (w)",
+        "TECNOLOGIA",
+        "VOLTAJE (v)"
+      ]
+    },
+    "LAMPARAS STOP/GIRO/POS. 2 POLO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "BASE",
+        "CODIGO PHILIPS",
+        "EAN1",
+        "EAN3",
+        "LINEA",
+        "MODELO",
+        "ORIGEN",
+        "POTENCIA (w)",
+        "TECNOLOGIA",
+        "VOLTAJE (v)"
+      ]
+    },
+    "LED": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "BASE",
+        "CODIGO PHILIPS",
+        "CONSTRUCCION CHIP",
+        "EAN1",
+        "EAN3",
+        "LINEA",
+        "LUMENES (lm)",
+        "MODELO",
+        "ORIGEN",
+        "POTENCIA (w)",
+        "TECNOLOGIA",
+        "TEMPERATURA DE COLOR (k)",
+        "VOLTAJE (v)"
+      ]
+    }
+  },
+  "LUBRICANTES": {
+    "LIMPIADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "DESCRIPCION2",
+        "ENVASE",
+        "ORIGEN",
+        "RUBRO"
+      ]
+    },
+    "LUBRICANTES 2 TIEMPOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "API",
+        "APLICACIÓN",
+        "BASE",
+        "CANTCAJA",
+        "COLOR",
+        "DENSIDAD A 20°C (68°F)",
+        "DESCRIPCION2",
+        "ENVASE",
+        "ISO",
+        "JASO",
+        "LINEA",
+        "MEZCLA DESDE",
+        "MEZCLA HASTA",
+        "ORIGEN",
+        "PUNTO DE INFLAMACIÓN",
+        "RUBRO",
+        "TBN",
+        "TECNOLOGIA",
+        "VISCOSIDAD A 100°C (212°F)",
+        "VISCOSIDAD A 40°C (104°F)",
+        "ÍNDICE DE VISCOSIDAD"
+      ]
+    },
+    "LUBRICANTES 4 TIEMPOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "API",
+        "APLICACIÓN",
+        "BASE",
+        "CANTCAJA",
+        "CCS A -15°C",
+        "CCS A -20°C",
+        "COLOR",
+        "DENSIDAD A 15°C",
+        "DENSIDAD A 20°C (68°F)",
+        "DESCRIPCION2",
+        "ENVASE",
+        "ESPUMA SEC I",
+        "GRADO",
+        "GRADO S",
+        "GRADO W",
+        "INTERVALO DE CAMBIO",
+        "JASO",
+        "LINEA",
+        "ORIGEN",
+        "PUNTO DE CONGELACIÓN",
+        "PUNTO DE FLUIDEZ",
+        "PUNTO DE INFLAMACIÓN",
+        "RUBRO",
+        "TBN",
+        "TECNOLOGIA",
+        "TERMPERATURA OPERACION",
+        "VISCOSIDAD A 100°C (212°F)",
+        "VISCOSIDAD A 40°C (104°F)",
+        "ÍNDICE DE VISCOSIDAD"
+      ]
+    },
+    "LUBRICANTES CADENAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "DESCRIPCION2",
+        "ENVASE",
+        "ORIGEN",
+        "RUBRO"
+      ]
+    },
+    "LUBRICANTES CAJAS Y DIFERENCIALES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "API",
+        "APLICACIÓN",
+        "BASE",
+        "CANTCAJA",
+        "DENSIDAD A 20°C (68°F)",
+        "DESCRIPCION2",
+        "ENVASE",
+        "GRADO",
+        "GRADO S",
+        "GRADO W",
+        "LINEA",
+        "ORIGEN",
+        "PUNTO DE CONGELACIÓN",
+        "PUNTO DE INFLAMACIÓN",
+        "RUBRO",
+        "TECNOLOGIA",
+        "VISCOSIDAD A 100°C (212°F)",
+        "VISCOSIDAD A 40°C (104°F)",
+        "ÍNDICE DE VISCOSIDAD"
+      ]
+    },
+    "LUBRICANTES CENTRIFUGO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ENVASE",
+        "GRADO",
+        "GRADO S",
+        "GRADO W"
+      ]
+    },
+    "LUBRICANTES CERRADURAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CONTENIDO",
+        "ENVASE"
+      ]
+    },
+    "LUBRICANTES COMPETICION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "API",
+        "APLICACIÓN",
+        "BASE",
+        "CANTCAJA",
+        "COLOR",
+        "DENSIDAD A 20°C (68°F)",
+        "DESCRIPCION2",
+        "ENVASE",
+        "GRADO",
+        "GRADO S",
+        "GRADO W",
+        "JASO",
+        "LINEA",
+        "MEZCLA DESDE",
+        "MEZCLA HASTA",
+        "ORIGEN",
+        "PUNTO DE CONGELACIÓN",
+        "PUNTO DE INFLAMACIÓN",
+        "RUBRO",
+        "TECNOLOGIA",
+        "VISCOSIDAD A 100°C (212°F)",
+        "VISCOSIDAD A 25°C",
+        "VISCOSIDAD A 40°C (104°F)",
+        "ÍNDICE DE VISCOSIDAD"
+      ]
+    },
+    "LUBRICANTES FILTROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "DENSIDAD A 20°C (68°F)",
+        "ENVASE",
+        "ORIGEN",
+        "PUNTO DE INFLAMACIÓN",
+        "VISCOSIDAD A 40°C (104°F)"
+      ]
+    },
+    "LUBRICANTES FRENOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ENVASE",
+        "ISO",
+        "ORIGEN",
+        "PUNTO EBULLICION HUMEDO",
+        "PUNTO EBULLICION SECO",
+        "RECAMBIO",
+        "VISCOSIDAD",
+        "VISCOSIDAD A 40°C (104°F)"
+      ]
+    },
+    "LUBRICANTES GRASAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "COLOR",
+        "DESCRIPCION",
+        "ENVASE",
+        "LINEA",
+        "RUBRO"
+      ]
+    },
+    "LUBRICANTES HIDRAULICO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "ENVASE",
+        "GRADO",
+        "GRADO W",
+        "LINEA",
+        "ORIGEN",
+        "RUBRO"
+      ]
+    },
+    "LUBRICANTES MAXIMA COMPRESION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ENVASE"
+      ]
+    },
+    "LUBRICANTES MULTIUSO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "COLOR",
+        "COMPOSICIÓN",
+        "DESCRIPCION",
+        "ENVASE",
+        "LINEA",
+        "ORIGEN",
+        "PUNTO DE INFLAMACIÓN",
+        "RESISTENCIA",
+        "RUBRO"
+      ]
+    },
+    "LUBRICANTES NAUTICA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "API",
+        "APLICACIÓN",
+        "BASE",
+        "CANTCAJA",
+        "ENVASE",
+        "GRADO",
+        "GRADO S",
+        "GRADO W",
+        "LINEA",
+        "ORIGEN",
+        "RUBRO",
+        "TECNOLOGIA"
+      ]
+    },
+    "LUBRICANTES REFRIGENTANTE-ANTICONGELANTE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "COLOR",
+        "DENSIDAD A 15°C",
+        "ENVASE",
+        "INICIO CRISTALIZACION",
+        "ORIGEN",
+        "PH",
+        "PUNTO EBULLICION HUMEDO"
+      ]
+    },
+    "LUBRICANTES SUSPENSION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "CANTCAJA",
+        "COLOR",
+        "DENSIDAD A 15°C",
+        "ENVASE",
+        "GRADO",
+        "GRADO W",
+        "LINEA",
+        "ORIGEN",
+        "PUNTO DE CONGELACIÓN",
+        "PUNTO DE ESCURRIMIENTO",
+        "RUBRO",
+        "TECNOLOGIA",
+        "VISCOSIDAD",
+        "VISCOSIDAD A 100°C (212°F)",
+        "VISCOSIDAD A 40°C (104°F)",
+        "ÍNDICE DE VISCOSIDAD"
+      ]
+    },
+    "MOTORES ESTACIONARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ENVASE"
+      ]
+    }
+  },
+  "MANUBRIOS Y COMPONENTES": {
+    "COMANDO Y MANGO ACELERADOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "LINEA",
+        "MATERIAL",
+        "MODELO"
+      ]
+    },
+    "ELEVADORES Y ADAPTADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "COLOR",
+        "DIAMETRO INTERNO (mm)",
+        "LINEA",
+        "MATERIAL",
+        "MODELO"
+      ]
+    },
+    "JUEGO PUÑOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "DESCRIPCION 2",
+        "DIAMETRO INTERNO (mm)",
+        "LARGO (mm)",
+        "LINEA",
+        "MATERIAL",
+        "MODELO",
+        "TERMINACION"
+      ]
+    },
+    "MANUBRIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "BRAZO (mm)",
+        "COLOR",
+        "DESCRIPCION 2",
+        "DIAMETRO INTERNO (mm)",
+        "ESPESOR (mm)",
+        "INCLUYE",
+        "LARGO (mm)",
+        "LINEA",
+        "MATERIAL",
+        "MODELO",
+        "MOLETA (mm)",
+        "PULLBACK (mm)",
+        "TERMINACION"
+      ]
+    },
+    "TRAVESAÑOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "LARGO (mm)",
+        "LINEA",
+        "MATERIAL",
+        "MODELO"
+      ]
+    }
+  },
+  "PARTES CUADRO": {
+    "AGARRAMANOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA (CM)",
+        "ANCHO (CM)",
+        "CODIGO:",
+        "COLOR",
+        "LARGO (CM)",
+        "MATERIAL: METAL",
+        "OBSERVACIONES",
+        "ORIGEN",
+        "PESO KG",
+        "PIEZAS",
+        "POSICION"
+      ]
+    },
+    "ARCOS POSAPIE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "CABALLETES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "EJES CABALLETE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "HORQUILLONES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "LLAVEROS DE CONTACTO-CERRADURA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD DE PINES",
+        "COMPONENTES",
+        "FORMA DE FICHA"
+      ]
+    },
+    "MULETAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PASAPIE-PEDALINES-OTROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA (CM)",
+        "ANCHO (CM)",
+        "CODIGO:",
+        "COLOR",
+        "LARGO (CM)",
+        "MATERIAL: METAL",
+        "OBSERVACIONES",
+        "ORIGEN",
+        "PESO KG",
+        "PIEZAS",
+        "POSICION"
+      ]
+    },
+    "PEDALES DE FRENO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PLASTICOS CARENADOS - VARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PLASTICOS HORQUILLA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "SOPORTES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA (CM)",
+        "ANCHO (CM)",
+        "CODIGO",
+        "COLOR",
+        "COMPONENTES",
+        "DIAMETRO INTERNO (mm)",
+        "LARGO (CM)",
+        "LINEA",
+        "MATERIAL",
+        "MODELO",
+        "OBSERVACIONES",
+        "ORIGEN",
+        "PESO KG",
+        "PIEZAS",
+        "POSICION"
+      ]
+    },
+    "VARILLAS DE FRENO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "PARTES MOTOR": {
+    "ARANDELAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "BIELAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO OEM",
+        "DIAMETRO MUÑON (mm)",
+        "DIAMETRO PERNO (mm)",
+        "DISTANCIA ENTRE CENTROS (mm)",
+        "LARGO MUÑON (mm)",
+        "OJO MUÑON (mm)",
+        "OJO PERNO (mm)",
+        "ORIGEN",
+        "PIE DE BIELA (MUÑON) (mm)"
+      ]
+    },
+    "BULBOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "CADENAS DISTRIBUCION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD DE ESLABONES",
+        "DESCRIPCION2",
+        "OEM GAS GAS",
+        "OEM KTM",
+        "PASO"
+      ]
+    },
+    "CAJAS DE CAMBIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD DE MARCHAS",
+        "CANTIDAD ENGRANAJES EJE PRIMARIO",
+        "CANTIDAD ENGRANAJES EJE SECUNDARIO",
+        "DIAMETRO EJE PRIMARIO (mm)",
+        "DIAMETRO EJE SECUNDARIO (mm)",
+        "ESTRIA PIÑON",
+        "LARGO EJE PRIMARIO (mm)",
+        "LARGO EJE SECUNDARIO (mm)",
+        "ORIGEN",
+        "TIPO DE CAJA",
+        "TRANSMISION"
+      ]
+    },
+    "CARBURADOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "BOMBA DE PIQUE",
+        "CODIGO KIT DE REPARACION",
+        "DIAFRAGMA",
+        "DIAMETRO CORTINA (mm)",
+        "DIAMETRO EXTERNO TOMA DE AIRE (mm)",
+        "DIAMETRO INTERNO CONDUCTO ADMISION (mm)",
+        "DISTANCIA ENTRE AGUJEROS (mm)",
+        "GICLER DE ALTA",
+        "GICLER DE BAJA",
+        "LINEA",
+        "ORIGEN",
+        "POWER JET",
+        "TIPO DE CEBADOR",
+        "TIPO DE CORTINA"
+      ]
+    },
+    "CIGÜEÑALES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CARRERA CIGÜEÑAL",
+        "DESCRIPCION1",
+        "DESCRIPCION2",
+        "ENGRANAJE ARBOL DE LEVA (Z)",
+        "ENTRECENTRO BIELA (MM)",
+        "LONGITUD LADO EMBRAGUE (MM)",
+        "LONGITUD LADO VOLANTE (MM)",
+        "MUÑON BIELA (MM)",
+        "OEM",
+        "OJO BIELA (MM)",
+        "ORIGEN",
+        "PIÑON DISTRIBUCION (Z)",
+        "RULEMAN BANCADA",
+        "TORTA CIGÌEÑAL (MM)",
+        "TORTA CIGÜEÑAL (MM)"
+      ]
+    },
+    "CILINDROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ABSORCIÓN DEL ACEITE",
+        "ALTURA COMPRESION A (mm)",
+        "ALTURA COMPRESION B (mm)",
+        "ALTURA EFECTIVA CILINDRO (mm)",
+        "ALTURA TOTAL CILINDRO (mm)",
+        "ALTURA TOTAL PISTON (mm)",
+        "ANCHO ARO COMPRESION 1 (mm)",
+        "ANCHO ARO COMPRESION 2 (mm)",
+        "ANCHO ARO RASCADOR (mm)",
+        "AUMENTO DE DIAMETRO",
+        "CADENERO/VARILLERO",
+        "CANTIDAD DE AROS",
+        "CARRERA",
+        "CARRERA (mm)",
+        "CARRERA DE PISTON (mm)",
+        "CILINDRADA (cc)",
+        "CODIGO EAN",
+        "CODIGO JUEGO DE JUNTAS CABEZA CILINDRO",
+        "CODIGO KIT PISTON A",
+        "CODIGO KIT PISTON B",
+        "CODIGO KIT PISTON C",
+        "COMPONENTES",
+        "DIAMETRO EXTERNO CAMISA (mm)",
+        "DIAMETRO EXTERNO PERNO DE PISTON (mm)",
+        "DIAMETRO INTERNO CAMISA (mm)",
+        "DIAMETRO INTERNO CONDUCTO TENSOR CADENA (mm)",
+        "DIAMETRO INTERNO PERNO DE PISTON (mm)",
+        "DIAMETRO PISTON (mm)",
+        "DISTANCIA ENTRE AGUJEROS CONDUCTO TENSOR CADENA (mm)",
+        "FORMA CABEZA PISTON",
+        "INDICE COMPRESION",
+        "LARGO PERNO DE PISTON (mm)",
+        "LIMITE DE TEMPERATURA (°C)",
+        "LINEA",
+        "MATERIAL",
+        "MATERIAL JUNTA BASE CILINDRO",
+        "MATERIAL JUNTA TAPA CILINDRO",
+        "ORIGEN",
+        "POTENCIA (hp)",
+        "SELLABILIDAD (ML/H)",
+        "TIPO MOTOR",
+        "TORQUE"
+      ]
+    },
+    "CONJUNTO DE VALVULAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANGULO DE ASIENTO (Admision)",
+        "ANGULO DE ASIENTO (Escape)",
+        "CABEZA PLANA (Admision)",
+        "CABEZA PLANA (Escape)",
+        "CHAVETERO (Admision)",
+        "CHAVETERO (Escape)",
+        "CODIGO EATON (Admision)",
+        "CODIGO EATON (Escape)",
+        "CODIGO EDIVAL (Admision)",
+        "CODIGO EDIVAL (Escape)",
+        "CODIGO KS BRASIL",
+        "CODIGO KS BRASIL (Admision)",
+        "CODIGO KS BRASIL (Escape)",
+        "CODIGO METALURGICA RIOSULEN",
+        "CODIGO METALURGICA RIOSULEN (Admision)",
+        "CODIGO METALURGICA RIOSULEN (Escape)",
+        "CODIGO OEM",
+        "CODIGO OEM (Admision)",
+        "CODIGO OEM (Escape)",
+        "DESCRIPCION2",
+        "DIAMETRO CABEZA ADMISION (mm)",
+        "DIAMETRO CABEZA ESCAPE (mm)",
+        "DIAMETRO VASTAGO ADMISION (mm)",
+        "DIAMETRO VASTAGO ESCAPE (mm)",
+        "LARGO PUNTA ADMISION (mm)",
+        "LARGO PUNTA ESCAPE (mm)",
+        "LARGO TOTAL ADMISION (mm)",
+        "LARGO TOTAL ESCAPE (mm)",
+        "LINEA",
+        "REBAJE VASTAGO (Admision)",
+        "REBAJE VASTAGO (Escape)"
+      ]
+    },
+    "EMBRAGUES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "CANTIDAD DE DISCOS",
+        "CANTIDAD DE DISCOS SEPARADORES",
+        "CANTIDAD DE ESTRIAS",
+        "CARACTERISTICAS",
+        "DIAMETRO EXTERNO DISCOS (mm)",
+        "DIAMETRO EXTERNO ESTRIA DISCOS (mm)",
+        "DIAMETRO INTERNO DISCOS (mm)",
+        "DIAMETRO INTERNO ENGRANAJE DE CANASTA (mm)",
+        "ESPESOR DE DISCOS (mm)",
+        "ESPESOR DE DISCOS SEPARADORES (mm)",
+        "MATERIAL"
+      ]
+    },
+    "EMBRAGUES Y CAMPANAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ACOPLE INTERIOR (mm)",
+        "ALTO TOTAL",
+        "CANTIDAD DE ESTRIAS CAMPANA",
+        "DIAMETRO EXTERNO CAMPANA (mm)",
+        "DIAMETRO EXTERNO EMBRAGUE (mm)",
+        "DIAMETRO INTERNO CAMPANA (mm)",
+        "DIAMETRO INTERNO EMBRAGUE (mm)",
+        "DIAMETROEXTERNO CAMPANA (mm)",
+        "ESPESOR (mm)"
+      ]
+    },
+    "FILTROS DE ACEITE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "CODIGO BOSCH",
+        "CODIGO DICKSON",
+        "CODIGO FRAM",
+        "CODIGO HASTING",
+        "CODIGO HIFLOFILTRO",
+        "CODIGO MAHLE",
+        "CODIGO MANN",
+        "CODIGO OEM",
+        "CODIGO TECFIL",
+        "CODIGO WEGA",
+        "DESCRIPCION2",
+        "DIAMETRO EXTERNO (mm)",
+        "DIAMETRO INTERNO (mm)",
+        "JUNTA",
+        "ROSCA",
+        "TIPO DE FILTRO"
+      ]
+    },
+    "FILTROS DE AIRE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "ANCHO (mm)",
+        "CODIGO BOSCH",
+        "CODIGO FRAM",
+        "CODIGO HIFLOFILTRO",
+        "CODIGO MANN",
+        "CODIGO OEM",
+        "CODIGO TECFIL",
+        "CODIGO WEGA",
+        "DESCRIPCION2",
+        "DIAMETRO EXTERNO (mm)",
+        "DIAMETRO INTERNO (mm)",
+        "LARGO (mm)",
+        "TIPO DE FILTRO"
+      ]
+    },
+    "FILTROS DE COMBUSTIBLE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "CODIGO FRAM",
+        "CODIGO MANN",
+        "CODIGO OEM",
+        "DIAMETRO EXTERNO (mm)",
+        "PICOS",
+        "TIPO DE FILTRO"
+      ]
+    },
+    "GUIAS DE VALVULA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUEGO AROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ARO COMPRESION 1 (mm)",
+        "ANCHO ARO COMPRESION 2 (mm)",
+        "ANCHO ARO RASCADOR (mm)",
+        "CANTIDAD DE AROS",
+        "CILINDRADA (cc)",
+        "LINEA",
+        "ORIGEN"
+      ]
+    },
+    "JUNTAS CABEZA CILINDRO (Juego)": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CADENERO/VARILLERO",
+        "MATERIAL",
+        "ORIGEN"
+      ]
+    },
+    "JUNTAS DE ADMISION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE ALTERNADOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE BASE DE CILINDROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE CARTER": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE EMBRAGUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE ENCENDIDO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE ESCAPE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE MOTOR COMPLETO (Juego)": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "MATERIAL",
+        "ORIGEN"
+      ]
+    },
+    "JUNTAS DE TAPA ARBOL DE LEVAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE TAPA DE CABEZA DE CILINDROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE TAPA DE CENTRIFUGO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE TAPA DE CILINDROS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE TAPA DE DISTRIBUCION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE TAPA DE ENCENDIDO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUNTAS DE TAPA DE VALVULAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CODIGO OEM",
+        "DESCRIPCIÓN",
+        "MATERIAL",
+        "ORIGEN"
+      ]
+    },
+    "KIT DE PISTON": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA COMPRESION A (mm)",
+        "ALTURA COMPRESION B (mm)",
+        "ALTURA TOTAL PISTON (mm)",
+        "ANCHO ARO COMPRESION 1 (mm)",
+        "ANCHO ARO COMPRESION 2 (mm)",
+        "ANCHO ARO RASCADOR (mm)",
+        "AUMENTO DE DIAMETRO",
+        "BULON DE PISTON",
+        "CANTIDAD DE AROS",
+        "CILINDRADA (cc)",
+        "CODIGO JUEGO DE JUNTAS CABEZA CILINDRO",
+        "CODIGO KIT PISTON A",
+        "CODIGO KIT PISTON B",
+        "CODIGO KIT PISTON C",
+        "COMPONENTES",
+        "DIAMETRO EXTERNO PERNO DE PISTON (mm)",
+        "DIAMETRO INTERNO PERNO DE PISTON (mm)",
+        "DIAMETRO PISTON (mm)",
+        "FORMA CABEZA PISTON",
+        "INDICE COMPRESION",
+        "LARGO PERNO DE PISTON (mm)",
+        "LINEA",
+        "ORIGEN",
+        "TIPO MOTOR"
+      ]
+    },
+    "KIT DE REPARACION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "GICLER DE ALTA",
+        "GICLER DE BAJA",
+        "ORIGEN"
+      ]
+    },
+    "KIT DISTRIBUCION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CADENA DISTRIBUCION",
+        "ENGRANAJE 1",
+        "ENGRANAJE 2",
+        "FLAUTIN",
+        "GOMAS",
+        "RESORTES",
+        "RUEDA"
+      ]
+    },
+    "KIT EMBRAGUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "CANTIDAD DE DISCOS",
+        "CANTIDAD DE DISCOS SEPARADORES",
+        "CANTIDAD DE ESTRIAS",
+        "CANTIDAD DIENTES ENGRANAJE DE CANASTA",
+        "CANTIDAD ESTRIA GUIA EJE",
+        "CANTIDAD RESORTES",
+        "CANTIDAD TORNILLOS",
+        "CARACTERISTICAS",
+        "DESCRIPCION",
+        "DESCRIPCION 2",
+        "DIAMETRO ESTRIA GUIA EJE (mm)",
+        "DIAMETRO EXTERNO DISCOS (mm)",
+        "DIAMETRO EXTERNO ESTRIA DISCOS (mm)",
+        "DIAMETRO INTERNO DISCOS (mm)",
+        "DIAMETRO INTERNO ENGRANAJE DE CANASTA (mm)",
+        "ESPESOR DE DISCOS (mm)",
+        "ESPESOR DE DISCOS SEPARADORES (mm)",
+        "PLACA DE PRESION",
+        "RESORTE DE DIAFRAGMA"
+      ]
+    },
+    "ORING": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "SEGUROS PIÑON": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "SEPARADOR DISCO EMBRAGUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "CANTIDAD DE DISCOS",
+        "CANTIDAD DE ESTRIAS",
+        "DIAMETRO EXTERNO DISCOS (mm)",
+        "DIAMETRO EXTERNO ESTRIA DISCOS (mm)",
+        "DIAMETRO INTERNO DISCOS (mm)",
+        "ESPESOR DE DISCOS (mm)",
+        "MATERIAL"
+      ]
+    },
+    "TAPAS DE CILINDRO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA TAPA (mm)",
+        "BUJIA",
+        "COMPLETA",
+        "CONDUCTO DE ACEITE",
+        "CORONA DISTRIBUCION",
+        "CORONA DISTRIBUCIÓN",
+        "CÁMARA DE COMBUSTIÓN (mm)",
+        "DESCOMPRESOR",
+        "DIAMETRO TAPA DISTRIBUCIÓN (mm)",
+        "ENTRADA ADMISION (mm)",
+        "ENTRADA ADMISIÓN (mm)",
+        "ESPARRAGO ESCAPE/ADMISION",
+        "ESPARRAGO ESCAPE/ADMISIÓN",
+        "GUIA DE TAPA (mm)",
+        "GUIA TAPA (mm)",
+        "ORIGEN",
+        "RECORRIDO CADENA DISTRIBUCIÓN",
+        "SALIDA ESCAPE (mm)",
+        "TIPO DISTRIBUCIÓN",
+        "TORNILLO ADMISION/ESCAPE (mm)",
+        "TORRETA BALANCIN",
+        "USO",
+        "VALVULA ADMISIÓN (mm)",
+        "VALVULA ESCAPE (mm)"
+      ]
+    },
+    "TROMPETA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "DIAMETRO EXTERNO (mm)",
+        "DIAMETRO INTERNO (mm)",
+        "LARGO (mm)"
+      ]
+    },
+    "VALVULAS DE ADMISION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANGULO DE ASIENTO",
+        "CABEZA PLANA",
+        "CHAVETERO",
+        "CODIGO OEM",
+        "DIAMETRO CABEZA (mm)",
+        "DIAMETRO VASTAGO (mm)",
+        "LARGO (mm)",
+        "LARGO PUNTA (mm)",
+        "LINEA",
+        "MATERIAL",
+        "REBAJE VASTAGO"
+      ]
+    },
+    "VALVULAS DE ESCAPE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANGULO DE ASIENTO",
+        "CABEZA PLANA",
+        "CHAVETERO",
+        "CODIGO EATON",
+        "CODIGO EDIVAL",
+        "CODIGO KS BRASIL",
+        "CODIGO METALURGICA RIOSULEN",
+        "CODIGO OEM",
+        "DIAMETRO CABEZA (mm)",
+        "DIAMETRO VASTAGO (mm)",
+        "LARGO (mm)",
+        "LARGO PUNTA (mm)",
+        "LINEA",
+        "MATERIAL",
+        "REBAJE VASTAGO"
+      ]
+    },
+    "VARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "PARTES RUEDA": {
+    "RAYOS Y NIPLES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "ESTIRA CADENAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PASTILLAS DE FRENO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO DE PASTILLA EXTERNA (mm)",
+        "ANCHO DE PASTILLA INTERNA (mm)",
+        "ANCHO DE PASTILLAS (mm)",
+        "CODIGO FMSI",
+        "EQUIVALENCIA BOSCH",
+        "EQUIVALENCIA EBC",
+        "EQUIVALENCIA FRASLE",
+        "EQUIVALENCIA HYD",
+        "EQUIVALENCIA LITTON",
+        "EQUIVALENCIA ORA",
+        "ESPESOR DE PASTILLA EXTERNA (mm)",
+        "ESPESOR DE PASTILLA INTERNA (mm)",
+        "ESPESOR DE PASTILLAS (mm)",
+        "LARGO DE PASTILLA EXTERNA (mm)",
+        "LARGO DE PASTILLA INTERNA (mm)",
+        "LARGO DE PASTILLAS (mm)",
+        "ORIGEN"
+      ]
+    },
+    "SEGUROS CORONA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "SOPORTE PLATO FRENO TRASERO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "ZAPATAS DE FRENO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO (mm)",
+        "DIAMETRO TOTAL (mm)",
+        "EQUIVALENCIA BOSCH",
+        "ORIGEN",
+        "TIPO DE RESORTE"
+      ]
+    }
+  },
+  "PARTES TRANSMISION": {
+    "CADENAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "CANTIDAD ESLABONES CADENA",
+        "COLOR",
+        "DESCRIPCION",
+        "DIAMETRO PERNO DE CADENA (mm)",
+        "DIAMETRO RODILLO (mm)",
+        "ESPESOR PLACA EXTERNA (mm)",
+        "ESPESOR PLACA INTERNA (mm)",
+        "INDICE VIDA UTIL (Std: 100)",
+        "LARGO PERNO DE CADENA (mm)",
+        "LINEA",
+        "MAXIMA CILINDRADA RECOMENDADA USO EN PAVIMENTO (cc)",
+        "MAXIMA CILINDRADA RECOMENDADA USO EN TIERRA (cc)",
+        "ORIGEN",
+        "PASO",
+        "PESO DE 100 ESLABONES (kg)",
+        "PESO DE 100 ESLABONES (lb)",
+        "PUNTO DE RUPTURA (kn)",
+        "PUNTO DE RUPTURA (lb)",
+        "REFORZADA",
+        "SELLO",
+        "TIPO DE UNION",
+        "TIPO SELLO",
+        "USO"
+      ]
+    },
+    "CORONAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO (mm)",
+        "CANTIDAD AGUJEROS SUJECION CORONA",
+        "CANTIDAD DIENTES CORONA",
+        "COLOR",
+        "DIAMETRO AGUJEROS CORONA (mm)",
+        "DIAMETRO CENTRO CORONA (mm)",
+        "DISTANCIA ENTRE CENTROS DE AGUJEROS SUJECION CORONA (mm)",
+        "MATERIAL",
+        "PASO"
+      ]
+    },
+    "CORREA VARIADOR": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO (mm)",
+        "ANGULO DE PERFIL",
+        "LARGO (mm)",
+        "MATERIAL",
+        "ORIGEN",
+        "USO"
+      ]
+    },
+    "KIT TRANSMISION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "CANTIDAD AGUJEROS SUJECION CORONA",
+        "CANTIDAD AGUJEROS SUJECION PIÑON",
+        "CANTIDAD DIENTES CORONA",
+        "CANTIDAD DIENTES PIÑON",
+        "CANTIDAD ESTRIAS",
+        "COLOR",
+        "DIAMETRO AGUJEROS CORONA (mm)",
+        "DIAMETRO AGUJEROS PIÑON (mm)",
+        "DIAMETRO CENTRO CORONA (mm)",
+        "DIAMETRO EXTERNO ESTRIA (mm)",
+        "DIAMETRO INTERNO ESTRIA (mm)",
+        "DISTANCIA AJUGEROS SUJECION PIÑON (mm)",
+        "DISTANCIA ENTRE CENTROS DE AGUJEROS SUJECION CORONA (mm)",
+        "ESPESOR PIÑON (mm)",
+        "MATERIAL",
+        "ORIGEN",
+        "PASO",
+        "SELLO",
+        "TIPO DE UNION",
+        "TIPO SELLO"
+      ]
+    },
+    "KIT TRANSMISION COMPLETO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "CANTIDAD AGUJEROS SUJECION CORONA",
+        "CANTIDAD AGUJEROS SUJECION PIÑON",
+        "CANTIDAD DIENTES CORONA",
+        "CANTIDAD DIENTES PIÑON",
+        "CANTIDAD ESLABONES CADENA",
+        "CANTIDAD ESTRIAS",
+        "COLOR",
+        "DIAMETRO AGUJEROS CORONA (mm)",
+        "DIAMETRO AGUJEROS PIÑON (mm)",
+        "DIAMETRO CENTRO CORONA (mm)",
+        "DIAMETRO EXTERNO ESTRIA (mm)",
+        "DIAMETRO INTERNO ESTRIA (mm)",
+        "DISTANCIA AJUGEROS SUJECION PIÑON (mm)",
+        "DISTANCIA ENTRE CENTROS DE AGUJEROS SUJECION CORONA (mm)",
+        "ESPESOR PIÑON (mm)",
+        "MATERIAL",
+        "ORIGEN",
+        "PASO",
+        "PUNTO DE RUPTURA (kn)",
+        "REFORZADA",
+        "SELLO",
+        "TIPO DE UNION",
+        "TIPO SELLO"
+      ]
+    },
+    "PIÑONES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO ESTRIA (mm)",
+        "AUTOLIMPIANTE",
+        "CANTIDAD AGUJEROS SUJECION PIÑON",
+        "CANTIDAD DIENTES PIÑON",
+        "CANTIDAD ESTRIAS",
+        "COLOR",
+        "DIAMETRO AGUJEROS PIÑON (mm)",
+        "DIAMETRO EXTERNO ESTRIA (mm)",
+        "DIAMETRO INTERNO ESTRIA (mm)",
+        "DISTANCIA AJUGEROS SUJECION PIÑON (mm)",
+        "ESPESOR PIÑON (mm)",
+        "MATERIAL",
+        "PASO",
+        "SELLO",
+        "TERMINACION",
+        "TIPO SELLO"
+      ]
+    },
+    "UNIONES DE CADENA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "COLOR",
+        "DESCRIPCION",
+        "DIAMETRO PERNO DE CADENA (mm)",
+        "DIAMETRO RODILLO (mm)",
+        "ESPESOR PLACA EXTERNA (mm)",
+        "ESPESOR PLACA INTERNA (mm)",
+        "INDICE VIDA UTIL (Std: 100)",
+        "LARGO PERNO DE CADENA (mm)",
+        "LINEA",
+        "MAXIMA CILINDRADA RECOMENDADA USO EN PAVIMENTO (cc)",
+        "MAXIMA CILINDRADA RECOMENDADA USO EN TIERRA (cc)",
+        "ORIGEN",
+        "PASO",
+        "PESO DE 100 ESLABONES (kg)",
+        "PESO DE 100 ESLABONES (lb)",
+        "PUNTO DE RUPTURA (kn)",
+        "PUNTO DE RUPTURA (lb)",
+        "REFORZADA",
+        "SELLO",
+        "TIPO DE UNION",
+        "TIPO SELLO",
+        "USO"
+      ]
+    }
+  },
+  "PERNOS": {
+    "PERNOS HORADADOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    }
+  },
+  "QUIMICA PROFESIONAL": {
+    "ADHESIVOS-TRABAS-SELLADORES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "APLICACIÓN",
+        "COMPOSICIÓN",
+        "DESCRIPCION",
+        "DESCRIPCION 2",
+        "ENVASE",
+        "LINEA",
+        "RESISTENCIA",
+        "RUBRO"
+      ]
+    },
+    "PINTURAS": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": []
+    }
+  },
+  "RESORTES": {
+    "EMBRAGUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "JUEGO DE RESORTES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "DIÁMETRO RESORTE EXTERNO (mm)",
+        "DIÁMETRO RESORTE INTERNO (mm)",
+        "ESPESOR ESPIRAL (mm)",
+        "NUMERO DE PIEZA",
+        "NÊMERO DE PIEZA",
+        "ORIGEN",
+        "PRESIÓN ABIERTO",
+        "PRESIÓN CERRADO",
+        "TIPO DE VEHÍCULO",
+        "TIPO RESORTE"
+      ]
+    },
+    "MULETA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PEDAL FRENO": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "PORTAEQUIPAJES": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "RESORTES ARRANQUE": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "TENSOR DISTRIBUCION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": []
+    },
+    "VALVULAS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTO (mm)",
+        "DIÁMETRO RESORTE EXTERNO (mm)",
+        "DIÁMETRO RESORTE INTERNO (mm)",
+        "ESPESOR ESPIRAL (mm)",
+        "NUMERO DE PIEZA",
+        "ORIGEN",
+        "PRESIÓN ABIERTO",
+        "PRESIÓN CERRADO",
+        "TIPO DE VEHÍCULO",
+        "TIPO RESORTE"
+      ]
+    }
+  },
+  "RETENES": {
+    "MAZA-RUEDA": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ORIGEN"
+      ]
+    },
+    "MOTOR": {
+      "brandFilter": true,
+      "productFilter": false,
+      "attributes": []
+    },
+    "SUSPENSION": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ALTURA (MM)",
+        "ALTURA GUARDAPOLVO (mm)",
+        "DESCRIPCIÓN2",
+        "DIAMETRO EXTERIOR (mm)",
+        "DIAMETRO EXTERNO GUARDAPOLVO (mm)",
+        "DIAMETRO INTERIOR (mm)",
+        "DIAMETRO INTERNO GUARDAPOLVO (mm)2",
+        "ESPACIADORES (mm",
+        "EXTRUCTURA",
+        "MATERIAL",
+        "ORIGEN"
+      ]
+    }
+  },
+  "RODAMIENTOS": {
+    "RODAMIENTOS VARIOS": {
+      "brandFilter": true,
+      "productFilter": true,
+      "attributes": [
+        "ANCHO (mm)",
+        "CANTIDAD DE BOLAS",
+        "CAPACIDAD CARGA DINAMICA (kn)",
+        "CAPACIDAD CARGA ESTATICA (kn)",
+        "CARGA LIMITE FATIGA (kn)",
+        "DIAMETRO EXTERNO (mm)",
+        "DIAMETRO INTERNO (mm)",
+        "DIAMETRO REBAJE ARO INTERNO (mm)",
+        "DIAMETRO RESALTE ARO EXTERNO (mm)",
+        "MASA (kg)",
+        "MATERIAL SELLO",
+        "MODELO",
+        "ORIGEN",
+        "RADIO CHAFLAN ARO EXTERNO (mm)",
+        "SELLO",
+        "TIPO RODAMIENTO",
+        "VELOCIDAD LIMITE (rpm)"
+      ]
+    }
+  }
+}
