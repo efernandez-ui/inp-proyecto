@@ -157,7 +157,7 @@ export function FilterSidebar({ selectedFilters, onFilterChange, products = [] }
               </SelectTrigger>
               <SelectContent className="bg-brand-fg border-gray-700 text-white max-h-[300px]">
                 <SelectItem value="all_brands">Todas las Marcas</SelectItem>
-                {options.brands.map(brand => (
+                {options.brands.map((brand: string) => (
                   <SelectItem key={brand} value={brand}>{brand}</SelectItem>
                 ))}
               </SelectContent>

@@ -1,4 +1,4 @@
-import filtersFlat from "../../attached_assets/filters_flat_1768909468458.json";
+import filtersFlat from "../../../attached_assets/filters_flat_1768909468458.json";
 
 /**
  * Normalizes strings for comparison
