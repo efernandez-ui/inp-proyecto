@@ -1,13 +1,11 @@
-import { useState, useMemo, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
-import { Search, X, Filter } from "lucide-react";
+import { Search } from "lucide-react";
 import { Product } from "@/lib/products";
-import * as filterLib from "@/lib/filters";
 
 interface FilterSidebarProps {
   selectedFilters: any;
@@ -16,222 +14,368 @@ interface FilterSidebarProps {
 }
 
 export function FilterSidebar({ selectedFilters, onFilterChange, products = [] }: FilterSidebarProps) {
-  // UI state
-  const [categorySearch, setCategorySearch] = useState("");
+  const [brandSearch, setBrandSearch] = useState("");
+  const [typeSearch, setTypeSearch] = useState("");
+  const [subtypeSearch, setSubtypeSearch] = useState("");
   
-  // Available categories
-  const categories = useMemo(() => filterLib.getCategories(), []);
+  // Extract unique values from products
+  const uniqueBrands = useMemo(() => {
+    return Array.from(new Set(products.map(p => p.brand))).sort();
+  }, [products]);
 
-  // Filtered categories for display
-  const filteredCategories = useMemo(() => {
-    if (!categorySearch.trim()) return categories;
-    const search = categorySearch.toLowerCase();
-    return categories.filter(c => c.toLowerCase().includes(search));
-  }, [categorySearch, categories]);
+  const uniqueTypes = useMemo(() => {
+    return Array.from(new Set(products.map(p => p.type).filter(Boolean))).sort() as string[];
+  }, [products]);
 
-  // Hierarchical state management
-  const handleCategorySelect = (catId: string) => {
-    // Reset lower levels when category changes
-    onFilterChange({
-      categoria: catId,
-      subtipo: "",
-      marca: "",
-      attributes: {}
-    });
+  const uniqueSubtypes = useMemo(() => {
+    return Array.from(new Set(products.map(p => p.subtype).filter(Boolean))).sort() as string[];
+  }, [products]);
+
+  const uniqueWidths = useMemo(() => {
+    return Array.from(new Set(products.map(p => p.width).filter(w => w && w !== 0))).sort((a, b) => Number(a) - Number(b));
+  }, [products]);
+
+  const uniqueRatios = useMemo(() => {
+    return Array.from(new Set(products.map(p => p.ratio).filter(r => r && r !== 0))).sort((a, b) => Number(a) - Number(b));
+  }, [products]);
+
+  const uniqueRims = useMemo(() => {
+    return Array.from(new Set(products.map(p => p.rim).filter(r => r && r !== 0))).sort((a, b) => Number(a) - Number(b));
+  }, [products]);
+
+  const handleCheckboxChange = (category: string, value: string, checked: boolean) => {
+    const current = selectedFilters[category] || [];
+    const updated = checked 
+      ? [...current, value]
+      : current.filter((item: string) => item !== value);
+    
+    onFilterChange({ ...selectedFilters, [category]: updated });
   };
 
-  const handleSubtypeSelect = (subId: string) => {
-    onFilterChange({
-      ...selectedFilters,
-      subtipo: subId,
-      marca: "",
-      attributes: {}
-    });
+  const isChecked = (category: string, value: string) => {
+    return (selectedFilters[category] || []).includes(value);
   };
 
-  const handleBrandSelect = (brand: string) => {
-    onFilterChange({
-      ...selectedFilters,
-      marca: brand
-    });
-  };
+  const filteredBrands = useMemo(() => {
+    if (!brandSearch.trim()) return uniqueBrands;
+    const search = brandSearch.toLowerCase();
+    return uniqueBrands.filter(b => b.toLowerCase().includes(search));
+  }, [brandSearch, uniqueBrands]);
 
-  const handleAttributeChange = (attrKey: string, value: any) => {
-    onFilterChange({
-      ...selectedFilters,
-      attributes: {
-        ...selectedFilters.attributes,
-        [attrKey]: value
-      }
-    });
-  };
+  const filteredTypes = useMemo(() => {
+    if (!typeSearch.trim()) return uniqueTypes;
+    const search = typeSearch.toLowerCase();
+    return uniqueTypes.filter(t => t.toLowerCase().includes(search));
+  }, [typeSearch, uniqueTypes]);
 
-  const clearFilters = () => {
-    onFilterChange({
-      categoria: "",
-      subtipo: "",
-      marca: "",
-      attributes: {}
-    });
-    setCategorySearch("");
-  };
+  const filteredSubtypes = useMemo(() => {
+    if (!subtypeSearch.trim()) return uniqueSubtypes;
+    const search = subtypeSearch.toLowerCase();
+    return uniqueSubtypes.filter(st => st.toLowerCase().includes(search));
+  }, [subtypeSearch, uniqueSubtypes]);
 
-  // Logic for dependent filters
-  const subtypes = useMemo(() => filterLib.getSubtypes(selectedFilters.categoria), [selectedFilters.categoria]);
-  const schema = useMemo(() => filterLib.getFilterSchema(selectedFilters.categoria, selectedFilters.subtipo), [selectedFilters.categoria, selectedFilters.subtipo]);
-  const options = useMemo(() => filterLib.getAvailableOptions(products, selectedFilters, schema), [products, selectedFilters, schema]);
+  const getFilterCount = (category: string) => {
+    return (selectedFilters[category] || []).length;
+  };
 
   return (
     <div className="bg-brand-fg h-full text-gray-200 overflow-y-auto p-4 border-r border-[#111827]">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="font-bold text-gray-200 text-sm uppercase tracking-wider flex items-center gap-2">
-          <Filter className="w-4 h-4" /> Filtros
-        </h2>
+        <h2 className="font-bold text-gray-200 text-sm uppercase tracking-wider">Filtros</h2>
         <Button 
           variant="link" 
           className="text-xs text-brand-blue-500 p-0 h-auto hover:text-brand-blue-400"
-          onClick={clearFilters}
+          onClick={() => {
+            onFilterChange({});
+            setBrandSearch("");
+            setTypeSearch("");
+            setSubtypeSearch("");
+          }}
           data-testid="button-clear-filters"
         >
           Limpiar
         </Button>
       </div>
       
-      <div className="space-y-6">
+      <div className="space-y-4">
         
-        {/* 1) CATEGORIA */}
+        {/* Estado */}
         <section>
-          <Label className="text-brand-blue-500 font-bold uppercase text-xs mb-2 block">1. Categoría</Label>
-          <div className="relative mb-3">
-            <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <Input
-              placeholder="Buscar categoría..."
-              value={categorySearch}
-              onChange={(e) => setCategorySearch(e.target.value)}
-              className="pl-8 h-9 bg-[#0b1226] border-gray-700 text-white text-sm"
-              data-testid="input-category-search"
-            />
+          <h3 className="font-bold text-sm text-brand-blue-500 mb-3 uppercase tracking-wide">Estado</h3>
+          <div className="space-y-2">
+            {[
+              { id: 'isHot', label: 'Ofertas' },
+              { id: 'isNew', label: 'Novedades' },
+              { id: 'inStock', label: 'En Stock' },
+              { id: 'nac', label: 'Solo Nac.' },
+              { id: 'imp', label: 'Importado' }
+            ].map((item) => (
+              <div key={item.id} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`state-${item.id}`} 
+                  checked={isChecked('state', item.id)}
+                  onCheckedChange={(checked) => handleCheckboxChange('state', item.id, checked as boolean)}
+                  className="border-gray-500 data-[state=checked]:bg-brand-blue-600 data-[state=checked]:border-brand-blue-600"
+                  data-testid={`checkbox-state-${item.id}`}
+                />
+                <Label htmlFor={`state-${item.id}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer text-gray-300">
+                  {item.label}
+                </Label>
+              </div>
+            ))}
           </div>
-          <Select value={selectedFilters.categoria} onValueChange={handleCategorySelect}>
-            <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-sm h-10" data-testid="select-category">
-              <SelectValue placeholder="Seleccione Categoría" />
-            </SelectTrigger>
-            <SelectContent className="bg-brand-fg border-gray-700 text-white max-h-[300px]">
-              {filteredCategories.map(cat => (
-                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
         </section>
 
-        {/* 2) SUBTIPO */}
-        <section className={!selectedFilters.categoria ? "opacity-50 pointer-events-none" : ""}>
-          <Label className="text-brand-blue-500 font-bold uppercase text-xs mb-2 block">2. Subtipo</Label>
-          <Select 
-            disabled={!selectedFilters.categoria} 
-            value={selectedFilters.subtipo} 
-            onValueChange={handleSubtypeSelect}
-          >
-            <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-sm h-10" data-testid="select-subtype">
-              <SelectValue placeholder={selectedFilters.categoria ? "Seleccione Subtipo" : "Elija Categoría primero"} />
-            </SelectTrigger>
-            <SelectContent className="bg-brand-fg border-gray-700 text-white max-h-[300px]">
-              {subtypes.map(sub => (
-                <SelectItem key={sub} value={sub}>{sub}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="h-px bg-gray-800 w-full" />
+
+        <section>
+          <Accordion type="multiple" className="w-full" defaultValue={["brand", "type"]}>
+            
+            {/* Marcas */}
+            <AccordionItem value="brand" className="border-b border-gray-800">
+              <AccordionTrigger className="py-3 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 uppercase font-bold">
+                MARCAS
+                {getFilterCount('brand') > 0 && (
+                  <span className="ml-2 bg-brand-blue-600 text-white text-xs px-2 py-0.5 rounded-full">
+                    {getFilterCount('brand')}
+                  </span>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="relative mb-3">
+                  <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Input
+                    placeholder="Buscar marca..."
+                    value={brandSearch}
+                    onChange={(e) => setBrandSearch(e.target.value)}
+                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-[#9CA3AF]"
+                    data-testid="input-brand-search"
+                  />
+                </div>
+                <div className="space-y-1.5 max-h-[200px] overflow-y-auto pr-1 custom-scrollbar">
+                  {filteredBrands.map((brand) => (
+                    <div key={brand} className="flex items-center space-x-2 py-0.5">
+                      <Checkbox 
+                        id={`brand-${brand}`} 
+                        checked={isChecked('brand', brand)}
+                        onCheckedChange={(checked) => handleCheckboxChange('brand', brand, checked as boolean)}
+                        className="h-4 w-4 border-gray-600 data-[state=checked]:bg-brand-blue-600"
+                        data-testid={`checkbox-brand-${brand}`}
+                      />
+                      <Label htmlFor={`brand-${brand}`} className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors leading-tight">
+                        {brand}
+                      </Label>
+                    </div>
+                  ))}
+                  {filteredBrands.length === 0 && (
+                    <p className="text-xs text-gray-500 py-2">No se encontraron marcas</p>
+                  )}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Tipo */}
+            <AccordionItem value="type" className="border-b border-gray-800">
+              <AccordionTrigger className="py-3 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 uppercase font-bold">
+                TIPO
+                {getFilterCount('type') > 0 && (
+                  <span className="ml-2 bg-brand-blue-600 text-white text-xs px-2 py-0.5 rounded-full">
+                    {getFilterCount('type')}
+                  </span>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="relative mb-3">
+                  <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Input
+                    placeholder="Buscar tipo..."
+                    value={typeSearch}
+                    onChange={(e) => setTypeSearch(e.target.value)}
+                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-[#9CA3AF]"
+                    data-testid="input-type-search"
+                  />
+                </div>
+                <div className="space-y-1.5 max-h-[200px] overflow-y-auto pr-1 custom-scrollbar">
+                  {filteredTypes.map((type) => (
+                    <div key={type} className="flex items-center space-x-2 py-0.5">
+                      <Checkbox 
+                        id={`type-${type}`} 
+                        checked={isChecked('type', type)}
+                        onCheckedChange={(checked) => handleCheckboxChange('type', type, checked as boolean)}
+                        className="h-4 w-4 border-gray-600 data-[state=checked]:bg-brand-blue-600"
+                        data-testid={`checkbox-type-${type}`}
+                      />
+                      <Label htmlFor={`type-${type}`} className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors leading-tight">
+                        {type}
+                      </Label>
+                    </div>
+                  ))}
+                  {filteredTypes.length === 0 && (
+                    <p className="text-xs text-gray-500 py-2">No se encontraron tipos</p>
+                  )}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Subtipo */}
+            <AccordionItem value="subtype" className="border-b border-gray-800">
+              <AccordionTrigger className="py-3 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 uppercase font-bold">
+                SUBTIPO
+                {getFilterCount('subtype') > 0 && (
+                  <span className="ml-2 bg-brand-blue-600 text-white text-xs px-2 py-0.5 rounded-full">
+                    {getFilterCount('subtype')}
+                  </span>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="relative mb-3">
+                  <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Input
+                    placeholder="Buscar subtipo..."
+                    value={subtypeSearch}
+                    onChange={(e) => setSubtypeSearch(e.target.value)}
+                    className="pl-8 h-8 bg-[#0b1226] border-gray-700 text-white text-sm placeholder:text-[#9CA3AF]"
+                    data-testid="input-subtype-search"
+                  />
+                </div>
+                <div className="space-y-1.5 max-h-[200px] overflow-y-auto pr-1 custom-scrollbar">
+                  {filteredSubtypes.map((subtype) => (
+                    <div key={subtype} className="flex items-center space-x-2 py-0.5">
+                      <Checkbox 
+                        id={`subtype-${subtype}`} 
+                        checked={isChecked('subtype', subtype)}
+                        onCheckedChange={(checked) => handleCheckboxChange('subtype', subtype, checked as boolean)}
+                        className="h-4 w-4 border-gray-600 data-[state=checked]:bg-brand-blue-600"
+                        data-testid={`checkbox-subtype-${subtype}`}
+                      />
+                      <Label htmlFor={`subtype-${subtype}`} className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors leading-tight">
+                        {subtype}
+                      </Label>
+                    </div>
+                  ))}
+                  {filteredSubtypes.length === 0 && (
+                    <p className="text-xs text-gray-500 py-2">No se encontraron subtipos</p>
+                  )}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <div className="h-px bg-gray-800 w-full my-2" />
+            <div className="py-2">
+              <h3 className="font-bold text-sm text-orange-500 mb-2 uppercase tracking-wide">
+                Medidas de Cubiertas
+              </h3>
+            </div>
+
+            {/* Ancho */}
+            <AccordionItem value="width" className="border-b border-gray-800">
+              <AccordionTrigger className="py-3 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 font-semibold">
+                Ancho
+                {getFilterCount('width') > 0 && (
+                  <span className="ml-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                    {getFilterCount('width')}
+                  </span>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-wrap gap-1.5 max-h-[180px] overflow-y-auto pr-1 custom-scrollbar">
+                  {uniqueWidths.map((width) => (
+                    <button
+                      key={String(width)}
+                      onClick={() => handleCheckboxChange('width', String(width), !isChecked('width', String(width)))}
+                      className={`px-2.5 py-1 text-xs rounded border transition-colors ${
+                        isChecked('width', String(width))
+                          ? 'bg-orange-500 border-orange-500 text-white'
+                          : 'bg-transparent border-gray-600 text-gray-400 hover:border-orange-500 hover:text-orange-500'
+                      }`}
+                      data-testid={`button-width-${width}`}
+                    >
+                      {width}
+                    </button>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Relación */}
+            <AccordionItem value="ratio" className="border-b border-gray-800">
+              <AccordionTrigger className="py-3 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 font-semibold">
+                Relación
+                {getFilterCount('ratio') > 0 && (
+                  <span className="ml-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                    {getFilterCount('ratio')}
+                  </span>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-wrap gap-1.5 max-h-[180px] overflow-y-auto pr-1 custom-scrollbar">
+                  {uniqueRatios.map((ratio) => (
+                    <button
+                      key={String(ratio)}
+                      onClick={() => handleCheckboxChange('ratio', String(ratio), !isChecked('ratio', String(ratio)))}
+                      className={`px-2.5 py-1 text-xs rounded border transition-colors ${
+                        isChecked('ratio', String(ratio))
+                          ? 'bg-orange-500 border-orange-500 text-white'
+                          : 'bg-transparent border-gray-600 text-gray-400 hover:border-orange-500 hover:text-orange-500'
+                      }`}
+                      data-testid={`button-ratio-${ratio}`}
+                    >
+                      {ratio}
+                    </button>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Rodado */}
+            <AccordionItem value="rim" className="border-b border-gray-800">
+              <AccordionTrigger className="py-3 text-sm hover:no-underline hover:text-brand-blue-500 text-gray-300 font-semibold">
+                Rodado
+                {getFilterCount('rim') > 0 && (
+                  <span className="ml-2 bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                    {getFilterCount('rim')}
+                  </span>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-wrap gap-1.5 max-h-[180px] overflow-y-auto pr-1 custom-scrollbar">
+                  {uniqueRims.map((rim) => (
+                    <button
+                      key={String(rim)}
+                      onClick={() => handleCheckboxChange('rim', String(rim), !isChecked('rim', String(rim)))}
+                      className={`px-2.5 py-1 text-xs rounded border transition-colors ${
+                        isChecked('rim', String(rim))
+                          ? 'bg-orange-500 border-orange-500 text-white'
+                          : 'bg-transparent border-gray-600 text-gray-400 hover:border-orange-500 hover:text-orange-500'
+                      }`}
+                      data-testid={`button-rim-${rim}`}
+                    >
+                      {rim}"
+                    </button>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+          </Accordion>
         </section>
 
-        {/* 3) MARCA */}
-        {(schema.brandFilter || options.brands.length > 0) && (
-          <section className={!selectedFilters.subtipo ? "opacity-50 pointer-events-none" : ""}>
-            <Label className="text-brand-blue-500 font-bold uppercase text-xs mb-2 block">3. Marca</Label>
-            <Select 
-              disabled={!selectedFilters.subtipo} 
-              value={selectedFilters.marca} 
-              onValueChange={handleBrandSelect}
-            >
-              <SelectTrigger className="w-full bg-[#0b1226] border-gray-700 text-sm h-10" data-testid="select-brand">
-                <SelectValue placeholder="Todas las Marcas" />
-              </SelectTrigger>
-              <SelectContent className="bg-brand-fg border-gray-700 text-white max-h-[300px]">
-                <SelectItem value="all_brands">Todas las Marcas</SelectItem>
-                {options.brands.map(brand => (
-                  <SelectItem key={brand} value={brand}>{brand}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </section>
-        )}
-
-        {/* 4) ATRIBUTOS DINAMICOS */}
-        {selectedFilters.subtipo && Object.keys(options.attributes).length > 0 && (
-          <section className="space-y-4 pt-2 border-t border-gray-800">
-            <Label className="text-orange-500 font-bold uppercase text-xs mb-2 block">4. Atributos</Label>
-            <Accordion type="multiple" className="w-full" defaultValue={Object.keys(options.attributes).map(k => `attr-${k}`)}>
-              {Object.entries(options.attributes).map(([key, data]: [string, any]) => (
-                <AccordionItem key={key} value={`attr-${key}`} className="border-b border-gray-800">
-                  <AccordionTrigger className="py-2 text-xs hover:no-underline text-gray-300 font-semibold uppercase">
-                    {key}
-                  </AccordionTrigger>
-                  <AccordionContent className="pt-2 pb-4">
-                    {data.isNumeric && data.range ? (
-                      <div className="flex gap-2 items-center">
-                        <Input 
-                          type="number" 
-                          placeholder="Min"
-                          className="h-8 bg-[#0b1226] border-gray-700 text-xs"
-                          value={selectedFilters.attributes[key]?.min || ""}
-                          onChange={(e) => handleAttributeChange(key, { ...selectedFilters.attributes[key], min: Number(e.target.value) })}
-                        />
-                        <span className="text-gray-500">-</span>
-                        <Input 
-                          type="number" 
-                          placeholder="Max"
-                          className="h-8 bg-[#0b1226] border-gray-700 text-xs"
-                          value={selectedFilters.attributes[key]?.max || ""}
-                          onChange={(e) => handleAttributeChange(key, { ...selectedFilters.attributes[key], max: Number(e.target.value) })}
-                        />
-                      </div>
-                    ) : (
-                      <div className="space-y-1.5 max-h-[150px] overflow-y-auto pr-1 custom-scrollbar">
-                        {data.values.map((val: any) => (
-                          <div key={String(val)} className="flex items-center space-x-2 py-0.5">
-                            <Checkbox 
-                              id={`attr-${key}-${val}`} 
-                              checked={selectedFilters.attributes[key] === val}
-                              onCheckedChange={(checked) => handleAttributeChange(key, checked ? val : "")}
-                              className="h-4 w-4 border-gray-600 data-[state=checked]:bg-orange-500"
-                            />
-                            <Label 
-                              htmlFor={`attr-${key}-${val}`} 
-                              className="text-xs text-gray-400 cursor-pointer hover:text-white transition-colors"
-                            >
-                              {val}
-                            </Label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </section>
-        )}
       </div>
-
+      
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
           background: rgba(255,255,255,0.05);
+          border-radius: 2px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: rgba(255,255,255,0.2);
           border-radius: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255,255,255,0.3);
         }
       `}</style>
     </div>
