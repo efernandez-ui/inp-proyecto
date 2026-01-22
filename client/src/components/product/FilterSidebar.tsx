@@ -86,7 +86,11 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
     // Filter products based on active brand/category/subtype filters before extracting attributes
     const filteredForAttrs = PRODUCTS.filter(p => {
       const brandMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.brand);
-      const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(p.type || "");
+      
+      // Normalize category comparison
+      const categoryMatch = selectedCategories.length === 0 || 
+        selectedCategories.some((sc: string) => sc.toUpperCase() === (p.type?.toUpperCase() || ""));
+        
       const subtypeMatch = selectedSubtipos.length === 0 || selectedSubtipos.includes(p.subtype || "");
       return brandMatch && categoryMatch && subtypeMatch;
     });

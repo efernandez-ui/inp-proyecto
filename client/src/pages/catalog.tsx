@@ -49,7 +49,14 @@ export default function Catalog() {
       const subtypeFilters = filters.subtipo || [];
 
       if (brandFilters.length > 0 && !brandFilters.includes(product.brand)) return false;
-      if (categoryFilters.length > 0 && !categoryFilters.includes(product.type)) return false;
+      
+      // Normalize category comparison (CUBIERTAS vs cubiertas)
+      if (categoryFilters.length > 0) {
+        const productType = product.type?.toUpperCase() || "";
+        const matchesCategory = categoryFilters.some((cf: string) => cf.toUpperCase() === productType);
+        if (!matchesCategory) return false;
+      }
+      
       if (subtypeFilters.length > 0 && !subtypeFilters.includes(product.subtype)) return false;
 
       // Filter by attributes (width, ratio, rim)
