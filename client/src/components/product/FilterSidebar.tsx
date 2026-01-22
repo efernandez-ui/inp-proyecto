@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, ChevronDown, ChevronUp } from "lucide-react";
+import { PRODUCTS } from "@/lib/products";
 import {
   CATALOG_HIERARCHY,
   ATTRIBUTE_SCHEMA_BY_CATEGORY,
@@ -76,18 +77,29 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
     );
   }, [marcaSearch, availableMarcas]);
 
+  // Aggregate values from PRODUCTS to show real data in attributes
   const allAttributes = useMemo(() => {
-    const attrs: Record<string, { label: string, values: any[] }> = {};
-    Object.values(ATTRIBUTE_SCHEMA_BY_CATEGORY).forEach(schema => {
-      schema.atributos.forEach(attr => {
-        if (!attrs[attr.key]) {
-          attrs[attr.key] = { 
-            label: attr.label, 
-            values: ATTRIBUTE_VALUES[schema.categoria]?.[attr.key] || [] 
-          };
-        }
-      });
+    const attrs: Record<string, { label: string, values: any[] }> = {
+      ancho: { label: "Ancho", values: [] },
+      relacion: { label: "Relación", values: [] },
+      rodado: { label: "Rodado", values: [] }
+    };
+
+    // Extract unique values from products
+    const uniqueWidths = new Set<string>();
+    const uniqueRatios = new Set<string>();
+    const uniqueRims = new Set<string>();
+
+    PRODUCTS.forEach(p => {
+      if (p.width !== undefined && p.width !== 0) uniqueWidths.add(p.width.toString());
+      if (p.ratio !== undefined && p.ratio !== 0) uniqueRatios.add(p.ratio.toString());
+      if (p.rim !== undefined && p.rim !== 0) uniqueRims.add(p.rim.toString());
     });
+
+    attrs.ancho.values = Array.from(uniqueWidths).sort((a, b) => Number(a) - Number(b));
+    attrs.relacion.values = Array.from(uniqueRatios).sort((a, b) => Number(a) - Number(b));
+    attrs.rodado.values = Array.from(uniqueRims).sort((a, b) => Number(a) - Number(b));
+
     return attrs;
   }, []);
 

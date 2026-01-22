@@ -44,8 +44,13 @@ export default function Catalog() {
 
     return PRODUCTS.filter(product => {
       if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
-      if (filters.type && filters.type.length > 0 && !filters.type.includes(product.type)) return false;
-      if (filters.subtype && filters.subtype.length > 0 && !filters.subtype.includes(product.subtype)) return false;
+      if (filters.categoria && filters.categoria.length > 0 && !filters.categoria.includes(product.type?.toLowerCase())) return false;
+      if (filters.subtipo && filters.subtipo.length > 0 && !filters.subtipo.includes(product.subtype?.toLowerCase())) return false;
+
+      // Filter by attributes (width, ratio, rim)
+      if (filters.attr_ancho && filters.attr_ancho.length > 0 && !filters.attr_ancho.includes(product.width?.toString())) return false;
+      if (filters.attr_relacion && filters.attr_relacion.length > 0 && !filters.attr_relacion.includes(product.ratio?.toString())) return false;
+      if (filters.attr_rodado && filters.attr_rodado.length > 0 && !filters.attr_rodado.includes(product.rim?.toString())) return false;
 
       if (filters.state && filters.state.length > 0) {
         const matchesState = filters.state.some((s: string) => {
