@@ -179,13 +179,13 @@ export default function Catalog() {
         </div>
       </div>
 
-      <div className="flex flex-1 w-full relative">
-        <aside className="w-[260px] shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-auto hidden lg:block custom-scrollbar">
+      <div className="flex flex-1 w-full relative min-h-[calc(100vh-64px)]">
+        <aside className="w-[260px] shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-auto hidden lg:block custom-scrollbar bg-[#001536]">
           <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
         </aside>
 
         <main className="flex-1 min-w-0 bg-[#f8fafc]">
-          <div className="bg-[#0b1226] p-2 sticky top-16 z-20">
+          <div className="bg-[#0b1226] p-2 sticky top-16 z-20 mb-[15px]">
             <div className="container mx-auto px-4">
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="flex items-center gap-2">
