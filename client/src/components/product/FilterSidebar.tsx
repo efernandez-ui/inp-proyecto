@@ -87,11 +87,19 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
     const filteredForAttrs = PRODUCTS.filter(p => {
       const brandMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.brand);
       
-      // Normalize category comparison
+      // Normalize category comparison with better matching
       const categoryMatch = selectedCategories.length === 0 || 
-        selectedCategories.some((sc: string) => sc.toUpperCase() === (p.type?.toUpperCase() || ""));
+        selectedCategories.some((sc: string) => {
+          const normSc = sc.trim().toUpperCase();
+          const normPType = (p.type || "").trim().toUpperCase();
+          return normSc === normPType || 
+                 (normSc === "CUBIERTAS" && normPType === "CUBIERTA") ||
+                 (normSc === "CUBIERTA" && normPType === "CUBIERTAS");
+        });
         
-      const subtypeMatch = selectedSubtipos.length === 0 || selectedSubtipos.includes(p.subtype || "");
+      const subtypeMatch = selectedSubtipos.length === 0 || 
+        selectedSubtipos.some((ss: string) => ss.trim().toUpperCase() === (p.subtype || "").trim().toUpperCase());
+        
       return brandMatch && categoryMatch && subtypeMatch;
     });
 

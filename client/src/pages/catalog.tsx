@@ -48,25 +48,37 @@ export default function Catalog() {
       const categoryFilters = filters.categoria || [];
       const subtypeFilters = filters.subtipo || [];
 
+      // Debugging: Log if brand filter is active but not matching
       if (brandFilters.length > 0 && !brandFilters.includes(product.brand)) return false;
       
-      // Normalize category comparison (CUBIERTAS vs cubiertas)
+      // Categoría: Normalize both sides to avoid mismatches
       if (categoryFilters.length > 0) {
-        const productType = product.type?.toUpperCase() || "";
-        const matchesCategory = categoryFilters.some((cf: string) => cf.toUpperCase() === productType);
+        const productType = (product.type || "").trim().toUpperCase();
+        // Check if product type matches any of the selected categories (also normalized)
+        const matchesCategory = categoryFilters.some((cf: string) => {
+          const normalizedCf = cf.trim().toUpperCase();
+          return normalizedCf === productType || 
+                 (normalizedCf === "CUBIERTAS" && productType === "CUBIERTA") || // Handle singular/plural
+                 (normalizedCf === "CUBIERTA" && productType === "CUBIERTAS");
+        });
         if (!matchesCategory) return false;
       }
       
-      if (subtypeFilters.length > 0 && !subtypeFilters.includes(product.subtype)) return false;
+      if (subtypeFilters.length > 0) {
+        const productSubtype = (product.subtype || "").trim().toUpperCase();
+        const matchesSubtype = subtypeFilters.some((sf: string) => sf.trim().toUpperCase() === productSubtype);
+        if (!matchesSubtype) return false;
+      }
 
       // Filter by attributes (width, ratio, rim)
       const anchoFilters = filters.attr_ancho || [];
       const relacionFilters = filters.attr_relacion || [];
       const rodadoFilters = filters.attr_rodado || [];
 
-      if (anchoFilters.length > 0 && !anchoFilters.includes(product.width?.toString())) return false;
-      if (relacionFilters.length > 0 && !relacionFilters.includes(product.ratio?.toString())) return false;
-      if (rodadoFilters.length > 0 && !rodadoFilters.includes(product.rim?.toString())) return false;
+      // Ensure comparison works even if types differ (number vs string)
+      if (anchoFilters.length > 0 && !anchoFilters.some((f: any) => f.toString() === product.width?.toString())) return false;
+      if (relacionFilters.length > 0 && !relacionFilters.some((f: any) => f.toString() === product.ratio?.toString())) return false;
+      if (rodadoFilters.length > 0 && !rodadoFilters.some((f: any) => f.toString() === product.rim?.toString())) return false;
 
       if (filters.state && filters.state.length > 0) {
         const matchesState = filters.state.some((s: string) => {
