@@ -44,8 +44,8 @@ export default function Catalog() {
 
     return PRODUCTS.filter(product => {
       if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
-      if (filters.categoria && filters.categoria.length > 0 && !filters.categoria.includes(product.type?.toLowerCase())) return false;
-      if (filters.subtipo && filters.subtipo.length > 0 && !filters.subtipo.includes(product.subtype?.toLowerCase())) return false;
+      if (filters.categoria && filters.categoria.length > 0 && !filters.categoria.includes(product.type)) return false;
+      if (filters.subtipo && filters.subtipo.length > 0 && !filters.subtipo.includes(product.subtype)) return false;
 
       // Filter by attributes (width, ratio, rim)
       if (filters.attr_ancho && filters.attr_ancho.length > 0 && !filters.attr_ancho.includes(product.width?.toString())) return false;

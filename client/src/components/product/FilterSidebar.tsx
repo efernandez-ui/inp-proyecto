@@ -62,7 +62,6 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
   }, [categorySearch]);
 
   const filteredSubtipos = useMemo(() => {
-    if (!subtipoSearch.trim()) return availableSubtipos;
     const search = subtipoSearch.toLowerCase();
     return availableSubtipos.filter(st => 
       st.nombre.toLowerCase().includes(search)
@@ -70,7 +69,6 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
   }, [subtipoSearch, availableSubtipos]);
 
   const filteredMarcas = useMemo(() => {
-    if (!marcaSearch.trim()) return availableMarcas;
     const search = marcaSearch.toLowerCase();
     return availableMarcas.filter(m => 
       m.nombre.toLowerCase().includes(search)
