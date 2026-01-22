@@ -43,18 +43,9 @@ export default function Catalog() {
     setCurrentPage(1);
 
     return PRODUCTS.filter(product => {
-      // Normalizar para comparación (usar IDs de los filtros contra campos del producto)
       if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
-      
-      if (filters.categoria && filters.categoria.length > 0) {
-        const productTypeUpper = product.type?.toUpperCase();
-        if (!filters.categoria.some((catId: string) => catId.toUpperCase() === productTypeUpper)) return false;
-      }
-
-      if (filters.subtipo && filters.subtipo.length > 0) {
-        const productSubtypeUpper = product.subtype?.toUpperCase();
-        if (!filters.subtipo.some((subId: string) => subId.toUpperCase() === productSubtypeUpper)) return false;
-      }
+      if (filters.categoria && filters.categoria.length > 0 && !filters.categoria.includes(product.type)) return false;
+      if (filters.subtipo && filters.subtipo.length > 0 && !filters.subtipo.includes(product.subtype)) return false;
 
       // Filter by attributes (width, ratio, rim)
       if (filters.attr_ancho && filters.attr_ancho.length > 0 && !filters.attr_ancho.includes(product.width?.toString())) return false;
