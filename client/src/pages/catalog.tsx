@@ -205,15 +205,16 @@ export default function Catalog() {
         </div>
       </div>
 
-      <div className="flex flex-1 container mx-auto px-4 mt-6 gap-6 relative">
-        <aside className="w-[300px] shrink-0 sticky top-36 h-[calc(100vh-160px)] overflow-auto hidden lg:block pr-2 custom-scrollbar">
+      <div className="flex flex-1 w-full relative">
+        <aside className="w-[260px] shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-auto hidden lg:block custom-scrollbar">
           <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
         </aside>
 
-        <main className="flex-1 pb-10">
+        <main className="flex-1 min-w-0 bg-[#f8fafc]">
           {/* Controls Bar */}
-          <div className="bg-[#0b1226] rounded-md p-2 mb-4">
-            <div className="flex flex-wrap gap-4 items-center justify-between">
+          <div className="bg-[#0b1226] p-2 sticky top-16 z-20">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-wrap gap-4 items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
                   <button 
@@ -313,76 +314,78 @@ export default function Catalog() {
             </div>
           </div>
 
-          <div className="bg-white rounded-md p-2 mb-4 border border-gray-200 flex items-center justify-between">
-            <div className="text-xs font-bold text-[#0b1226]">
-              Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
-            </div>
-            <div className="flex items-center gap-1">
-              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>&lt;&lt;</Button>
-              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&lt;</Button>
-              <div className="flex items-center gap-1 mx-2">
-                {[1, 2, 3, 4].map(p => (
-                  <Button 
-                    key={p} 
-                    size="sm" 
-                    className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === p ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`}
-                    onClick={() => setCurrentPage(p)}
-                  >
-                    {p}
-                  </Button>
-                ))}
-                <span className="text-[#0b1226] mx-1">...</span>
-                <Button 
-                  size="sm" 
-                  className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === totalPages ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`}
-                  onClick={() => setCurrentPage(totalPages)}
-                >
-                  {totalPages}
-                </Button>
+          <div className="px-4 pb-10">
+            <div className="bg-white rounded-md p-2 mb-4 mt-4 border border-gray-200 flex items-center justify-between">
+              <div className="text-xs font-bold text-[#0b1226]">
+                Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
               </div>
-              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&gt;</Button>
-              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>&gt;&gt;</Button>
-            </div>
-          </div>
-
-          {/* Applied Filters Chips */}
-          {Object.keys(filters).some(k => filters[k]?.length > 0) && (
-            <div className="flex flex-wrap gap-2 items-center mb-4">
-              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mr-2">Filtros Aplicados:</span>
-              {Object.entries(filters).map(([key, values]: [string, any]) => (
-                values.map((val: string) => (
-                  <div key={`${key}-${val}`} className="bg-white border border-gray-200 text-[#0b1226] px-3 py-1 rounded-sm text-[10px] font-black uppercase flex items-center gap-2">
-                    <span>{val}</span>
-                    <button 
-                      onClick={() => {
-                        const newVals = values.filter((v: string) => v !== val);
-                        setFilters({ ...filters, [key]: newVals });
-                      }}
-                      className="hover:text-red-600"
+              <div className="flex items-center gap-1">
+                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>&lt;&lt;</Button>
+                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&lt;</Button>
+                <div className="flex items-center gap-1 mx-2">
+                  {[1, 2, 3, 4].map(p => (
+                    <Button 
+                      key={p} 
+                      size="sm" 
+                      className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === p ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`}
+                      onClick={() => setCurrentPage(p)}
                     >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
-                ))
-              ))}
-              <button 
-                onClick={clearAllFilters}
-                className="text-[#0066ff] text-[10px] font-black uppercase hover:underline ml-2"
-              >
-                Borrar todo
-              </button>
+                      {p}
+                    </Button>
+                  ))}
+                  <span className="text-[#0b1226] mx-1">...</span>
+                  <Button 
+                    size="sm" 
+                    className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === totalPages ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`}
+                    onClick={() => setCurrentPage(totalPages)}
+                  >
+                    {totalPages}
+                  </Button>
+                </div>
+                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&gt;</Button>
+                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>&gt;&gt;</Button>
+              </div>
             </div>
-          )}
 
-          {/* Products Grid */}
-          <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
-            {paginatedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} viewMode={viewMode} />
-            ))}
-          </div>
-          
-          <div className="mt-8">
-            <Footer />
+            {/* Applied Filters Chips */}
+            {Object.keys(filters).some(k => filters[k]?.length > 0) && (
+              <div className="flex flex-wrap gap-2 items-center mb-4">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mr-2">Filtros Aplicados:</span>
+                {Object.entries(filters).map(([key, values]: [string, any]) => (
+                  values.map((val: string) => (
+                    <div key={`${key}-${val}`} className="bg-white border border-gray-200 text-[#0b1226] px-3 py-1 rounded-sm text-[10px] font-black uppercase flex items-center gap-2">
+                      <span>{val}</span>
+                      <button 
+                        onClick={() => {
+                          const newVals = values.filter((v: string) => v !== val);
+                          setFilters({ ...filters, [key]: newVals });
+                        }}
+                        className="hover:text-red-600"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))
+                ))}
+                <button 
+                  onClick={clearAllFilters}
+                  className="text-[#0066ff] text-[10px] font-black uppercase hover:underline ml-2"
+                >
+                  Borrar todo
+                </button>
+              </div>
+            )}
+
+            {/* Products Grid */}
+            <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
+              {paginatedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} viewMode={viewMode} />
+              ))}
+            </div>
+            
+            <div className="mt-8">
+              <Footer />
+            </div>
           </div>
         </main>
       </div>
