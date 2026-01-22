@@ -83,23 +83,43 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
       rodado: { label: "Rodado", values: [] }
     };
 
-    // Extract unique values from products
+    // Filter products based on active brand/category/subtype filters before extracting attributes
+    const filteredForAttrs = PRODUCTS.filter(p => {
+      const brandMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.brand);
+      const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(p.type || "");
+      const subtypeMatch = selectedSubtipos.length === 0 || selectedSubtipos.includes(p.subtype || "");
+      return brandMatch && categoryMatch && subtypeMatch;
+    });
+
+    // Extract unique values from filtered products
     const uniqueWidths = new Set<string>();
     const uniqueRatios = new Set<string>();
     const uniqueRims = new Set<string>();
 
-    PRODUCTS.forEach(p => {
-      if (p.width !== undefined && p.width !== 0) uniqueWidths.add(p.width.toString());
-      if (p.ratio !== undefined && p.ratio !== 0) uniqueRatios.add(p.ratio.toString());
-      if (p.rim !== undefined && p.rim !== 0) uniqueRims.add(p.rim.toString());
+    filteredForAttrs.forEach(p => {
+      if (p.width !== undefined && p.width !== 0 && p.width !== "") uniqueWidths.add(p.width.toString());
+      if (p.ratio !== undefined && p.ratio !== 0 && p.ratio !== "") uniqueRatios.add(p.ratio.toString());
+      if (p.rim !== undefined && p.rim !== 0 && p.rim !== "") uniqueRims.add(p.rim.toString());
     });
 
-    attrs.ancho.values = Array.from(uniqueWidths).sort((a, b) => Number(a) - Number(b));
-    attrs.relacion.values = Array.from(uniqueRatios).sort((a, b) => Number(a) - Number(b));
-    attrs.rodado.values = Array.from(uniqueRims).sort((a, b) => Number(a) - Number(b));
+    attrs.ancho.values = Array.from(uniqueWidths).sort((a, b) => {
+      const numA = parseFloat(a);
+      const numB = parseFloat(b);
+      return (!isNaN(numA) && !isNaN(numB)) ? numA - numB : a.localeCompare(b);
+    });
+    attrs.relacion.values = Array.from(uniqueRatios).sort((a, b) => {
+      const numA = parseFloat(a);
+      const numB = parseFloat(b);
+      return (!isNaN(numA) && !isNaN(numB)) ? numA - numB : a.localeCompare(b);
+    });
+    attrs.rodado.values = Array.from(uniqueRims).sort((a, b) => {
+      const numA = parseFloat(a);
+      const numB = parseFloat(b);
+      return (!isNaN(numA) && !isNaN(numB)) ? numA - numB : a.localeCompare(b);
+    });
 
     return attrs;
-  }, []);
+  }, [selectedMarcas, selectedCategories, selectedSubtipos]);
 
   const handleAttributeChange = (attrKey: string, value: string) => {
     const filterKey = `attr_${attrKey}`;

@@ -43,14 +43,23 @@ export default function Catalog() {
     setCurrentPage(1);
 
     return PRODUCTS.filter(product => {
-      if (filters.brand && filters.brand.length > 0 && !filters.brand.includes(product.brand)) return false;
-      if (filters.categoria && filters.categoria.length > 0 && !filters.categoria.includes(product.type)) return false;
-      if (filters.subtipo && filters.subtipo.length > 0 && !filters.subtipo.includes(product.subtype)) return false;
+      // Corrected keys to match state in FilterSidebar
+      const brandFilters = filters.marca || [];
+      const categoryFilters = filters.categoria || [];
+      const subtypeFilters = filters.subtipo || [];
+
+      if (brandFilters.length > 0 && !brandFilters.includes(product.brand)) return false;
+      if (categoryFilters.length > 0 && !categoryFilters.includes(product.type)) return false;
+      if (subtypeFilters.length > 0 && !subtypeFilters.includes(product.subtype)) return false;
 
       // Filter by attributes (width, ratio, rim)
-      if (filters.attr_ancho && filters.attr_ancho.length > 0 && !filters.attr_ancho.includes(product.width?.toString())) return false;
-      if (filters.attr_relacion && filters.attr_relacion.length > 0 && !filters.attr_relacion.includes(product.ratio?.toString())) return false;
-      if (filters.attr_rodado && filters.attr_rodado.length > 0 && !filters.attr_rodado.includes(product.rim?.toString())) return false;
+      const anchoFilters = filters.attr_ancho || [];
+      const relacionFilters = filters.attr_relacion || [];
+      const rodadoFilters = filters.attr_rodado || [];
+
+      if (anchoFilters.length > 0 && !anchoFilters.includes(product.width?.toString())) return false;
+      if (relacionFilters.length > 0 && !relacionFilters.includes(product.ratio?.toString())) return false;
+      if (rodadoFilters.length > 0 && !rodadoFilters.includes(product.rim?.toString())) return false;
 
       if (filters.state && filters.state.length > 0) {
         const matchesState = filters.state.some((s: string) => {
