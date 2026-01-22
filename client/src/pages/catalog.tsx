@@ -12,7 +12,8 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { LayoutGrid, List, Filter, Download, ChevronDown, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { LayoutGrid, List, Filter, Download, ChevronDown, X, ShoppingCart } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -36,14 +37,6 @@ export default function Catalog() {
     cilindrada: '',
     version: '',
     anio: ''
-  });
-
-  const [tireSearch, setTireSearch] = useState({
-    ancho: '',
-    relacionAspecto: '',
-    rodado: '',
-    carga: '',
-    velocidad: ''
   });
 
   const filteredProducts = useMemo(() => {
@@ -90,191 +83,148 @@ export default function Catalog() {
     setFilters({});
   };
 
+  // Mock data for "Ofertas del día"
+  const dailyDeals = PRODUCTS.filter(p => p.originalPrice && p.originalPrice > p.price).slice(0, 6);
+
   return (
-    <div className="min-h-screen bg-brand-bg flex flex-col font-sans pt-16">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans pt-16">
       <Header />
       
-      <div className="flex h-[calc(100vh-64px)]">
-        <aside className="hidden lg:block w-[260px] shrink-0 h-full overflow-hidden fixed top-16 left-0 z-40 border-r border-[#111827]">
+      {/* Buscador por Moto - Sticky or directly under Header */}
+      <div className="bg-[#0b1226] border-t border-white/10 py-3 sticky top-16 z-30">
+        <div className="container mx-auto px-4 flex flex-wrap items-center gap-3">
+          <span className="text-white font-bold text-sm uppercase tracking-wider mr-2">BUSCADOR POR MOTO</span>
+          
+          <Select value={motoSearch.fabricante} onValueChange={(v) => setMotoSearch({...motoSearch, fabricante: v})}>
+            <SelectTrigger className="w-[140px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+              <SelectValue placeholder="FABRICANTE" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="honda">Honda</SelectItem>
+              <SelectItem value="yamaha">Yamaha</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={motoSearch.modelo} onValueChange={(v) => setMotoSearch({...motoSearch, modelo: v})}>
+            <SelectTrigger className="w-[120px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+              <SelectValue placeholder="MODELO" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="cbr">CBR</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={motoSearch.cilindrada} onValueChange={(v) => setMotoSearch({...motoSearch, cilindrada: v})}>
+            <SelectTrigger className="w-[120px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+              <SelectValue placeholder="CILINDRADA" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="125">125cc</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={motoSearch.version} onValueChange={(v) => setMotoSearch({...motoSearch, version: v})}>
+            <SelectTrigger className="w-[110px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+              <SelectValue placeholder="VERSION" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="std">Standard</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={motoSearch.anio} onValueChange={(v) => setMotoSearch({...motoSearch, anio: v})}>
+            <SelectTrigger className="w-[90px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+              <SelectValue placeholder="AÑO" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="2024">2024</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Button className="bg-[#00d1b2] hover:bg-[#00bda1] text-[#0b1226] font-black h-9 px-8 text-xs italic tracking-tighter">
+            BUSCAR
+          </Button>
+
+          <button className="text-gray-400 hover:text-white text-xs ml-auto" onClick={() => setMotoSearch({fabricante: '', modelo: '', cilindrada: '', version: '', anio: ''})}>
+            Borrar todo
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-col">
+        {/* Special Offer Banner Placeholder */}
+        <div className="w-full bg-white flex justify-center py-2">
+          <div className="w-full max-w-[1920px] h-[150px] bg-[#fcd34d] flex items-center justify-between px-20 overflow-hidden relative group cursor-pointer">
+            <div className="flex items-center gap-10">
+              <div className="flex flex-col">
+                <span className="text-black font-black text-4xl italic leading-none">OFERTA ESPECIAL</span>
+                <span className="text-black font-black text-6xl italic leading-none">-24% OFF</span>
+                <span className="text-black font-bold text-2xl mt-2 italic bg-black text-[#fcd34d] px-4 py-1 self-start">KIT SUPER HORSE</span>
+              </div>
+              <div className="flex gap-4">
+                <img src="https://imagenes-inp-aws.s3.amazonaws.com/imagenes/productos/001/12042023-001001010165-1_min.jpg" alt="Kit" className="h-[120px] object-contain" />
+                <img src="https://imagenes-inp-aws.s3.amazonaws.com/imagenes/productos/001/12042023-001001010165-1_min.jpg" alt="Kit" className="h-[120px] object-contain" />
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-black font-bold text-sm uppercase">Oferta válida hasta el</div>
+              <div className="text-black font-black text-5xl italic">14/01/2026</div>
+              <div className="text-black font-bold text-sm uppercase">Inclusive o hasta agotar stock.</div>
+            </div>
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          </div>
+        </div>
+
+        {/* Ofertas del Día Section */}
+        <div className="w-full bg-white py-8 border-b border-gray-200">
+          <div className="container mx-auto px-4">
+            <h2 className="text-[#0b1226] font-black text-xl italic mb-6 text-center uppercase tracking-tight">Ofertas del día</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {dailyDeals.map((product) => (
+                <div key={`deal-${product.id}`} className="flex flex-col border border-gray-100 rounded-lg p-3 hover:shadow-md transition-shadow relative bg-white">
+                  <Badge className="absolute top-2 left-2 bg-[#00d1b2] text-black text-[10px] font-black px-2 py-0">OFERTA 10%</Badge>
+                  <div className="h-40 flex items-center justify-center mb-2">
+                    <img src={product.image} alt={product.title} className="max-h-full object-contain" />
+                  </div>
+                  <div className="text-gray-400 text-[10px] font-bold truncate uppercase">{product.title}</div>
+                  <div className="text-gray-400 text-[10px] mb-1">Cod: {product.code}</div>
+                  <div className="text-[#0b1226] font-black text-lg">${product.price.toLocaleString('es-AR')}</div>
+                  <div className="text-gray-400 text-xs line-through mb-3">${product.originalPrice?.toLocaleString('es-AR')}</div>
+                  <Button className="bg-[#0066ff] hover:bg-[#0055dd] text-white text-[10px] font-black h-8 py-0 rounded-md flex items-center gap-2">
+                    <ShoppingCart className="w-3 h-3" /> COMPRAR
+                  </Button>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center gap-2 mt-6">
+              <div className="w-8 h-1 bg-[#0066ff] rounded-full"></div>
+              <div className="w-2 h-1 bg-gray-200 rounded-full"></div>
+              <div className="w-2 h-1 bg-gray-200 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-1 container mx-auto px-4 mt-6 gap-6 relative">
+        <aside className="w-[300px] shrink-0 sticky top-36 h-[calc(100vh-160px)] overflow-auto hidden lg:block pr-2 custom-scrollbar">
           <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
         </aside>
 
-        <main className="flex-1 lg:ml-[260px] p-4 overflow-auto h-full">
-          
-          {/* Search Section - Two Search Forms */}
-          <div className="bg-brand-blue-900 rounded-xl p-4 mb-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              
-              {/* Buscador por Moto */}
-              <div>
-                <h2 className="text-white font-bold text-lg mb-3">Buscador por Moto</h2>
-                <div className="flex flex-wrap gap-2 items-center">
-                  <Select value={motoSearch.fabricante} onValueChange={(v) => setMotoSearch({...motoSearch, fabricante: v})}>
-                    <SelectTrigger className="w-[130px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="FABRICANTE" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="honda">Honda</SelectItem>
-                      <SelectItem value="yamaha">Yamaha</SelectItem>
-                      <SelectItem value="suzuki">Suzuki</SelectItem>
-                      <SelectItem value="kawasaki">Kawasaki</SelectItem>
-                      <SelectItem value="bmw">BMW</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={motoSearch.modelo} onValueChange={(v) => setMotoSearch({...motoSearch, modelo: v})}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="MODELO" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="cbr">CBR</SelectItem>
-                      <SelectItem value="ninja">Ninja</SelectItem>
-                      <SelectItem value="r1">R1</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={motoSearch.cilindrada} onValueChange={(v) => setMotoSearch({...motoSearch, cilindrada: v})}>
-                    <SelectTrigger className="w-[120px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="CILINDRADA" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="125">125cc</SelectItem>
-                      <SelectItem value="250">250cc</SelectItem>
-                      <SelectItem value="600">600cc</SelectItem>
-                      <SelectItem value="1000">1000cc</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={motoSearch.version} onValueChange={(v) => setMotoSearch({...motoSearch, version: v})}>
-                    <SelectTrigger className="w-[110px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="VERSION" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="std">Standard</SelectItem>
-                      <SelectItem value="sport">Sport</SelectItem>
-                      <SelectItem value="abs">ABS</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={motoSearch.anio} onValueChange={(v) => setMotoSearch({...motoSearch, anio: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="AÑO" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2024">2024</SelectItem>
-                      <SelectItem value="2023">2023</SelectItem>
-                      <SelectItem value="2022">2022</SelectItem>
-                      <SelectItem value="2021">2021</SelectItem>
-                      <SelectItem value="2020">2020</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Button className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold h-9 px-6">
-                    BUSCAR
-                  </Button>
-                </div>
-              </div>
-
-              {/* Buscador de Cubiertas */}
-              <div>
-                <h2 className="text-white font-bold text-lg mb-3">Buscador de Cubiertas</h2>
-                <div className="flex flex-wrap gap-2 items-center">
-                  <Select value={tireSearch.ancho} onValueChange={(v) => setTireSearch({...tireSearch, ancho: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="Ancho" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="90">90</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                      <SelectItem value="110">110</SelectItem>
-                      <SelectItem value="120">120</SelectItem>
-                      <SelectItem value="130">130</SelectItem>
-                      <SelectItem value="140">140</SelectItem>
-                      <SelectItem value="150">150</SelectItem>
-                      <SelectItem value="160">160</SelectItem>
-                      <SelectItem value="180">180</SelectItem>
-                      <SelectItem value="190">190</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={tireSearch.relacionAspecto} onValueChange={(v) => setTireSearch({...tireSearch, relacionAspecto: v})}>
-                    <SelectTrigger className="w-[140px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="Relación Aspecto" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="55">55</SelectItem>
-                      <SelectItem value="60">60</SelectItem>
-                      <SelectItem value="70">70</SelectItem>
-                      <SelectItem value="80">80</SelectItem>
-                      <SelectItem value="90">90</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={tireSearch.rodado} onValueChange={(v) => setTireSearch({...tireSearch, rodado: v})}>
-                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="Rodado" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="14">14"</SelectItem>
-                      <SelectItem value="15">15"</SelectItem>
-                      <SelectItem value="16">16"</SelectItem>
-                      <SelectItem value="17">17"</SelectItem>
-                      <SelectItem value="18">18"</SelectItem>
-                      <SelectItem value="19">19"</SelectItem>
-                      <SelectItem value="21">21"</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={tireSearch.carga} onValueChange={(v) => setTireSearch({...tireSearch, carga: v})}>
-                    <SelectTrigger className="w-[90px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="Carga" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="54">54</SelectItem>
-                      <SelectItem value="58">58</SelectItem>
-                      <SelectItem value="69">69</SelectItem>
-                      <SelectItem value="73">73</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select value={tireSearch.velocidad} onValueChange={(v) => setTireSearch({...tireSearch, velocidad: v})}>
-                    <SelectTrigger className="w-[100px] h-9 bg-white text-gray-700 border-gray-200 text-sm [&>span]:text-[#9CA3AF]">
-                      <SelectValue placeholder="Velocidad" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="H">H</SelectItem>
-                      <SelectItem value="V">V</SelectItem>
-                      <SelectItem value="W">W</SelectItem>
-                      <SelectItem value="Z">Z</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Button className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold h-9 px-6">
-                    BUSCAR
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <main className="flex-1 pb-10">
           {/* Controls Bar */}
-          <div className="bg-brand-fg rounded-xl p-3 mb-4">
-            <div className="flex flex-wrap gap-3 items-center justify-between">
-              
-              {/* Left Section: View Mode + Items per page */}
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1 border border-[#334155] rounded-lg overflow-hidden">
+          <div className="bg-[#0b1226] rounded-md p-2 mb-4">
+            <div className="flex flex-wrap gap-4 items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <button 
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 transition-all ${viewMode === 'grid' ? 'bg-brand-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                    data-testid="button-grid-view"
+                    className={`p-1.5 rounded ${viewMode === 'grid' ? 'bg-[#0066ff] text-white' : 'text-gray-400 hover:text-white'}`}
                   >
                     <LayoutGrid className="w-4 h-4" />
                   </button>
                   <button 
                     onClick={() => setViewMode('list')}
-                    className={`p-2 transition-all ${viewMode === 'list' ? 'bg-brand-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                    data-testid="button-list-view"
+                    className={`p-1.5 rounded ${viewMode === 'list' ? 'bg-[#0066ff] text-white' : 'text-gray-400 hover:text-white'}`}
                   >
                     <List className="w-4 h-4" />
                   </button>
@@ -284,219 +234,171 @@ export default function Catalog() {
                   setItemsPerPage(Number(v));
                   setCurrentPage(1);
                 }}>
-                  <SelectTrigger className="w-[70px] h-8 bg-transparent border-[#334155] text-white text-sm">
+                  <SelectTrigger className="w-[60px] h-8 bg-[#1a233a] border-none text-white text-xs font-bold">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-brand-fg border-[#334155]">
-                    <SelectItem value="40" className="text-white">40</SelectItem>
-                    <SelectItem value="80" className="text-white">80</SelectItem>
-                    <SelectItem value="120" className="text-white">120</SelectItem>
+                  <SelectContent className="bg-[#1a233a] border-none text-white">
+                    <SelectItem value="40">40</SelectItem>
+                    <SelectItem value="80">80</SelectItem>
+                    <SelectItem value="120">120</SelectItem>
                   </SelectContent>
                 </Select>
 
-                <div className="flex items-center gap-2 text-sm text-gray-400">
+                <div className="flex items-center gap-2 text-xs text-gray-400 ml-2">
                   <span>Ordenar por</span>
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="w-[140px] h-8 bg-transparent border-[#334155] text-white text-sm">
+                    <SelectTrigger className="w-[120px] h-8 bg-[#1a233a] border-none text-white text-xs font-bold">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-brand-fg border-[#334155]">
-                      <SelectItem value="relevante" className="text-white">Relevante</SelectItem>
-                      <SelectItem value="mas-vendidos" className="text-white">Más vendidos</SelectItem>
-                      <SelectItem value="menor-precio" className="text-white">Menor precio</SelectItem>
-                      <SelectItem value="mayor-precio" className="text-white">Mayor Precio</SelectItem>
-                      <SelectItem value="novedades" className="text-white">Novedades</SelectItem>
+                    <SelectContent className="bg-[#1a233a] border-none text-white">
+                      <SelectItem value="relevante">Relevante</SelectItem>
+                      <SelectItem value="mas-vendidos">Más vendidos</SelectItem>
+                      <SelectItem value="menor-precio">Menor precio</SelectItem>
+                      <SelectItem value="mayor-precio">Mayor Precio</SelectItem>
+                      <SelectItem value="novedades">Novedades</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
-              {/* Center Section: Price toggles */}
               <div className="flex items-center gap-4">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <Checkbox 
-                    checked={showPrecioCompra}
-                    onCheckedChange={(checked) => setShowPrecioCompra(!!checked)}
-                    className="border-gray-500 data-[state=checked]:bg-brand-blue-600"
-                  />
-                  <span className="text-sm text-white">Precio Compra</span>
-                </label>
-
-                <div className="flex items-center gap-2">
-                  <label className="flex items-center gap-2 cursor-pointer">
+                <div className="flex items-center gap-4 border-l border-white/10 pl-4">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <Checkbox 
+                      checked={showPrecioCompra}
+                      onCheckedChange={(checked) => setShowPrecioCompra(!!checked)}
+                      className="border-gray-500 data-[state=checked]:bg-[#0066ff]"
+                    />
+                    <span className="text-[11px] font-bold text-white group-hover:text-[#0066ff]">Precio Compra</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer group">
                     <Checkbox 
                       checked={showPrecioPublico}
                       onCheckedChange={(checked) => setShowPrecioPublico(!!checked)}
-                      className="border-gray-500 data-[state=checked]:bg-brand-blue-600"
+                      className="border-gray-500 data-[state=checked]:bg-[#0066ff]"
                     />
-                    <span className="text-sm text-white">Precio al Público</span>
+                    <span className="text-[11px] font-bold text-white group-hover:text-[#0066ff]">Precio al Público</span>
                   </label>
-                  <Input
-                    type="text"
-                    placeholder="% markup"
-                    value={markup}
-                    onChange={(e) => setMarkup(e.target.value)}
-                    className="w-[80px] h-8 bg-transparent border-[#334155] text-white text-sm placeholder:text-gray-500"
-                  />
+                  <div className="relative">
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400">% markup</span>
+                    <Input
+                      type="text"
+                      value={markup}
+                      onChange={(e) => setMarkup(e.target.value)}
+                      className="w-[100px] h-8 bg-[#1a233a] border-none text-white text-right pr-2 text-xs"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Right Section: Currency + Download */}
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <span>Moneda</span>
+                <div className="flex items-center gap-2 border-l border-white/10 pl-4">
+                  <span className="text-[11px] font-bold text-gray-400">Moneda</span>
                   <Select value={currency} onValueChange={setCurrency}>
-                    <SelectTrigger className="w-[130px] h-8 bg-transparent border-[#334155] text-white text-sm">
+                    <SelectTrigger className="w-[100px] h-8 bg-[#1a233a] border-none text-white text-xs font-bold">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-brand-fg border-[#334155]">
-                      <SelectItem value="ARS" className="text-white">ARS (1.00)</SelectItem>
-                      <SelectItem value="USD" className="text-white">USD (1460.00)</SelectItem>
+                    <SelectContent className="bg-[#1a233a] border-none text-white">
+                      <SelectItem value="ARS">ARS (1.00)</SelectItem>
+                      <SelectItem value="USD">USD (1460.00)</SelectItem>
                     </SelectContent>
                   </Select>
+                  <Button 
+                    variant="ghost" 
+                    className="text-[#0066ff] hover:bg-transparent h-8 px-2"
+                    onClick={handleDownload}
+                  >
+                    <Download className="w-4 h-4" />
+                  </Button>
                 </div>
-
-                <Button 
-                  variant="ghost" 
-                  className="text-brand-blue-500 hover:text-brand-blue-400 gap-2 text-sm"
-                  onClick={handleDownload}
-                  data-testid="button-download-prices"
-                >
-                  <span>Descargar precios</span>
-                  <Download className="w-4 h-4" />
-                </Button>
-
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="lg:hidden gap-2 bg-transparent text-white border-[#334155]">
-                      <Filter className="w-4 h-4" /> Filtros
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto bg-brand-fg p-0 border-r-[#111827]">
-                    <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
-                  </SheetContent>
-                </Sheet>
               </div>
             </div>
           </div>
 
-          {/* Pagination Bar */}
-          <div className="bg-brand-fg rounded-xl p-3 mb-4">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="text-sm text-gray-400">
-                Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
-              </div>
-              
-              <div className="flex items-center gap-2">
+          <div className="bg-white rounded-md p-2 mb-4 border border-gray-200 flex items-center justify-between">
+            <div className="text-xs font-bold text-[#0b1226]">
+              Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos
+            </div>
+            <div className="flex items-center gap-1">
+              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>&lt;&lt;</Button>
+              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&lt;</Button>
+              <div className="flex items-center gap-1 mx-2">
+                {[1, 2, 3, 4].map(p => (
+                  <Button 
+                    key={p} 
+                    size="sm" 
+                    className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === p ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`}
+                    onClick={() => setCurrentPage(p)}
+                  >
+                    {p}
+                  </Button>
+                ))}
+                <span className="text-[#0b1226] mx-1">...</span>
                 <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="text-gray-400 hover:text-white disabled:opacity-30"
+                  size="sm" 
+                  className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === totalPages ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`}
+                  onClick={() => setCurrentPage(totalPages)}
                 >
-                  &lt;
-                </Button>
-                
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
-                    let pageNum = i + 1;
-                    if (totalPages > 7) {
-                      if (currentPage > 4) {
-                        pageNum = currentPage - 3 + i;
-                      }
-                      if (pageNum > totalPages) {
-                        pageNum = totalPages - (6 - i);
-                      }
-                    }
-                    
-                    return (
-                      <Button
-                        key={pageNum}
-                        variant="ghost"
-                        size="sm"
-                        className={`w-8 h-8 p-0 ${currentPage === pageNum ? "bg-brand-blue-600 text-white" : "text-gray-400 hover:text-white"}`}
-                        onClick={() => setCurrentPage(pageNum)}
-                      >
-                        {pageNum}
-                      </Button>
-                    );
-                  })}
-                </div>
-
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="text-gray-400 hover:text-white disabled:opacity-30"
-                >
-                  &gt;
+                  {totalPages}
                 </Button>
               </div>
+              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&gt;</Button>
+              <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>&gt;&gt;</Button>
             </div>
           </div>
 
           {/* Applied Filters Chips */}
           {Object.keys(filters).some(k => filters[k]?.length > 0) && (
-            <div className="bg-brand-fg rounded-xl p-3 mb-4">
-              <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-sm text-gray-400 mr-2">Filtros Aplicados:</span>
-                {Object.entries(filters).map(([key, values]: [string, any]) => (
-                  values.map((val: string) => (
-                    <div key={`${key}-${val}`} className="bg-brand-blue-600 text-white px-3 py-1 rounded text-xs font-medium flex items-center gap-2">
-                      <span>{val}</span>
-                      <button 
-                        onClick={() => {
-                          const newVals = values.filter((v: string) => v !== val);
-                          setFilters({ ...filters, [key]: newVals });
-                        }}
-                        className="hover:text-red-300 font-bold"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))
-                ))}
-                <button 
-                  onClick={clearAllFilters}
-                  className="text-brand-blue-500 hover:text-brand-blue-400 text-xs font-medium ml-2"
-                >
-                  Borrar todo
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-2 items-center mb-4">
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mr-2">Filtros Aplicados:</span>
+              {Object.entries(filters).map(([key, values]: [string, any]) => (
+                values.map((val: string) => (
+                  <div key={`${key}-${val}`} className="bg-white border border-gray-200 text-[#0b1226] px-3 py-1 rounded-sm text-[10px] font-black uppercase flex items-center gap-2">
+                    <span>{val}</span>
+                    <button 
+                      onClick={() => {
+                        const newVals = values.filter((v: string) => v !== val);
+                        setFilters({ ...filters, [key]: newVals });
+                      }}
+                      className="hover:text-red-600"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))
+              ))}
+              <button 
+                onClick={clearAllFilters}
+                className="text-[#0066ff] text-[10px] font-black uppercase hover:underline ml-2"
+              >
+                Borrar todo
+              </button>
             </div>
           )}
 
           {/* Products Grid */}
-          {filteredProducts.length > 0 ? (
-            <div className={`grid gap-3 ${viewMode === 'grid' ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1'}`}>
-              {paginatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} viewMode={viewMode} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20 bg-white rounded-xl border border-gray-200 border-dashed">
-              <div className="inline-flex p-4 rounded-full bg-gray-50 mb-4">
-                <Filter className="w-8 h-8 text-gray-300" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900">No se encontraron productos</h3>
-              <p className="text-gray-500 mt-2">Intenta ajustar los filtros de búsqueda.</p>
-              <Button 
-                variant="outline" 
-                className="mt-6"
-                onClick={() => setFilters({})}
-              >
-                Limpiar filtros
-              </Button>
-            </div>
-          )}
-
-          <div className="mt-12">
+          <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
+            {paginatedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} viewMode={viewMode} />
+            ))}
+          </div>
+          
+          <div className="mt-8">
             <Footer />
           </div>
         </main>
       </div>
+
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(0,0,0,0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(0,0,0,0.2);
+          border-radius: 10px;
+        }
+      `}</style>
     </div>
   );
 }
