@@ -30,7 +30,12 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
       ? [...current, value]
       : current.filter((item: string) => item !== value);
     
-    const newFilters = { ...selectedFilters, [category]: updated };
+    // For brands, also update 'brand' key to ensure compatibility
+    let newFilters = { ...selectedFilters, [category]: updated };
+    if (category === 'marca') {
+      newFilters.brand = updated;
+    }
+    
     onFilterChange(newFilters);
   };
 
@@ -85,20 +90,25 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
 
     // Filter products based on active brand/category/subtype filters before extracting attributes
     const filteredForAttrs = PRODUCTS.filter(p => {
-      const brandMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.brand);
+      const brandMatch = selectedMarcas.length === 0 || 
+        selectedMarcas.some((sm: string) => sm.toUpperCase() === (p.brand || "").toUpperCase());
       
-      // Normalize category comparison with better matching
       const categoryMatch = selectedCategories.length === 0 || 
         selectedCategories.some((sc: string) => {
-          const normSc = sc.trim().toUpperCase();
-          const normPType = (p.type || "").trim().toUpperCase();
-          return normSc === normPType || 
-                 (normSc === "CUBIERTAS" && normPType === "CUBIERTA") ||
-                 (normSc === "CUBIERTA" && normPType === "CUBIERTAS");
+          const normSc = sc.toLowerCase();
+          const pType = (p.type || "").toLowerCase();
+          const pTitle = (p.title || "").toLowerCase();
+          return pType.includes(normSc) || normSc.includes(pType) || pTitle.includes(normSc) ||
+                 (normSc === "cubiertas" && (pType.includes("calle") || pType.includes("off-road") || pTitle.includes("cubierta")));
         });
         
       const subtypeMatch = selectedSubtipos.length === 0 || 
-        selectedSubtipos.some((ss: string) => ss.trim().toUpperCase() === (p.subtype || "").trim().toUpperCase());
+        selectedSubtipos.some((ss: string) => {
+          const normSs = ss.toLowerCase();
+          const pSub = (p.subtype || "").toLowerCase();
+          const pTitle = (p.title || "").toLowerCase();
+          return pSub.includes(normSs) || normSs.includes(pSub) || pTitle.includes(normSs);
+        });
         
       return brandMatch && categoryMatch && subtypeMatch;
     });

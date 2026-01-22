@@ -43,58 +43,62 @@ export default function Catalog() {
     setCurrentPage(1);
 
     return PRODUCTS.filter(product => {
-      // Corrected keys to match state in FilterSidebar
       const brandFilters = filters.marca || [];
-      const categoryFilters = filters.categoria || [];
-      const subtypeFilters = filters.subtipo || [];
-
-      // Debugging: Log if brand filter is active but not matching
-      if (brandFilters.length > 0 && !brandFilters.includes(product.brand)) return false;
+      if (brandFilters.length > 0) {
+        if (!brandFilters.some((f: string) => f.toUpperCase() === (product.brand || "").toUpperCase())) return false;
+      }
       
-      // Categoría: Normalize both sides to avoid mismatches
+      const categoryFilters = filters.categoria || [];
       if (categoryFilters.length > 0) {
-        const productType = (product.type || "").trim().toUpperCase();
-        // Check if product type matches any of the selected categories (also normalized)
         const matchesCategory = categoryFilters.some((cf: string) => {
-          const normalizedCf = cf.trim().toUpperCase();
-          return normalizedCf === productType || 
-                 (normalizedCf === "CUBIERTAS" && productType === "CUBIERTA") || // Handle singular/plural
-                 (normalizedCf === "CUBIERTA" && productType === "CUBIERTAS");
+          const normCf = cf.trim().toLowerCase();
+          const pType = (product.type || "").toLowerCase();
+          const pTitle = (product.title || "").toLowerCase();
+          const pSubtype = (product.subtype || "").toLowerCase();
+          
+          return pType.includes(normCf) || normCf.includes(pType) ||
+                 pTitle.includes(normCf) || pSubtype.includes(normCf) ||
+                 (normCf === "cubiertas" && (pType.includes("calle") || pType.includes("off-road") || pTitle.includes("cubierta"))) ||
+                 (normCf === "camaras" && (pType.includes("camara") || pTitle.includes("camara")));
         });
         if (!matchesCategory) return false;
       }
       
+      const subtypeFilters = filters.subtipo || [];
       if (subtypeFilters.length > 0) {
-        const productSubtype = (product.subtype || "").trim().toUpperCase();
-        const matchesSubtype = subtypeFilters.some((sf: string) => sf.trim().toUpperCase() === productSubtype);
+        const matchesSubtype = subtypeFilters.some((sf: string) => {
+          const normSf = sf.trim().toLowerCase();
+          const pSub = (product.subtype || "").toLowerCase();
+          const pTitle = (product.title || "").toLowerCase();
+          return pSub.includes(normSf) || normSf.includes(pSub) || pTitle.includes(normSf);
+        });
         if (!matchesSubtype) return false;
       }
 
-      // Filter by attributes (width, ratio, rim)
+      // Check for attribute existence and match
       const anchoFilters = filters.attr_ancho || [];
       const relacionFilters = filters.attr_relacion || [];
       const rodadoFilters = filters.attr_rodado || [];
 
-      // Ensure comparison works even if types differ (number vs string)
-      if (anchoFilters.length > 0 && !anchoFilters.some((f: any) => f.toString() === product.width?.toString())) return false;
-      if (relacionFilters.length > 0 && !relacionFilters.some((f: any) => f.toString() === product.ratio?.toString())) return false;
-      if (rodadoFilters.length > 0 && !rodadoFilters.some((f: any) => f.toString() === product.rim?.toString())) return false;
-
-      if (filters.state && filters.state.length > 0) {
-        const matchesState = filters.state.some((s: string) => {
-             if (s === 'isHot') return (product.originalPrice && product.originalPrice > product.price);
-             if (s === 'isNew') return product.isNew;
-             if (s === 'nac') return product.origin === 'Nacional';
-             if (s === 'imp') return product.origin === 'Importado';
-             return false;
-        });
-        if (!matchesState) return false;
+      if (anchoFilters.length > 0) {
+        const pVal = String(product.width !== undefined ? product.width : "").trim();
+        if (!anchoFilters.some((f: any) => String(f).trim() === pVal)) return false;
+      }
+      if (relacionFilters.length > 0) {
+        const pVal = String(product.ratio !== undefined ? product.ratio : "").trim();
+        if (!relacionFilters.some((f: any) => String(f).trim() === pVal)) return false;
+      }
+      if (rodadoFilters.length > 0) {
+        const pVal = String(product.rim !== undefined ? product.rim : "").trim();
+        if (!rodadoFilters.some((f: any) => String(f).trim() === pVal)) return false;
       }
 
       return true;
     }).sort((a, b) => {
-      if (sortBy === 'menor-precio') return a.price - b.price;
-      if (sortBy === 'mayor-precio') return b.price - a.price;
+      const priceA = a.price || 0;
+      const priceB = b.price || 0;
+      if (sortBy === 'menor-precio') return priceA - priceB;
+      if (sortBy === 'mayor-precio') return priceB - priceA;
       if (sortBy === 'novedades') return (a.isNew ? -1 : 1);
       return 0;
     });
