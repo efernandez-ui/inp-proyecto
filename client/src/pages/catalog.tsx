@@ -169,53 +169,6 @@ export default function Catalog() {
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <div className="w-full bg-white flex justify-center py-2">
-          <div className="w-full max-w-[1920px] h-[150px] bg-[#fcd34d] flex items-center justify-between px-20 overflow-hidden relative group cursor-pointer">
-            <div className="flex items-center gap-10">
-              <div className="flex flex-col">
-                <span className="text-black font-black text-4xl italic leading-none">OFERTA ESPECIAL</span>
-                <span className="text-black font-black text-6xl italic leading-none">-24% OFF</span>
-                <span className="text-black font-bold text-2xl mt-2 italic bg-black text-[#fcd34d] px-4 py-1 self-start">KIT SUPER HORSE</span>
-              </div>
-              <div className="flex gap-4">
-                <img src="https://imagenes-inp-aws.s3.amazonaws.com/imagenes/productos/001/12042023-001001010165-1_min.jpg" alt="Kit" className="h-[120px] object-contain" />
-                <img src="https://imagenes-inp-aws.s3.amazonaws.com/imagenes/productos/001/12042023-001001010165-1_min.jpg" alt="Kit" className="h-[120px] object-contain" />
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-black font-bold text-sm uppercase">Oferta válida hasta el</div>
-              <div className="text-black font-black text-5xl italic">14/01/2026</div>
-              <div className="text-black font-bold text-sm uppercase">Inclusive o hasta agotar stock.</div>
-            </div>
-            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          </div>
-        </div>
-
-        <div className="w-full bg-white py-8 border-b border-gray-200">
-          <div className="container mx-auto px-4">
-            <h2 className="text-[#0b1226] font-black text-xl italic mb-6 text-center uppercase tracking-tight">Ofertas del día</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {dailyDeals.map((product) => (
-                <div key={`deal-${product.id}`} className="flex flex-col border border-gray-100 rounded-lg p-3 hover:shadow-md transition-shadow relative bg-white">
-                  <Badge className="absolute top-2 left-2 bg-[#00d1b2] text-black text-[10px] font-black px-2 py-0">OFERTA 10%</Badge>
-                  <div className="h-40 flex items-center justify-center mb-2">
-                    <img src={product.image} alt={product.title} className="max-h-full object-contain" />
-                  </div>
-                  <div className="text-gray-400 text-[10px] font-bold truncate uppercase">{product.title}</div>
-                  <div className="text-gray-400 text-[10px] mb-1">Cod: {product.code}</div>
-                  <div className="text-[#0b1226] font-black text-lg">${product.price.toLocaleString('es-AR')}</div>
-                  <div className="text-gray-400 text-xs line-through mb-3">${product.originalPrice?.toLocaleString('es-AR')}</div>
-                  <Button className="bg-[#0066ff] hover:bg-[#0055dd] text-white text-[10px] font-black h-8 py-0 rounded-md flex items-center gap-2">
-                    <ShoppingCart className="w-3 h-3" /> COMPRAR
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="flex flex-1 w-full relative min-h-[calc(100vh-64px)]">
         <aside className="w-[260px] shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-auto hidden lg:block custom-scrollbar bg-[#001536]">
           <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
