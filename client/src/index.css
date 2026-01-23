@@ -10,34 +10,12 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Updated Brand Colors matching Intercap Screenshot */
-  --color-intercap-green: hsl(82 66% 55%);
-  /* Lime green top bar */
-  --color-intercap-purple: hsl(238 48% 38%);
-  /* Main header purple */
-  --color-intercap-dark-purple: hsl(238 50% 30%);
-  /* Nav bar */
-  --color-intercap-blue: hsl(210 100% 50%);
-  /* Accents */
-  --color-intercap-red: hsl(350 80% 50%);
-  /* Sale/Discount */
-
-  /* New Variables from HTML */
-  --color-brand-bg: #f5f7fb;
-  --color-brand-fg: #001f3f;
-  --color-brand-muted: #64748b;
-  --color-brand-blue-950: #001f3f;
-  --color-brand-blue-900: #001f3f;
-  --color-brand-blue-800: #001f3f;
-  --color-brand-blue-700: #3b82f6;
-  --color-brand-blue-600: #3b82f6;
-  --color-brand-blue-500: #3b82f6;
-  --color-brand-blue-200: #bfdbfe;
-
-  --color-stock-low: #f59e0b;
-  --color-stock-mid: #fde047;
-  --color-stock-high: #16a34a;
-  --color-stock-none: #ff57f1;
+  /* Brand Colors from Palette */
+  --color-intercap-blue-dark: #111c39;
+  --color-intercap-blue-main: #1a79ff;
+  --color-intercap-orange: #fb923c;
+  --color-intercap-bg: #f5f7fb;
+  --color-intercap-gray: #95a0a6;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -59,18 +37,16 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
-  --font-sans: 'Gotham', 'Montserrat', 'Inter', sans-serif;
-  --font-display: 'Gotham', 'Montserrat', 'Racing Sans One', cursive;
+  --font-sans: 'Montserrat', 'Inter', sans-serif;
+  --font-display: 'Montserrat', 'Racing Sans One', cursive;
 
   --radius: 0.5rem;
 }
 
 /* LIGHT MODE (Default) */
 :root {
-  --background: 218 20% 97%;
-  /* #f5f7fb */
-  --foreground: 222 47% 11%;
-  /* #0f172a */
+  --background: 218 20% 97%; /* #f5f7fb */
+  --foreground: 222 47% 11%; /* #111c39 */
 
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
@@ -78,29 +54,26 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
 
-  --primary: 221 83% 53%;
-  /* #2563eb (blue-600) */
+  --primary: 215 100% 55%; /* #1a79ff */
   --primary-foreground: 0 0% 100%;
 
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222 47% 11%;
 
-  --muted: 215 27.9% 16.9%;
-  --muted-foreground: 210 40% 96.1%;
+  --muted: 210 40% 90%;
+  --muted-foreground: 215 16% 47%;
 
-  --accent: 215 27.9% 16.9%;
+  --accent: 25 95% 61%; /* #fb923c */
   --accent-foreground: 210 40% 98%;
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
 
   --border: 214.3 31.8% 91.4%;
-  --input: 217 33% 17%;
-  /* Darker input border for contrast against dark backgrounds if needed, or lighter */
-  --ring: 221 83% 53%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 215 100% 55%;
 
   --radius: 0.75rem;
-  /* 12px */
 }
 
 @layer base {
@@ -109,6 +82,6 @@
   }
 
   body {
-    @apply font-sans antialiased bg-brand-bg text-brand-fg;
+    @apply font-sans antialiased bg-intercap-bg text-intercap-blue-dark;
   }
 }

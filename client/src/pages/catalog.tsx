@@ -121,83 +121,83 @@ export default function Catalog() {
   const dailyDeals = PRODUCTS.filter(p => p.originalPrice && p.originalPrice > p.price).slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans pt-16">
+    <div className="min-h-screen bg-intercap-bg flex flex-col font-sans pt-16">
       <Header />
       
-      <div className="bg-[#0b1226] border-t border-white/10 py-3 sticky top-16 z-30 mb-5">
+      <div className="bg-intercap-blue-dark border-t border-white/5 py-3 sticky top-16 z-30 mb-5">
         <div className="container mx-auto px-4 flex flex-wrap items-center gap-3">
-          <span className="text-white font-bold text-sm uppercase tracking-wider mr-2">BUSCADOR POR MOTO</span>
+          <span className="text-white font-black text-xs italic tracking-tighter mr-2 uppercase">BUSCADOR POR MOTO</span>
           <Select value={motoSearch.fabricante} onValueChange={(v) => setMotoSearch({...motoSearch, fabricante: v})}>
-            <SelectTrigger className="w-[140px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+            <SelectTrigger className="w-[140px] h-9 bg-white/5 text-white border-white/10 text-[10px] uppercase font-black italic tracking-tighter">
               <SelectValue placeholder="FABRICANTE" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-intercap-blue-dark border-white/10 text-white">
               <SelectItem value="honda">Honda</SelectItem>
               <SelectItem value="yamaha">Yamaha</SelectItem>
             </SelectContent>
           </Select>
           <Select value={motoSearch.modelo} onValueChange={(v) => setMotoSearch({...motoSearch, modelo: v})}>
-            <SelectTrigger className="w-[120px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+            <SelectTrigger className="w-[120px] h-9 bg-white/5 text-white border-white/10 text-[10px] uppercase font-black italic tracking-tighter">
               <SelectValue placeholder="MODELO" />
             </SelectTrigger>
-            <SelectContent><SelectItem value="cbr">CBR</SelectItem></SelectContent>
+            <SelectContent className="bg-intercap-blue-dark border-white/10 text-white"><SelectItem value="cbr">CBR</SelectItem></SelectContent>
           </Select>
           <Select value={motoSearch.cilindrada} onValueChange={(v) => setMotoSearch({...motoSearch, cilindrada: v})}>
-            <SelectTrigger className="w-[120px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+            <SelectTrigger className="w-[120px] h-9 bg-white/5 text-white border-white/10 text-[10px] uppercase font-black italic tracking-tighter">
               <SelectValue placeholder="CILINDRADA" />
             </SelectTrigger>
-            <SelectContent><SelectItem value="125">125cc</SelectItem></SelectContent>
+            <SelectContent className="bg-intercap-blue-dark border-white/10 text-white"><SelectItem value="125">125cc</SelectItem></SelectContent>
           </Select>
           <Select value={motoSearch.version} onValueChange={(v) => setMotoSearch({...motoSearch, version: v})}>
-            <SelectTrigger className="w-[110px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+            <SelectTrigger className="w-[110px] h-9 bg-white/5 text-white border-white/10 text-[10px] uppercase font-black italic tracking-tighter">
               <SelectValue placeholder="VERSION" />
             </SelectTrigger>
-            <SelectContent><SelectItem value="std">Standard</SelectItem></SelectContent>
+            <SelectContent className="bg-intercap-blue-dark border-white/10 text-white"><SelectItem value="std">Standard</SelectItem></SelectContent>
           </Select>
           <Select value={motoSearch.anio} onValueChange={(v) => setMotoSearch({...motoSearch, anio: v})}>
-            <SelectTrigger className="w-[90px] h-9 bg-[#1a233a] text-white border-white/10 text-xs uppercase font-bold">
+            <SelectTrigger className="w-[90px] h-9 bg-white/5 text-white border-white/10 text-[10px] uppercase font-black italic tracking-tighter">
               <SelectValue placeholder="AÑO" />
             </SelectTrigger>
-            <SelectContent><SelectItem value="2024">2024</SelectItem></SelectContent>
+            <SelectContent className="bg-intercap-blue-dark border-white/10 text-white"><SelectItem value="2024">2024</SelectItem></SelectContent>
           </Select>
-          <Button className="bg-[#00d1b2] hover:bg-[#00bda1] text-[#0b1226] font-black h-9 px-8 text-xs italic tracking-tighter">
+          <Button className="bg-intercap-blue-main hover:bg-intercap-blue-main/90 text-white font-black h-9 px-8 text-[11px] italic tracking-tighter">
             BUSCAR
           </Button>
-          <button className="text-gray-400 hover:text-white text-xs ml-auto" onClick={() => setMotoSearch({fabricante: '', modelo: '', cilindrada: '', version: '', anio: ''})}>
+          <button className="text-gray-500 hover:text-white text-[10px] font-bold uppercase ml-auto tracking-tighter" onClick={() => setMotoSearch({fabricante: '', modelo: '', cilindrada: '', version: '', anio: ''})}>
             Borrar todo
           </button>
         </div>
       </div>
 
       <div className="flex flex-1 w-full relative min-h-[calc(100vh-64px)]">
-        <aside className="w-[260px] shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-auto hidden lg:block custom-scrollbar bg-[#001536]">
+        <aside className="w-[260px] shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-auto hidden lg:block custom-scrollbar bg-intercap-blue-dark">
           <FilterSidebar selectedFilters={filters} onFilterChange={setFilters} />
         </aside>
 
-        <main className="flex-1 min-w-0 bg-[#f8fafc]">
-          <div className="bg-[#0b1226] p-2 sticky top-16 z-20 mb-[15px]">
+        <main className="flex-1 min-w-0 bg-intercap-bg">
+          <div className="bg-intercap-blue-dark p-2 sticky top-16 z-20 mb-[15px] border-b border-white/5">
             <div className="container mx-auto px-4">
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
-                    <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded ${viewMode === 'grid' ? 'bg-[#0066ff] text-white' : 'text-gray-400 hover:text-white'}`}>
+                    <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded ${viewMode === 'grid' ? 'bg-intercap-blue-main text-white' : 'text-gray-500 hover:text-white'}`}>
                       <LayoutGrid className="w-4 h-4" />
                     </button>
-                    <button onClick={() => setViewMode('list')} className={`p-1.5 rounded ${viewMode === 'list' ? 'bg-[#0066ff] text-white' : 'text-gray-400 hover:text-white'}`}>
+                    <button onClick={() => setViewMode('list')} className={`p-1.5 rounded ${viewMode === 'list' ? 'bg-intercap-blue-main text-white' : 'text-gray-500 hover:text-white'}`}>
                       <List className="w-4 h-4" />
                     </button>
                   </div>
                   <Select value={itemsPerPage.toString()} onValueChange={(v) => { setItemsPerPage(Number(v)); setCurrentPage(1); }}>
-                    <SelectTrigger className="w-[60px] h-8 bg-[#1a233a] border-none text-white text-xs font-bold"><SelectValue /></SelectTrigger>
-                    <SelectContent className="bg-[#1a233a] border-none text-white">
+                    <SelectTrigger className="w-[60px] h-8 bg-white/5 border-none text-white text-[10px] font-black italic"><SelectValue /></SelectTrigger>
+                    <SelectContent className="bg-intercap-blue-dark border-white/10 text-white font-black text-[10px]">
                       <SelectItem value="40">40</SelectItem><SelectItem value="80">80</SelectItem><SelectItem value="120">120</SelectItem>
                     </SelectContent>
                   </Select>
-                  <div className="flex items-center gap-2 text-xs text-gray-400 ml-2">
+                  <div className="flex items-center gap-2 text-[10px] font-black italic text-gray-500 ml-2 uppercase">
                     <span>Ordenar por</span>
                     <Select value={sortBy} onValueChange={setSortBy}>
-                      <SelectTrigger className="w-[120px] h-8 bg-[#1a233a] border-none text-white text-xs font-bold"><SelectValue /></SelectTrigger>
-                      <SelectContent className="bg-[#1a233a] border-none text-white">
+                      <SelectTrigger className="w-[120px] h-8 bg-white/5 border-none text-white text-[10px] font-black italic"><SelectValue /></SelectTrigger>
+                      <SelectContent className="bg-intercap-blue-dark border-white/10 text-white font-black text-[10px]">
                         <SelectItem value="relevante">Relevante</SelectItem>
                         <SelectItem value="mas-vendidos">Más vendidos</SelectItem>
                         <SelectItem value="menor-precio">Menor precio</SelectItem>
@@ -211,27 +211,27 @@ export default function Catalog() {
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-4 border-l border-white/10 pl-4">
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <Checkbox checked={showPrecioCompra} onCheckedChange={(checked) => setShowPrecioCompra(!!checked)} className="border-gray-500 data-[state=checked]:bg-[#0066ff]" />
-                      <span className="text-[11px] font-bold text-white group-hover:text-[#0066ff]">Precio Compra</span>
+                      <Checkbox checked={showPrecioCompra} onCheckedChange={(checked) => setShowPrecioCompra(!!checked)} className="border-gray-600 data-[state=checked]:bg-intercap-blue-main" />
+                      <span className="text-[10px] font-black italic text-white group-hover:text-intercap-blue-main uppercase tracking-tighter">Precio Compra</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <Checkbox checked={showPrecioPublico} onCheckedChange={(checked) => setShowPrecioPublico(!!checked)} className="border-gray-500 data-[state=checked]:bg-[#0066ff]" />
-                      <span className="text-[11px] font-bold text-white group-hover:text-[#0066ff]">Precio al Público</span>
+                      <Checkbox checked={showPrecioPublico} onCheckedChange={(checked) => setShowPrecioPublico(!!checked)} className="border-gray-600 data-[state=checked]:bg-intercap-blue-main" />
+                      <span className="text-[10px] font-black italic text-white group-hover:text-intercap-blue-main uppercase tracking-tighter">Precio al Público</span>
                     </label>
                     <div className="relative">
-                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-400">% markup</span>
-                      <Input type="text" value={markup} onChange={(e) => setMarkup(e.target.value)} className="w-[100px] h-8 bg-[#1a233a] border-none text-white text-right pr-2 text-xs" />
+                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[9px] font-black italic text-gray-500 uppercase">% markup</span>
+                      <Input type="text" value={markup} onChange={(e) => setMarkup(e.target.value)} className="w-[100px] h-8 bg-white/5 border-none text-white text-right pr-2 text-[10px] font-black italic" />
                     </div>
                   </div>
                   <div className="flex items-center gap-2 border-l border-white/10 pl-4">
-                    <span className="text-[11px] font-bold text-gray-400">Moneda</span>
+                    <span className="text-[10px] font-black italic text-gray-500 uppercase">Moneda</span>
                     <Select value={currency} onValueChange={setCurrency}>
-                      <SelectTrigger className="w-[100px] h-8 bg-[#1a233a] border-none text-white text-xs font-bold"><SelectValue /></SelectTrigger>
-                      <SelectContent className="bg-[#1a233a] border-none text-white">
+                      <SelectTrigger className="w-[100px] h-8 bg-white/5 border-none text-white text-[10px] font-black italic"><SelectValue /></SelectTrigger>
+                      <SelectContent className="bg-intercap-blue-dark border-white/10 text-white font-black text-[10px]">
                         <SelectItem value="ARS">ARS (1.00)</SelectItem><SelectItem value="USD">USD (1460.00)</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Button variant="ghost" className="text-[#0066ff] hover:bg-transparent h-8 px-2" onClick={handleDownload}><Download className="w-4 h-4" /></Button>
+                    <Button variant="ghost" className="text-intercap-blue-main hover:bg-transparent h-8 px-2" onClick={handleDownload}><Download className="w-4 h-4" /></Button>
                   </div>
                 </div>
               </div>
@@ -239,32 +239,32 @@ export default function Catalog() {
           </div>
 
           <div className="px-4 pb-10">
-            <div className="bg-white rounded-md p-2 mb-4 mt-4 border border-gray-200 flex items-center justify-between">
-              <div className="text-xs font-bold text-[#0b1226]">Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos</div>
+            <div className="bg-white rounded-[4px] p-2 mb-4 mt-4 border border-gray-200 flex items-center justify-between shadow-sm">
+              <div className="text-[10px] font-black italic text-intercap-blue-dark uppercase tracking-tighter">Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos</div>
               <div className="flex items-center gap-1">
-                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>&lt;&lt;</Button>
-                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&lt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>&lt;&lt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&lt;</Button>
                 <div className="flex items-center gap-1 mx-2">
                   {[1, 2, 3, 4].map(p => (
-                    <Button key={p} size="sm" className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === p ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`} onClick={() => setCurrentPage(p)}>{p}</Button>
+                    <Button key={p} size="sm" className={`w-7 h-7 p-0 text-[10px] font-black italic ${currentPage === p ? "bg-intercap-blue-main text-white" : "bg-transparent text-intercap-blue-dark hover:bg-gray-100"}`} onClick={() => setCurrentPage(p)}>{p}</Button>
                   ))}
-                  <span className="text-[#0b1226] mx-1">...</span>
-                  <Button size="sm" className={`w-8 h-8 p-0 text-xs font-bold ${currentPage === totalPages ? "bg-[#0066ff] text-white" : "bg-transparent text-[#0b1226] hover:bg-gray-100"}`} onClick={() => setCurrentPage(totalPages)}>{totalPages}</Button>
+                  <span className="text-intercap-blue-dark mx-1 text-[10px] font-black italic">...</span>
+                  <Button size="sm" className={`w-7 h-7 p-0 text-[10px] font-black italic ${currentPage === totalPages ? "bg-intercap-blue-main text-white" : "bg-transparent text-intercap-blue-dark hover:bg-gray-100"}`} onClick={() => setCurrentPage(totalPages)}>{totalPages}</Button>
                 </div>
-                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&gt;</Button>
-                <Button size="sm" variant="ghost" className="w-8 h-8 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>&gt;&gt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&gt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>&gt;&gt;</Button>
               </div>
             </div>
             {Object.keys(filters).some(k => filters[k]?.length > 0) && (
               <div className="flex flex-wrap gap-2 items-center mb-4">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mr-2">Filtros Aplicados:</span>
+                <span className="text-[10px] font-black italic text-gray-500 uppercase tracking-tighter mr-2">Filtros Aplicados:</span>
                 {Object.entries(filters).map(([key, values]: [string, any]) => values.map((val: string) => (
-                  <div key={`${key}-${val}`} className="bg-white border border-gray-200 text-[#0b1226] px-3 py-1 rounded-sm text-[10px] font-black uppercase flex items-center gap-2">
+                  <div key={`${key}-${val}`} className="bg-white border border-gray-200 text-intercap-blue-dark px-3 py-1 rounded-[4px] text-[9px] font-black uppercase italic flex items-center gap-2 shadow-sm">
                     <span>{val}</span>
                     <button onClick={() => { const newVals = values.filter((v: string) => v !== val); setFilters({ ...filters, [key]: newVals }); }} className="hover:text-red-600"><X className="w-3 h-3" /></button>
                   </div>
                 )))}
-                <button onClick={clearAllFilters} className="text-[#0066ff] text-[10px] font-black uppercase hover:underline ml-2">Borrar todo</button>
+                <button onClick={clearAllFilters} className="text-intercap-blue-main text-[9px] font-black uppercase italic hover:underline ml-2">Borrar todo</button>
               </div>
             )}
             <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
