@@ -124,7 +124,7 @@ export default function Catalog() {
     <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans pt-16">
       <Header />
       
-      <div className="bg-[#0b1226] border-t border-white/10 py-3 sticky top-16 z-30">
+      <div className="bg-[#0b1226] border-t border-white/10 py-3 sticky top-16 z-30 mb-5">
         <div className="container mx-auto px-4 flex flex-wrap items-center gap-3">
           <span className="text-white font-bold text-sm uppercase tracking-wider mr-2">BUSCADOR POR MOTO</span>
           <Select value={motoSearch.fabricante} onValueChange={(v) => setMotoSearch({...motoSearch, fabricante: v})}>
