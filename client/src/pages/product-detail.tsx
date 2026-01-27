@@ -316,16 +316,17 @@ export default function ProductDetail() {
 
         {/* Video Section */}
         <div className="w-full mb-12">
-           <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg bg-gray-900 flex items-center justify-center relative group cursor-pointer">
-              {/* Using a placeholder since we can't embed real youtube iframe without user consent usually, but for mockup we simulate */}
-              <img 
-                src="https://img.youtube.com/vi/q4xKvHANqjQ/maxresdefault.jpg" 
-                alt="Video Thumbnail" 
-                className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity"
-              />
-              <div className="absolute z-10 bg-red-600 rounded-full p-4 group-hover:scale-110 transition-transform">
-                 <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>
-              </div>
+           <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg bg-gray-900 flex items-center justify-center relative group">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/88zH3u_i5-o?si=jQi9AV03t_J1nJiM" 
+                title="YouTube video player" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerPolicy="strict-origin-when-cross-origin" 
+                allowFullScreen
+              ></iframe>
            </div>
         </div>
 
