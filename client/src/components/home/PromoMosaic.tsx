@@ -14,45 +14,40 @@ export function PromoMosaic() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Main Large Banner (Left) */}
-          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md h-full">
-            <img 
-              src="/images/promo-cascos.png"
-              alt="Especial Mundial 10% OFF en todos los cascos"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        {/* Main cascos banner — full width */}
+        <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md mb-4">
+          <img
+            src="/images/promo-cascos.png"
+            alt="Especial Mundial 10% OFF en todos los cascos"
+            className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+          />
+        </Link>
+
+        {/* Three smaller banners below in a row */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md">
+            <img
+              src="/images/promo-cubiertas.png"
+              alt="Cubiertas para salir a la cancha"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
             />
           </Link>
 
-          {/* Right Column (Stacked smaller banners) */}
-          <div className="flex flex-col gap-4">
-            {/* Small Banner 1 */}
-            <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md flex-1">
-              <img 
-                src="/images/promo-cubiertas.png"
-                alt="Cubiertas para salir a la cancha"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-            </Link>
+          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md">
+            <img
+              src="/images/promo-titular.png"
+              alt="Equipo Titular para Rodar"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+            />
+          </Link>
 
-            {/* Small Banner 2 */}
-            <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md flex-1">
-              <img 
-                src="/images/promo-titular.png"
-                alt="Equipo Titular para Rodar"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-            </Link>
-
-            {/* Small Banner 3 */}
-            <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md flex-1">
-              <img 
-                src="/images/promo-moto.png"
-                alt="Pone tu moto a punto"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-            </Link>
-          </div>
+          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md">
+            <img
+              src="/images/promo-moto.png"
+              alt="Pone tu moto a punto"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+            />
+          </Link>
         </div>
       </div>
     </section>

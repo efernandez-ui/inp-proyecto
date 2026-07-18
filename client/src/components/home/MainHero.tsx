@@ -1,41 +1,86 @@
-import { Button } from "@/components/ui/button";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 
+const slides = [
+  {
+    desktop: "/images/hero-slide-1.png",
+    mobile: "/images/hero-slide-mobile-1.png",
+    alt: "Eurogrip Trailhound STR - Nuevo Ingreso",
+    href: "/catalogo",
+  },
+  {
+    desktop: "/images/hero-slide-2.png",
+    mobile: "/images/hero-slide-mobile-2.png",
+    alt: "Pirelli Diablo Rosso IV - Domina cada curva",
+    href: "/catalogo",
+  },
+  {
+    desktop: "/images/hero-slide-3.png",
+    mobile: "/images/hero-slide-mobile-3.png",
+    alt: "Repuestos que mueven tu moto",
+    href: "/catalogo",
+  },
+];
+
 export function MainHero() {
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  const goTo = (idx: number) => setCurrent(idx);
+
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
   return (
-    <section className="relative w-full h-[360px] bg-gray-900 overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("/images/main-hero-bg.png")' }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue-900/90 to-transparent"></div>
-        <div className="absolute inset-0 bg-black/30"></div>
+    <section className="relative w-full overflow-hidden bg-gray-900">
+      {/* Slides */}
+      <div className="relative w-full">
+        {slides.map((slide, idx) => (
+          <Link
+            key={idx}
+            href={slide.href}
+            className={`block w-full transition-opacity duration-700 ${
+              idx === current ? "opacity-100" : "opacity-0 absolute inset-0"
+            }`}
+            aria-hidden={idx !== current}
+          >
+            {/* Desktop image */}
+            <img
+              src={slide.desktop}
+              alt={slide.alt}
+              className="hidden sm:block w-full h-auto object-contain"
+              draggable={false}
+            />
+            {/* Mobile image */}
+            <img
+              src={slide.mobile}
+              alt={slide.alt}
+              className="block sm:hidden w-full h-auto object-contain"
+              draggable={false}
+            />
+          </Link>
+        ))}
       </div>
 
-      <div className="container mx-auto px-4 h-full flex flex-col justify-center relative z-10">
-        <div className="max-w-2xl text-white">
-          <span className="inline-block bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-sm mb-4 tracking-wider uppercase">
-            Nuevo Ingreso
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display italic font-black leading-tight mb-4 drop-shadow-md">
-            POTENCIA TU VIAJE <br/>
-            <span className="text-brand-orange">CONPIRELLI DIABLO</span>
-          </h1>
-          <p className="text-lg text-gray-200 mb-8 max-w-xl font-medium">
-            Descubrí la nueva línea de neumáticos de alto rendimiento diseñados para ofrecer máximo agarre y durabilidad en cualquier terreno.
-          </p>
-          <Link href="/catalogo" className="inline-flex items-center justify-center bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 px-8 rounded shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-              VER PRODUCTOS
-            </Link>
-        </div>
-      </div>
-
-      {/* Simple slider navigation dots (static representation) */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
-        <button className="w-8 h-2 bg-brand-orange rounded-full"></button>
-        <button className="w-2 h-2 bg-white/50 hover:bg-white rounded-full transition-colors"></button>
-        <button className="w-2 h-2 bg-white/50 hover:bg-white rounded-full transition-colors"></button>
+      {/* Navigation dots */}
+      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => goTo(idx)}
+            aria-label={`Slide ${idx + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              idx === current
+                ? "w-8 bg-brand-orange"
+                : "w-2 bg-white/60 hover:bg-white"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
