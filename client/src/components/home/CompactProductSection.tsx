@@ -45,7 +45,7 @@ export function CompactProductSection({ products }: CompactProductSectionProps) 
           {/* Left Column: Nuevos Ingresos */}
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-display italic font-bold text-brand-blue-900 border-l-4 border-brand-orange pl-3">
+              <h3 className="text-xl font-display font-bold text-brand-blue-900 border-l-4 border-brand-orange pl-3">
                 NUEVOS INGRESOS
               </h3>
               <Link href="/catalogo" className="text-xs font-bold text-gray-500 hover:text-brand-orange uppercase tracking-wide">
@@ -60,7 +60,7 @@ export function CompactProductSection({ products }: CompactProductSectionProps) 
           {/* Right Column: Lanzamientos */}
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-display italic font-bold text-brand-blue-900 border-l-4 border-brand-blue-600 pl-3">
+              <h3 className="text-xl font-display font-bold text-brand-blue-900 border-l-4 border-brand-blue-600 pl-3">
                 LANZAMIENTOS
               </h3>
               <Link href="/catalogo" className="text-xs font-bold text-gray-500 hover:text-brand-blue-600 uppercase tracking-wide">

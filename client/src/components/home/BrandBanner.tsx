@@ -20,7 +20,7 @@ export function BrandBanner() {
               alt="Pirelli" 
               className="h-10 md:h-12 object-contain mb-4"
             />
-            <h3 className="text-2xl md:text-4xl font-display italic text-white font-bold leading-tight mb-2">
+            <h3 className="text-2xl md:text-4xl font-display text-white font-bold leading-tight mb-2">
               EL ADN DE LAS CARRERAS <br/>
               <span className="text-yellow-500">EN TU MOTO</span>
             </h3>

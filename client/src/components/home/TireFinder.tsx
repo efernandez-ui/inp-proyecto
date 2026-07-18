@@ -86,7 +86,7 @@ export function TireFinder() {
 
           {/* Right: Search Form */}
           <div className="w-full md:w-2/3 bg-gray-200 p-8 flex flex-col justify-center">
-            <h2 className="text-2xl font-display italic text-brand-blue-900 mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-display text-brand-blue-900 mb-6 flex items-center gap-2">
               Encontrá el neumático para tu moto
             </h2>
 

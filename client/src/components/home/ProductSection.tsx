@@ -19,7 +19,7 @@ export function ProductSection({ title, products, highlightColor = "blue", showN
     <section className="py-12 bg-gray-50 border-t border-gray-200">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
-           <h3 className={`text-2xl font-display italic font-bold text-brand-blue-900 border-l-4 ${borderColorMap[highlightColor]} pl-3 uppercase`}>
+           <h3 className={`text-2xl font-display font-bold text-brand-blue-900 border-l-4 ${borderColorMap[highlightColor]} pl-3 uppercase`}>
              {title}
            </h3>
            <Link href="/catalogo" className="text-sm font-bold text-gray-500 hover:text-brand-blue-900 uppercase tracking-wide flex items-center gap-1">

@@ -308,7 +308,7 @@ export default function ProductDetail() {
           />
           <div className="absolute inset-0 z-20 flex flex-col justify-center px-12 text-white">
             <div className="bg-yellow-500 text-black px-2 py-1 text-xs font-bold w-fit mb-4">PIRELLI</div>
-            <h2 className="text-4xl font-bold italic mb-2">SUPER CITY</h2>
+            <h2 className="text-4xl font-bold mb-2">SUPER CITY</h2>
             <p className="text-xl font-light uppercase tracking-widest mb-6">Perdura en el tiempo<br/>y en el asfalto</p>
             <Button className="bg-yellow-500 hover:bg-yellow-400 text-black border-none w-fit">VER MÁS</Button>
           </div>

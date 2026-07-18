@@ -139,7 +139,7 @@
 .brand {
   font-size: 0.65rem;
   font-weight: 900;
-  font-style: italic;
+  font-style:;
   color: #9ca3af;
   margin-bottom: 0.2rem;
   text-transform: uppercase;
@@ -148,7 +148,7 @@
 
 .title {
   font-weight: 900;
-  font-style: italic;
+  font-style:;
   font-size: 0.75rem;
   line-height: 1.2;
   color: var(--color-intercap-blue-dark);
@@ -230,7 +230,7 @@
 .price {
   font-size: 1.3rem;
   font-weight: 900;
-  font-style: italic;
+  font-style:;
   color: var(--color-intercap-blue-dark);
   line-height: 1.1;
   letter-spacing: -0.04em;
@@ -320,7 +320,7 @@
   background-color: var(--color-intercap-blue-main);
   color: white;
   font-weight: 900;
-  font-style: italic;
+  font-style:;
   font-size: 0.7rem;
   height: 2.2rem;
   border-radius: 4px;

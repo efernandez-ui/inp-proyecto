@@ -16,13 +16,13 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group shrink-0 text-white no-underline">
                <div className="w-2 h-7 rounded-[3px] bg-intercap-blue-main"></div>
-               <span className="font-display font-black text-[1.8rem] leading-none tracking-tighter italic uppercase">INTERCAP</span>
+               <span className="font-display font-black text-[1.8rem] leading-none tracking-tighter uppercase">INTERCAP</span>
             </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex gap-4 ml-4">
-            <Link href="/" className={`text-white font-black text-[11px] italic tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/' ? 'text-intercap-blue-main' : ''}`}>HOME</Link>
-            <Link href="/catalogo" className={`text-white font-black text-[11px] italic tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/catalogo' ? 'text-intercap-blue-main' : ''}`}>CATALOGO</Link>
+            <Link href="/" className={`text-white font-black text-[11px] tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/' ? 'text-intercap-blue-main' : ''}`}>HOME</Link>
+            <Link href="/catalogo" className={`text-white font-black text-[11px] tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/catalogo' ? 'text-intercap-blue-main' : ''}`}>CATALOGO</Link>
           </nav>
 
           {/* Search Bar */}
@@ -31,7 +31,7 @@ export function Header() {
               <Input 
                 type="search" 
                 placeholder="¿Qué estás buscando?" 
-                className="h-[40px] rounded-[4px] bg-white/10 text-white border-white/10 px-4 placeholder:text-gray-500 w-full focus-visible:ring-1 focus-visible:ring-intercap-blue-main font-black text-[11px] italic tracking-tighter uppercase"
+                className="h-[40px] rounded-[4px] bg-white/10 text-white border-white/10 px-4 placeholder:text-gray-500 w-full focus-visible:ring-1 focus-visible:ring-intercap-blue-main font-black text-[11px] tracking-tighter uppercase"
               />
               <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
             </div>

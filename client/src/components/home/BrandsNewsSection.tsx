@@ -44,7 +44,7 @@ export function BrandsNewsSection() {
           
           {/* Brands */}
           <div>
-            <h3 className="text-2xl font-display italic font-bold text-brand-blue-900 mb-8 border-l-4 border-gray-400 pl-3">
+            <h3 className="text-2xl font-display font-bold text-brand-blue-900 mb-8 border-l-4 border-gray-400 pl-3">
               MARCAS CON LAS QUE TRABAJAMOS
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -63,7 +63,7 @@ export function BrandsNewsSection() {
 
           {/* News */}
           <div>
-            <h3 className="text-2xl font-display italic font-bold text-brand-blue-900 mb-8 border-l-4 border-gray-400 pl-3">
+            <h3 className="text-2xl font-display font-bold text-brand-blue-900 mb-8 border-l-4 border-gray-400 pl-3">
               NOTICIAS COMERCIALES
             </h3>
             <div className="flex flex-col gap-4">

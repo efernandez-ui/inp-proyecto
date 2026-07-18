@@ -5,7 +5,7 @@ export function PromoMosaic() {
     <section className="py-16 bg-white">
       <div className="mx-auto px-4 max-w-[1500px]">
         <div className="flex flex-col items-center justify-center mb-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-display italic text-brand-blue-900 font-bold uppercase tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-display text-brand-blue-900 font-bold uppercase tracking-tight">
             OFERTAS Y PROMOCIONES
           </h2>
           <div className="w-16 h-1 bg-brand-orange mt-2 mb-4 mx-auto rounded-full"></div>

@@ -10,7 +10,7 @@ export function ActivePools() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
           <div className="max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-display italic font-bold mb-3 flex items-center gap-3">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-3 flex items-center gap-3">
               <Users className="w-8 h-8 text-brand-orange" />
               POOLS DE COMPRAS
             </h2>
