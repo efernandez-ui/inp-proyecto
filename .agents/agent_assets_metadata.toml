@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "dNTgc0IbHrfc1O9OXC9Eu"
+uri = "file://client/public/images/cubiertas-bg.png"
+type = "image"
+title = "Motorcycle tires catalog background"
+
+[[generated]]
+id = "bTU6CUMdIPlQYVUdRaZnr"
+uri = "file://client/public/images/repuestos-bg.png"
+type = "image"
+title = "Motorcycle parts and spares"
+
+[[generated]]
+id = "YCJUl33CNzuMyiwOiK2wr"
+uri = "file://client/public/images/indumentaria-bg.png"
+type = "image"
+title = "Motorcycle rider apparel"
+
+[[generated]]
+id = "OYQeSJKlncbUWt6vjsRSU"
+uri = "file://client/public/images/lubricantes-bg.png"
+type = "image"
+title = "Motorcycle oil and lubricants"
+
+[[generated]]
+id = "FF4darJLS_JDxu8jDdh3s"
+uri = "file://client/public/images/promo-1.png"
+type = "image"
+title = "Promo motorcycle parts mosaic"
+
+[[generated]]
+id = "BkCBCCZvXJUhbP_oP2go9"
+uri = "file://client/public/images/promo-2.png"
+type = "image"
+title = "Motorcycle helmets launch"
+
+[[generated]]
+id = "DDwfAQZXe_NruIhSbvCTt"
+uri = "file://client/public/images/promo-3.png"
+type = "image"
+title = "Spark plugs pool promo"
+
+[[generated]]
+id = "-lWmaj2gGY90dBBBAwwew"
+uri = "file://client/public/images/promo-4.png"
+type = "image"
+title = "Oil filters combo promo"
+
+[[generated]]
+id = "asLsFzFaT-qeues8JChJy"
+uri = "file://client/public/images/main-hero-bg.png"
+type = "image"
+title = "Main hero motorcycle tire"
+
+[[generated]]
+id = "LnLH-cs_A4Oqc1oq3X9o5"
+uri = "file://client/public/images/pirelli-banner-bg.png"
+type = "image"
+title = "Pirelli brand banner"

@@ -19,14 +19,12 @@ export function CategoriesStrip() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center overflow-x-auto no-scrollbar gap-8 min-w-full">
           {categories.map((cat, idx) => (
-            <Link key={idx} href="/catalogo">
-              <a className="flex items-center gap-2 group cursor-pointer whitespace-nowrap">
+            <Link key={idx} href="/catalogo" className="flex items-center gap-2 group cursor-pointer whitespace-nowrap">
                 <cat.icon className="w-5 h-5 text-brand-blue-900" strokeWidth={2} />
                 <span className="text-sm font-bold text-brand-blue-900 group-hover:text-brand-blue-600 transition-colors">
                   {cat.name}
                 </span>
-              </a>
-            </Link>
+              </Link>
           ))}
         </div>
       </div>

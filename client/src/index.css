@@ -16,6 +16,12 @@
   --color-intercap-orange: #fb923c;
   --color-intercap-bg: #f5f7fb;
   --color-intercap-gray: #95a0a6;
+  
+  --color-brand-blue-900: #002855;
+  --color-brand-blue-800: #003b7a;
+  --color-brand-blue-700: #004c9e;
+  --color-brand-blue-600: #005fbc;
+  --color-brand-orange: #f58634;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

@@ -14,17 +14,15 @@ export function Header() {
         <div className="container mx-auto px-4 h-full flex items-center gap-4 justify-between">
           
           {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center gap-2 group shrink-0 text-white no-underline">
+          <Link href="/" className="flex items-center gap-2 group shrink-0 text-white no-underline">
                <div className="w-2 h-7 rounded-[3px] bg-intercap-blue-main"></div>
                <span className="font-display font-black text-[1.8rem] leading-none tracking-tighter italic uppercase">INTERCAP</span>
-            </a>
-          </Link>
+            </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex gap-4 ml-4">
-            <Link href="/"><a className={`text-white font-black text-[11px] italic tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/' ? 'text-intercap-blue-main' : ''}`}>HOME</a></Link>
-            <Link href="/catalogo"><a className={`text-white font-black text-[11px] italic tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/catalogo' ? 'text-intercap-blue-main' : ''}`}>CATALOGO</a></Link>
+            <Link href="/" className={`text-white font-black text-[11px] italic tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/' ? 'text-intercap-blue-main' : ''}`}>HOME</Link>
+            <Link href="/catalogo" className={`text-white font-black text-[11px] italic tracking-tighter px-3 py-2 rounded-lg hover:bg-white/5 transition-all ${location === '/catalogo' ? 'text-intercap-blue-main' : ''}`}>CATALOGO</Link>
           </nav>
 
           {/* Search Bar */}
@@ -54,8 +52,8 @@ export function Header() {
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-brand-fg text-white border-r-white/10">
                   <nav className="flex flex-col gap-4 mt-8">
-                    <Link href="/"><a className="text-lg font-bold">Home</a></Link>
-                    <Link href="/catalogo"><a className="text-lg font-bold">Catálogo</a></Link>
+                    <Link href="/" className="text-lg font-bold">Home</Link>
+                    <Link href="/catalogo" className="text-lg font-bold">Catálogo</Link>
                   </nav>
                 </SheetContent>
              </Sheet>

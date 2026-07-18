@@ -1,0 +1,389 @@
+Actúa como un Senior Frontend Developer y UX/UI Designer especializado en ecommerce B2B desarrollado con React.
+
+Ya tengo una Home funcional y aprobada dentro de este proyecto de Replit.
+
+IMPORTANTE:
+
+No debes rehacer toda la Home.
+No debes modificar el header.
+No debes modificar la navegación superior.
+No debes modificar los iconos de categorías ubicados debajo del header.
+No debes cambiar las rutas existentes.
+No debes romper componentes ya funcionales.
+No debes cambiar la lógica de autenticación, carrito, usuario o sesión.
+No debes reemplazar la arquitectura actual del proyecto.
+No debes eliminar estilos globales existentes.
+
+Tu tarea es trabajar únicamente desde la sección del buscador de cubiertas/neumáticos hacia abajo.
+
+Antes de modificar cualquier archivo:
+
+1. Analiza la estructura actual del proyecto.
+2. Identifica el componente de la Home.
+3. Identifica los componentes reutilizables existentes.
+4. Identifica si se utiliza CSS Modules, styled-components, Tailwind, Sass u otro sistema.
+5. Respeta la arquitectura y convención de nombres ya utilizada.
+6. Reutiliza componentes existentes siempre que sea posible.
+7. No instales librerías nuevas salvo que sea estrictamente necesario.
+8. No cambies dependencias sin justificarlo.
+
+OBJETIVO GENERAL
+
+Agregar y mejorar visualmente todo el contenido ubicado debajo del buscador de cubiertas, manteniendo exactamente la identidad visual actual de Intercap.
+
+El resultado debe sentirse como una evolución natural del sitio ya desarrollado, no como una página nueva o un template distinto.
+
+IDENTIDAD VISUAL A RESPETAR
+
+Mantener:
+
+- Azul oscuro corporativo como color principal.
+- Blanco y grises muy claros como fondos.
+- Verde para acciones positivas y botones de compra.
+- Bordes redondeados moderados.
+- Sombras suaves.
+- Tipografía actual.
+- Iconografía actual.
+- Espaciado limpio y profesional.
+- Diseño B2B sobrio y moderno.
+- Misma estética del resto del proyecto.
+
+Evitar:
+
+- Exceso de gradientes.
+- Colores estridentes sin justificación.
+- Sombras fuertes.
+- Cards demasiado altas.
+- Texto demasiado grande.
+- Efecto de ecommerce B2C genérico.
+- Carruseles innecesarios.
+- Animaciones pesadas.
+
+ALCANCE DE LA MODIFICACIÓN
+
+Trabajar desde el bloque “Encontrá el neumático para tu moto” hacia abajo.
+
+No modificar nada ubicado por encima de ese bloque.
+
+ORDEN EXACTO DE LAS SECCIONES
+
+1. BUSCADOR DE CUBIERTAS
+
+Mantener el buscador actual, pero mejorar su estética.
+
+Debe incluir:
+
+- Título: “Encontrá el neumático para tu moto”.
+- Selectores o campos para ancho, altura, diámetro, carga y velocidad.
+- Botón “BUSCAR”.
+- Diseño horizontal en desktop.
+- Diseño apilado y responsive en mobile.
+- Mejorar jerarquía visual, espaciados, estados hover y focus.
+- Mantener la lógica existente.
+- No cambiar nombres de variables ni handlers salvo que sea necesario.
+
+2. HERO PRINCIPAL
+
+Agregar debajo del buscador un banner principal de ancho completo.
+
+Características:
+
+- Debe ocupar todo el ancho disponible del contenedor.
+- Altura controlada, aproximadamente 300–360 px en desktop.
+- Imagen de fondo.
+- Overlay oscuro para mejorar legibilidad.
+- Logo o marca.
+- Título principal.
+- Texto secundario.
+- Etiqueta tipo “Nuevo ingreso”.
+- Botón “Ver productos”.
+- Navegación mediante puntos si ya existe sistema de slider.
+- Si no existe slider, crear una versión estática simple.
+- No agregar librerías de carrusel salvo necesidad real.
+
+3. OFERTAS Y PROMOCIONES
+
+Crear un bloque visual con:
+
+- Un banner grande a la izquierda.
+- Tres banners pequeños apilados a la derecha.
+- El conjunto debe tener la misma altura total.
+- Inspiración visual: mosaico de promociones.
+- Debe adaptarse a una sola columna en mobile.
+
+Ejemplos de contenido:
+
+Banner grande:
+- Oferta de la semana.
+- Descuento destacado.
+- Producto o familia de productos.
+
+Banners pequeños:
+- Oferta por categoría.
+- Oferta lanzamiento.
+- Pool de compras activo.
+
+Agregar título de sección:
+“Ofertas y promociones”
+
+Agregar link:
+“Ver todas las promociones”
+
+4. PRODUCTOS DESTACADOS
+
+Agregar una sección con 6 tarjetas de producto.
+
+Cada tarjeta debe incluir:
+
+- Imagen.
+- Marca.
+- Nombre.
+- Código.
+- Precio.
+- Indicador de IVA si corresponde.
+- Selector de cantidad simple.
+- Botón agregar al carrito.
+- Icono de favorito si ya existe en el proyecto.
+- Hover suave.
+- Altura uniforme.
+- Texto truncado a 2 o 3 líneas para evitar deformaciones.
+
+No inventar lógica de carrito nueva.
+Conectar los botones con los handlers existentes si ya están disponibles.
+Si no están disponibles, dejar preparada la interfaz con comentarios claros.
+
+5. BANNERS DE CATEGORÍAS
+
+Agregar 4 banners horizontales o cards visuales:
+
+- Cubiertas.
+- Repuestos.
+- Indumentaria.
+- Lubricantes.
+
+Cada banner debe incluir:
+
+- Imagen de fondo.
+- Overlay oscuro.
+- Título.
+- Texto corto.
+- Botón “Ver más”.
+- Relación de aspecto panorámica.
+- Diseño en grid de 4 columnas en desktop.
+- 2 columnas en tablet.
+- 1 columna en mobile.
+
+6. MÁS VENDIDOS
+
+Agregar una sección con 6 tarjetas de producto.
+
+Debe utilizar el mismo componente visual de producto destacado para mantener consistencia.
+
+Agregar:
+
+- Título “Más vendidos”.
+- Numeración visual opcional del 1 al 6.
+- Link “Ver todos”.
+
+No duplicar código.
+Crear un componente reutilizable para las tarjetas si todavía no existe.
+
+7. BANNER DE MARCA
+
+Agregar un banner horizontal de ancho completo.
+
+Ejemplo visual:
+
+- Marca Pirelli.
+- Fondo negro o azul muy oscuro.
+- Imagen de cubierta.
+- Logo.
+- Frase de marca.
+- Botón “Ver catálogo”.
+
+Debe mantener buena legibilidad y ser responsive.
+
+8. POOLS DE COMPRAS ACTIVOS
+
+Agregar un bloque azul o violeta oscuro que se diferencie visualmente del resto.
+
+Debe incluir:
+
+- Título: “Pools de compras activos”.
+- Texto explicativo.
+- Botón “Ver todos los pools”.
+- Tres tarjetas de pool.
+- Una tarjeta adicional para crear un nuevo pool.
+
+Cada pool debe mostrar:
+
+- Marca.
+- Días restantes.
+- Cantidad de clientes adheridos.
+- Botón “Ver productos”.
+
+En mobile debe desplazarse horizontalmente o apilarse.
+
+9. NUEVOS INGRESOS Y LANZAMIENTOS
+
+Crear una sección de dos columnas.
+
+Columna izquierda:
+- Título “Nuevos ingresos esta semana”.
+- 5 tarjetas pequeñas.
+
+Columna derecha:
+- Título “Lanzamientos”.
+- 5 tarjetas pequeñas.
+
+Las tarjetas compactas deben mostrar:
+
+- Imagen.
+- Nombre corto.
+- Precio.
+- Marca.
+- Link o botón simple.
+
+Ambas columnas deben tener el mismo ancho y altura visual.
+
+En mobile deben apilarse.
+
+10. MARCAS Y NOTICIAS COMERCIALES
+
+Crear una sección de dos columnas.
+
+Columna izquierda:
+- Título “Marcas con las que trabajamos”.
+- Logos en tarjetas limpias.
+- Pirelli.
+- Eurogrip.
+- SKF.
+- Motul.
+- Bosch.
+- NGK.
+- DID.
+- Otras marcas existentes.
+
+Columna derecha:
+- Título “Noticias comerciales”.
+- 3 tarjetas.
+- Imagen o miniatura.
+- Título.
+- Texto breve.
+- Fecha opcional.
+- Link “Ver más”.
+
+11. FOOTER
+
+Mantener el footer actual.
+
+No rediseñarlo.
+No reemplazarlo.
+Solo asegurar que la nueva estructura conecte correctamente con él y mantenga el espaciado adecuado.
+
+RESPONSIVE
+
+Implementar correctamente:
+
+Desktop:
+- Contenedor amplio.
+- 6 productos por fila.
+- Banners de categorías en 4 columnas.
+- Mosaico de ofertas en 2 columnas.
+- Nuevos ingresos y lanzamientos en 2 columnas.
+
+Tablet:
+- 3 productos por fila.
+- 2 banners de categoría por fila.
+- Ajustar espaciados.
+
+Mobile:
+- 1 o 2 productos por fila según ancho.
+- Banners apilados.
+- Buscador de cubiertas vertical.
+- Botones de ancho completo cuando corresponda.
+- Sin scroll horizontal accidental.
+- Tipografías legibles.
+- Menor padding lateral.
+
+ACCESIBILIDAD
+
+Asegurar:
+
+- Contraste suficiente.
+- Labels asociados a inputs.
+- Botones navegables con teclado.
+- Focus visible.
+- Textos alternativos en imágenes.
+- Uso correcto de etiquetas semánticas.
+- Evitar divs clickeables sin rol.
+- No depender solo del color para comunicar estados.
+
+PERFORMANCE
+
+- Usar lazy loading para imágenes secundarias.
+- Evitar imágenes excesivamente pesadas.
+- No cargar componentes innecesarios.
+- No agregar dependencias grandes.
+- Evitar layout shift.
+- Definir dimensiones de imágenes.
+- Reutilizar componentes.
+
+ARQUITECTURA SUGERIDA
+
+Solo crear nuevos componentes si ayudan a mantener el código limpio.
+
+Ejemplo:
+
+components/home/
+- TireFinder
+- MainHero
+- PromoMosaic
+- ProductSection
+- ProductCard
+- CategoryBannerGrid
+- BrandBanner
+- ActivePools
+- CompactProductSection
+- BrandsGrid
+- CommercialNews
+
+No es obligatorio usar exactamente estos nombres.
+Respeta la estructura actual del proyecto.
+
+DATOS
+
+Si el proyecto ya consume datos reales:
+- Reutiliza esos datos.
+- No reemplaces llamadas existentes.
+- No hardcodees información innecesariamente.
+
+Si todavía no hay endpoints para algunas secciones:
+- Crear arrays de datos mock en un archivo separado.
+- No mezclar grandes arrays dentro del JSX.
+- Dejar comentarios indicando dónde reemplazar por API.
+- Usar datos fácilmente editables.
+
+FORMA DE TRABAJO
+
+1. Primero analiza el proyecto.
+2. Explica brevemente qué archivos vas a modificar.
+3. Luego implementa los cambios.
+4. No borres código funcional.
+5. Mantén el código tipado si el proyecto usa TypeScript.
+6. Corrige errores de lint o TypeScript que aparezcan.
+7. Verifica que el proyecto compile.
+8. Al finalizar, informa:
+   - Archivos modificados.
+   - Componentes creados.
+   - Decisiones tomadas.
+   - Qué datos quedaron mockeados.
+   - Qué partes quedaron conectadas a lógica existente.
+
+RESULTADO ESPERADO
+
+Quiero conservar intacta la parte superior actual de la Home.
+
+Desde el buscador de cubiertas hacia abajo, quiero una Home moderna, profesional, comercial y visualmente atractiva, inspirada en el ritmo de MotoMercado, pero adaptada a Intercap y a un ecommerce B2B.
+
+Debe verse coherente con el sistema existente y lista para seguir conectándose con datos reales.
