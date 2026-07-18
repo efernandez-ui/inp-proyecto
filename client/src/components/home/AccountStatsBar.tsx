@@ -34,7 +34,7 @@ const stats = [
 
 export function AccountStatsBar() {
   return (
-    <div className="bg-[#0b1733] py-3 border-b border-white/5">
+    <div className="bg-intercap-bg py-3 border-b border-gray-100">
       <div className="mx-auto px-4 max-w-[1500px]">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {stats.map((stat, idx) => {
