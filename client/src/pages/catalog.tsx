@@ -121,7 +121,7 @@ export default function Catalog() {
   const dailyDeals = PRODUCTS.filter(p => p.originalPrice && p.originalPrice > p.price).slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-intercap-bg flex flex-col font-sans pt-16">
+    <div className="min-h-screen bg-intercap-bg flex flex-col font-sans pt-24">
       <Header />
       
       <div className="bg-intercap-blue-dark border-t border-white/5 py-3 sticky top-16 z-30 mb-5">

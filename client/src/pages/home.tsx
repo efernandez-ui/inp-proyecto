@@ -23,7 +23,7 @@ export default function Home() {
   const compactProducts = PRODUCTS.slice(12, 20);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans pt-16">
+    <div className="min-h-screen bg-white flex flex-col font-sans pt-24">
       <Header />
       
       <main className="flex-1">
