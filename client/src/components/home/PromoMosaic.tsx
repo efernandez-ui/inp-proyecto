@@ -3,7 +3,7 @@ import { Link } from "wouter";
 export function PromoMosaic() {
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 max-w-[1200px]">
+      <div className="mx-auto px-4 max-w-[1500px]">
         <div className="flex flex-col items-center justify-center mb-10 text-center">
           <h2 className="text-3xl md:text-4xl font-display italic text-brand-blue-900 font-bold uppercase tracking-tight">
             OFERTAS Y PROMOCIONES
@@ -14,40 +14,54 @@ export function PromoMosaic() {
           </Link>
         </div>
 
-        {/* Main cascos banner — full width */}
-        <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md mb-4">
-          <img
-            src="/images/promo-cascos.png"
-            alt="Especial Mundial 10% OFF en todos los cascos"
-            className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-          />
-        </Link>
-
-        {/* Three smaller banners below in a row */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md">
-            <img
-              src="/images/promo-cubiertas.png"
-              alt="Cubiertas para salir a la cancha"
-              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-            />
+        {/* Layout: Cascos left (852×650) + 3 stacked right (640×206 each) */}
+        <div className="flex flex-col md:flex-row gap-3">
+          {/* Left: Cascos banner — aspect 852/650 */}
+          <Link
+            href="/catalogo"
+            className="rounded-[16px] overflow-hidden group block shadow-md flex-shrink-0 md:w-[calc(852/1496*100%)]"
+          >
+            <div style={{ aspectRatio: "852 / 650" }} className="w-full overflow-hidden">
+              <img
+                src="/images/promo-cascos.png"
+                alt="Especial Mundial 10% OFF en todos los cascos"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
           </Link>
 
-          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md">
-            <img
-              src="/images/promo-titular.png"
-              alt="Equipo Titular para Rodar"
-              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-            />
-          </Link>
+          {/* Right: 3 stacked banners — each aspect 640/206 */}
+          <div className="flex flex-col gap-3 flex-1">
+            <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
+              <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
+                <img
+                  src="/images/promo-cubiertas.png"
+                  alt="Cubiertas para salir a la cancha"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+              </div>
+            </Link>
 
-          <Link href="/catalogo" className="relative rounded-[20px] overflow-hidden group block shadow-md">
-            <img
-              src="/images/promo-moto.png"
-              alt="Pone tu moto a punto"
-              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-            />
-          </Link>
+            <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
+              <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
+                <img
+                  src="/images/promo-titular.png"
+                  alt="Equipo Titular para Rodar"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+              </div>
+            </Link>
+
+            <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
+              <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
+                <img
+                  src="/images/promo-moto.png"
+                  alt="Pone tu moto a punto"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

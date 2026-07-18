@@ -26,19 +26,23 @@ export function CategoryBannerGrid() {
 
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 max-w-[1200px]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Max width 1500px, each card 356×220 px → 4×356=1424 + 3×gap */}
+      <div className="mx-auto px-4 max-w-[1500px]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-[25px]">
           {categories.map((cat, idx) => (
             <Link
               key={idx}
               href={cat.href}
               className="rounded-[20px] overflow-hidden group block shadow-md border border-gray-100"
             >
-              <img
-                src={cat.image}
-                alt={cat.title}
-                className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-              />
+              {/* Fixed aspect ratio 356/220 */}
+              <div style={{ aspectRatio: "356 / 220" }} className="w-full overflow-hidden">
+                <img
+                  src={cat.image}
+                  alt={cat.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
             </Link>
           ))}
         </div>
