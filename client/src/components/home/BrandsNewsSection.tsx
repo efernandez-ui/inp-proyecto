@@ -3,14 +3,14 @@ import { ArrowRight } from "lucide-react";
 
 export function BrandsNewsSection() {
   const brands = [
-    { name: "Pirelli", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Pirelli_logo.svg/512px-Pirelli_logo.svg.png" },
-    { name: "Eurogrip", logo: "https://placehold.co/150x80/transparent/555?text=EUROGRIP" },
-    { name: "SKF", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/SKF_logo.svg/512px-SKF_logo.svg.png" },
-    { name: "Motul", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Motul_logo.svg/512px-Motul_logo.svg.png" },
-    { name: "Bosch", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Bosch-Logo.svg/512px-Bosch-Logo.svg.png" },
-    { name: "NGK", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/NGK_logo.svg/512px-NGK_logo.svg.png" },
-    { name: "DID", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/DID_chain_logo.svg/512px-DID_chain_logo.svg.png" },
-    { name: "Yuasa", logo: "https://placehold.co/150x80/transparent/555?text=YUASA" },
+    { name: "Pirelli", logo: "/images/brand-pirelli.png" },
+    { name: "Metzeler", logo: "/images/brand-metzeler.png" },
+    { name: "Motul", logo: "/images/brand-motul.png" },
+    { name: "Motegi", logo: "/images/brand-motegi.png" },
+    { name: "Super Horse", logo: "/images/brand-superhorse.png" },
+    { name: "Yamalube", logo: "/images/brand-yamalube.png" },
+    { name: "Pietcard", logo: "/images/brand-pietcard.png" },
+    { name: "Shell Advance", logo: "/images/brand-shell.png" },
   ];
 
   const news = [
