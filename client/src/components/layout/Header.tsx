@@ -118,7 +118,8 @@ export function Header() {
       </header>
 
       {/* ── ROW 2: Main nav + cotización ── */}
-      <nav className="hidden lg:flex bg-[#0d1730] border-b border-white/5 h-10 items-center px-6 max-w-none">
+      <nav className="hidden lg:flex bg-[#0d1730] border-b border-white/5 h-10 items-center justify-center">
+        <div className="w-full max-w-[1500px] mx-auto px-6 flex items-center h-full">
         {/* Nav links — left */}
         <div className="flex items-center gap-1 flex-1">
           {NAV_LINKS.map((link) => (
@@ -138,6 +139,7 @@ export function Header() {
         <span className="text-white/50 text-[11px] font-semibold whitespace-nowrap">
           COTIZACIÓN USD $ 1490,00
         </span>
+        </div>
       </nav>
 
     </div>
