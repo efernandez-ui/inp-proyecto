@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Search, ShoppingCart, Home, LayoutGrid, ChevronDown, LogOut } from "lucide-react";
+import { Search, ShoppingCart, Home, LayoutGrid, ChevronDown, LogOut, HelpCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -7,11 +7,11 @@ import { Menu } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "CATÁLOGO", href: "/catalogo", hasDropdown: true },
-  { label: "¿QUIÉNES SOMOS?", href: "/quienes-somos" },
-  { label: "QUIERO SER CLIENTE", href: "/quiero-ser-cliente" },
-  { label: "SUCURSALES", href: "/sucursales" },
-  { label: "AUTOGESTIÓN", href: "/autogestion" },
-  { label: "EXPORTAR", href: "/exportar" },
+  { label: "CARRITO", href: "/carrito" },
+  { label: "PEDIDOS", href: "/pedidos" },
+  { label: "CUENTA CORRIENTE", href: "/cuenta-corriente" },
+  { label: "COBRÁ CON INPAY", href: "/inpay" },
+  { label: "RECLAMOS", href: "/reclamos" },
 ];
 
 export function Header() {
@@ -20,7 +20,7 @@ export function Header() {
   return (
     <div className="flex flex-col w-full fixed top-0 z-50 shadow-lg">
 
-      {/* ── ROW 1: Logo · Nav pills · Search · Cart · Brand · Exit ── */}
+      {/* ── ROW 1 ── */}
       <header className="bg-intercap-blue-dark h-14 border-b border-white/5">
         <div className="mx-auto px-6 h-full flex items-center gap-3 max-w-[1800px]">
 
@@ -32,7 +32,7 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Pill nav buttons (desktop) */}
+          {/* Pill nav buttons */}
           <nav className="hidden lg:flex items-center gap-2">
             <Link
               href="/"
@@ -71,12 +71,11 @@ export function Header() {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Cart */}
+          {/* Cart + client badge */}
           <button className="hidden md:flex items-center gap-2 bg-white/8 hover:bg-white/15 border border-white/15 rounded-lg px-3 h-9 text-white transition-colors relative">
             <ShoppingCart className="w-4 h-4" />
-            <span className="text-[11px] font-bold uppercase tracking-tight">Carrito</span>
-            <span className="bg-intercap-orange text-white text-[9px] font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 ml-1">
-              0
+            <span className="bg-intercap-blue-main text-white text-[9px] font-black rounded-md px-2 h-[18px] flex items-center justify-center tracking-tight ml-0.5">
+              #332058
             </span>
           </button>
 
@@ -85,13 +84,19 @@ export function Header() {
             MOTOINP
           </span>
 
-          {/* Exit / Salir */}
-          <button className="hidden md:flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white text-[11px] font-bold px-4 h-9 rounded-lg transition-colors ml-1">
+          {/* Ayuda */}
+          <button className="hidden lg:flex items-center gap-1.5 text-white/80 hover:text-white text-[11px] font-bold transition-colors">
+            AYUDA
+            <HelpCircle className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Salir */}
+          <button className="hidden md:flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white text-[11px] font-bold px-4 h-9 rounded-lg transition-colors">
             <LogOut className="w-3.5 h-3.5" />
             SALIR
           </button>
 
-          {/* Mobile menu trigger */}
+          {/* Mobile trigger */}
           <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="ghost" className="lg:hidden text-white ml-1">
@@ -112,19 +117,27 @@ export function Header() {
         </div>
       </header>
 
-      {/* ── ROW 2: Main navigation links ── */}
-      <nav className="hidden lg:flex bg-[#0d1730] border-b border-white/5 h-10 items-center justify-center gap-1">
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`flex items-center gap-1 text-[11px] font-bold tracking-wide uppercase px-4 h-full hover:text-intercap-blue-main transition-colors
-              ${location === link.href ? "text-intercap-blue-main" : "text-white/80"}`}
-          >
-            {link.label}
-            {link.hasDropdown && <ChevronDown className="w-3 h-3 opacity-60" />}
-          </Link>
-        ))}
+      {/* ── ROW 2: Main nav + cotización ── */}
+      <nav className="hidden lg:flex bg-[#0d1730] border-b border-white/5 h-10 items-center px-6 max-w-none">
+        {/* Nav links — left */}
+        <div className="flex items-center gap-1 flex-1">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`flex items-center gap-1 text-[11px] font-bold tracking-wide uppercase px-4 h-10 hover:text-intercap-blue-main transition-colors
+                ${location === link.href ? "text-intercap-blue-main" : "text-white/80"}`}
+            >
+              {link.label}
+              {link.hasDropdown && <ChevronDown className="w-3 h-3 opacity-60" />}
+            </Link>
+          ))}
+        </div>
+
+        {/* Cotización — right */}
+        <span className="text-white/50 text-[11px] font-semibold whitespace-nowrap">
+          COTIZACIÓN USD $ 1490,00
+        </span>
       </nav>
 
     </div>
