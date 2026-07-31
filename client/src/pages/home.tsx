@@ -5,6 +5,7 @@ import { PRODUCTS } from "@/lib/products";
 // Existing Components
 import { CategoriesStrip } from "@/components/home/CategoriesStrip";
 import { AccountStatsBar } from "@/components/home/AccountStatsBar";
+import { TireFinder } from "@/components/home/TireFinder";
 
 // New Components
 import { MainHero } from "@/components/home/MainHero";
@@ -33,6 +34,9 @@ export default function Home() {
 
         {/* Account Stats Bar */}
         <AccountStatsBar />
+
+        {/* Tire Finder */}
+        <TireFinder />
 
         {/* Hero Principal */}
         <MainHero />
