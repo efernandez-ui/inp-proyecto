@@ -73,7 +73,12 @@ export function Header() {
 
           {/* Cart + client badge */}
           <button className="hidden md:flex items-center gap-2 bg-white/8 hover:bg-white/15 border border-white/15 rounded-lg px-3 h-9 text-white transition-colors relative">
-            <ShoppingCart className="w-4 h-4" />
+            <div className="relative">
+              <ShoppingCart className="w-4 h-4" />
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                2
+              </span>
+            </div>
             <span className="bg-intercap-blue-main text-white text-[9px] font-black rounded-md px-2 h-[18px] flex items-center justify-center tracking-tight ml-0.5">
               #332058
             </span>
