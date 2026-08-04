@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useEffect, useState } from "react";
-import { Search, ShoppingCart, Home, LayoutGrid, ChevronDown, LogOut, HelpCircle, User, Users, Settings } from "lucide-react";
+import { Search, ShoppingCart, Home, LayoutGrid, ChevronDown, LogOut, HelpCircle, User, Users, Settings, Bell } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -127,8 +127,8 @@ export function Header({ mode }: HeaderProps) {
                 2
               </span>
             </div>
-            <span className="bg-intercap-blue-main text-white text-[9px] font-black rounded-md px-2 h-[18px] flex items-center justify-center tracking-tight ml-0.5">
-              #332058
+            <span className="bg-intercap-blue-main text-white text-[9px] font-black rounded-md px-4 h-[18px] flex items-center justify-center tracking-tight ml-0.5">
+              Baterias
             </span>
           </button>}
 
@@ -171,6 +171,47 @@ export function Header({ mode }: HeaderProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                aria-label="Abrir notificaciones"
+                className="relative order-2 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/15 md:order-none"
+              >
+                <Bell className="h-5 w-5" />
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-black leading-none text-white ring-2 ring-intercap-blue-dark">
+                  3
+                </span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              sideOffset={10}
+              className="w-[288px] overflow-hidden rounded-[10px] border border-red-200 bg-white p-0 shadow-xl"
+            >
+              <div className="bg-red-50 px-4 pb-4 pt-3">
+                <p className="text-[11px] font-black uppercase text-red-600">
+                  SALDO VENCIDO
+                </p>
+                <p className="mt-2 text-[14px] font-black leading-5 text-slate-950">
+                  Tenes <span className="text-red-600">8</span> documentos pendientes de pago
+                </p>
+              </div>
+              <div className="border-t border-red-100 px-4 py-3">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm text-slate-500">Monto vencido</span>
+                  <span className="text-sm font-black text-red-600">$ 4.531.101,48</span>
+                </div>
+                <button
+                  type="button"
+                  className="mt-3 h-8 w-full rounded-lg bg-red-600 text-[11px] font-black uppercase text-white transition hover:bg-red-700"
+                >
+                  Ver cuenta corriente
+                </button>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {/* Ayuda */}
           <button className="hidden lg:flex items-center gap-1.5 text-white/80 hover:text-white text-[11px] font-bold transition-colors">
             AYUDA
@@ -182,7 +223,7 @@ export function Header({ mode }: HeaderProps) {
               <button
                 type="button"
                 aria-label="Abrir menu de usuario"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white text-intercap-blue-dark shadow-sm transition hover:bg-slate-100 md:hidden"
+                className="order-1 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white text-intercap-blue-dark shadow-sm transition hover:bg-slate-100 md:hidden"
               >
                 <User className="h-5 w-5" />
               </button>
@@ -213,7 +254,7 @@ export function Header({ mode }: HeaderProps) {
           {/* Mobile trigger */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button size="icon" variant="ghost" className="lg:hidden text-white ml-1">
+              <Button size="icon" variant="ghost" className="order-3 ml-1 text-white lg:hidden">
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>

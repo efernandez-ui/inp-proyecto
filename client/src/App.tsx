@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Router as WouterRouter, Switch, Route } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
@@ -23,9 +23,13 @@ function Router() {
 }
 
 function App() {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
   return (
     <TooltipProvider>
-      <Router />
+      <WouterRouter base={base}>
+        <Router />
+      </WouterRouter>
     </TooltipProvider>
   );
 }

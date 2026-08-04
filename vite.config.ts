@@ -4,7 +4,12 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1];
+const githubPagesBase = repoName ? `/${repoName}/` : "/";
+const base = process.env.VITE_BASE_PATH ?? githubPagesBase;
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     runtimeErrorOverlay(),
