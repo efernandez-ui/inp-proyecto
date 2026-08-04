@@ -1,26 +1,29 @@
 import { Link } from "wouter";
-import { publicAsset } from "@/lib/assets";
+import catCubiertas from "@/assets/home/cat-cubiertas.png";
+import catIndumentaria from "@/assets/home/cat-indumentaria.png";
+import catLubricantes from "@/assets/home/cat-lubricantes.png";
+import catRepuestos from "@/assets/home/cat-repuestos.png";
 
 export function CategoryBannerGrid() {
   const categories = [
     {
       title: "Cubiertas",
-      image: publicAsset("/images/cat-cubiertas.png"),
+      image: catCubiertas,
       href: "/catalogo?categoria=cubiertas"
     },
     {
       title: "Repuestos",
-      image: publicAsset("/images/cat-repuestos.png"),
+      image: catRepuestos,
       href: "/catalogo?categoria=repuestos"
     },
     {
       title: "Indumentaria",
-      image: publicAsset("/images/cat-indumentaria.png"),
+      image: catIndumentaria,
       href: "/catalogo?categoria=indumentaria"
     },
     {
       title: "Lubricantes",
-      image: publicAsset("/images/cat-lubricantes.png"),
+      image: catLubricantes,
       href: "/catalogo?categoria=lubricantes"
     }
   ];

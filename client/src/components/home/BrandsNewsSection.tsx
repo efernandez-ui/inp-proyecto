@@ -1,17 +1,24 @@
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import { publicAsset } from "@/lib/assets";
+import brandMetzeler from "@/assets/home/brand-metzeler.png";
+import brandMotegi from "@/assets/home/brand-motegi.png";
+import brandMotul from "@/assets/home/brand-motul.png";
+import brandPietcard from "@/assets/home/brand-pietcard.png";
+import brandPirelli from "@/assets/home/brand-pirelli.png";
+import brandShell from "@/assets/home/brand-shell.png";
+import brandSuperhorse from "@/assets/home/brand-superhorse.png";
+import brandYamalube from "@/assets/home/brand-yamalube.png";
 
 export function BrandsNewsSection() {
   const brands = [
-    { name: "Pirelli", logo: publicAsset("/images/brand-pirelli.png") },
-    { name: "Metzeler", logo: publicAsset("/images/brand-metzeler.png") },
-    { name: "Motul", logo: publicAsset("/images/brand-motul.png") },
-    { name: "Motegi", logo: publicAsset("/images/brand-motegi.png") },
-    { name: "Super Horse", logo: publicAsset("/images/brand-superhorse.png") },
-    { name: "Yamalube", logo: publicAsset("/images/brand-yamalube.png") },
-    { name: "Pietcard", logo: publicAsset("/images/brand-pietcard.png") },
-    { name: "Shell Advance", logo: publicAsset("/images/brand-shell.png") },
+    { name: "Pirelli", logo: brandPirelli },
+    { name: "Metzeler", logo: brandMetzeler },
+    { name: "Motul", logo: brandMotul },
+    { name: "Motegi", logo: brandMotegi },
+    { name: "Super Horse", logo: brandSuperhorse },
+    { name: "Yamalube", logo: brandYamalube },
+    { name: "Pietcard", logo: brandPietcard },
+    { name: "Shell Advance", logo: brandShell },
   ];
 
   const news = [

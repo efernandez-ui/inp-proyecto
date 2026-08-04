@@ -1,5 +1,8 @@
 import { Link } from "wouter";
-import { publicAsset } from "@/lib/assets";
+import promoCascos from "@/assets/home/promo-cascos.png";
+import promoCubiertas from "@/assets/home/promo-cubiertas.png";
+import promoMoto from "@/assets/home/promo-moto.png";
+import promoTitular from "@/assets/home/promo-titular.png";
 
 export function PromoMosaic() {
   return (
@@ -24,7 +27,7 @@ export function PromoMosaic() {
           >
             <div style={{ aspectRatio: "852 / 650" }} className="w-full overflow-hidden">
               <img
-                src={publicAsset("/images/promo-cascos.png")}
+                src={promoCascos}
                 alt="Especial Mundial 10% OFF en todos los cascos"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
@@ -36,7 +39,7 @@ export function PromoMosaic() {
             <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
               <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
                 <img
-                  src={publicAsset("/images/promo-cubiertas.png")}
+                  src={promoCubiertas}
                   alt="Cubiertas para salir a la cancha"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
@@ -46,7 +49,7 @@ export function PromoMosaic() {
             <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
               <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
                 <img
-                  src={publicAsset("/images/promo-titular.png")}
+                  src={promoTitular}
                   alt="Equipo Titular para Rodar"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
@@ -56,7 +59,7 @@ export function PromoMosaic() {
             <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
               <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
                 <img
-                  src={publicAsset("/images/promo-moto.png")}
+                  src={promoMoto}
                   alt="Pone tu moto a punto"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
