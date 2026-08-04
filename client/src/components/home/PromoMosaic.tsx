@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { publicAsset } from "@/lib/assets";
 
 export function PromoMosaic() {
   return (
@@ -23,7 +24,7 @@ export function PromoMosaic() {
           >
             <div style={{ aspectRatio: "852 / 650" }} className="w-full overflow-hidden">
               <img
-                src="/images/promo-cascos.png"
+                src={publicAsset("/images/promo-cascos.png")}
                 alt="Especial Mundial 10% OFF en todos los cascos"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
@@ -35,7 +36,7 @@ export function PromoMosaic() {
             <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
               <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
                 <img
-                  src="/images/promo-cubiertas.png"
+                  src={publicAsset("/images/promo-cubiertas.png")}
                   alt="Cubiertas para salir a la cancha"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
@@ -45,7 +46,7 @@ export function PromoMosaic() {
             <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
               <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
                 <img
-                  src="/images/promo-titular.png"
+                  src={publicAsset("/images/promo-titular.png")}
                   alt="Equipo Titular para Rodar"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
@@ -55,7 +56,7 @@ export function PromoMosaic() {
             <Link href="/catalogo" className="rounded-[16px] overflow-hidden group block shadow-md">
               <div style={{ aspectRatio: "640 / 206" }} className="w-full overflow-hidden">
                 <img
-                  src="/images/promo-moto.png"
+                  src={publicAsset("/images/promo-moto.png")}
                   alt="Pone tu moto a punto"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />

@@ -1,16 +1,17 @@
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
+import { publicAsset } from "@/lib/assets";
 
 export function BrandsNewsSection() {
   const brands = [
-    { name: "Pirelli", logo: "/images/brand-pirelli.png" },
-    { name: "Metzeler", logo: "/images/brand-metzeler.png" },
-    { name: "Motul", logo: "/images/brand-motul.png" },
-    { name: "Motegi", logo: "/images/brand-motegi.png" },
-    { name: "Super Horse", logo: "/images/brand-superhorse.png" },
-    { name: "Yamalube", logo: "/images/brand-yamalube.png" },
-    { name: "Pietcard", logo: "/images/brand-pietcard.png" },
-    { name: "Shell Advance", logo: "/images/brand-shell.png" },
+    { name: "Pirelli", logo: publicAsset("/images/brand-pirelli.png") },
+    { name: "Metzeler", logo: publicAsset("/images/brand-metzeler.png") },
+    { name: "Motul", logo: publicAsset("/images/brand-motul.png") },
+    { name: "Motegi", logo: publicAsset("/images/brand-motegi.png") },
+    { name: "Super Horse", logo: publicAsset("/images/brand-superhorse.png") },
+    { name: "Yamalube", logo: publicAsset("/images/brand-yamalube.png") },
+    { name: "Pietcard", logo: publicAsset("/images/brand-pietcard.png") },
+    { name: "Shell Advance", logo: publicAsset("/images/brand-shell.png") },
   ];
 
   const news = [

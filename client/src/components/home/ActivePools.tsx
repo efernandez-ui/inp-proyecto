@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Clock, Plus } from "lucide-react";
+import { publicAsset } from "@/lib/assets";
 
 export function ActivePools() {
   return (
@@ -32,7 +33,7 @@ export function ActivePools() {
                 <Clock className="w-3 h-3" /> Termina pronto
               </span>
               <img
-                src="/images/pool-ngk.png"
+                src={publicAsset("/images/pool-ngk.png")}
                 alt="NGK"
                 className="w-full h-full object-cover"
               />
@@ -64,7 +65,7 @@ export function ActivePools() {
           <div className="bg-white rounded-xl overflow-hidden shadow-xl flex flex-col text-gray-800 transform hover:-translate-y-2 transition-transform duration-300">
             <div className="h-40 relative overflow-hidden">
               <img
-                src="/images/pool-motul.png"
+                src={publicAsset("/images/pool-motul.png")}
                 alt="Motul"
                 className="w-full h-full object-cover"
               />
@@ -96,7 +97,7 @@ export function ActivePools() {
           <div className="bg-white rounded-xl overflow-hidden shadow-xl flex flex-col text-gray-800 transform hover:-translate-y-2 transition-transform duration-300">
             <div className="h-40 relative overflow-hidden">
               <img
-                src="/images/pool-pirelli.png"
+                src={publicAsset("/images/pool-pirelli.png")}
                 alt="Pirelli Diablo"
                 className="w-full h-full object-cover"
               />

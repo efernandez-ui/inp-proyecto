@@ -1,25 +1,26 @@
 import { Link } from "wouter";
+import { publicAsset } from "@/lib/assets";
 
 export function CategoryBannerGrid() {
   const categories = [
     {
       title: "Cubiertas",
-      image: "/images/cat-cubiertas.png",
+      image: publicAsset("/images/cat-cubiertas.png"),
       href: "/catalogo?categoria=cubiertas"
     },
     {
       title: "Repuestos",
-      image: "/images/cat-repuestos.png",
+      image: publicAsset("/images/cat-repuestos.png"),
       href: "/catalogo?categoria=repuestos"
     },
     {
       title: "Indumentaria",
-      image: "/images/cat-indumentaria.png",
+      image: publicAsset("/images/cat-indumentaria.png"),
       href: "/catalogo?categoria=indumentaria"
     },
     {
       title: "Lubricantes",
-      image: "/images/cat-lubricantes.png",
+      image: publicAsset("/images/cat-lubricantes.png"),
       href: "/catalogo?categoria=lubricantes"
     }
   ];

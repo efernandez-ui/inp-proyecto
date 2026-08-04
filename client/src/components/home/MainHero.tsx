@@ -1,22 +1,23 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
+import { publicAsset } from "@/lib/assets";
 
 const slides = [
   {
-    desktop: "/images/hero-slide-1.png",
-    mobile: "/images/hero-slide-mobile-1.png",
+    desktop: publicAsset("/images/hero-slide-1.png"),
+    mobile: publicAsset("/images/hero-slide-mobile-1.png"),
     alt: "Eurogrip Trailhound STR - Nuevo Ingreso",
     href: "/catalogo",
   },
   {
-    desktop: "/images/hero-slide-2.png",
-    mobile: "/images/hero-slide-mobile-2.png",
+    desktop: publicAsset("/images/hero-slide-2.png"),
+    mobile: publicAsset("/images/hero-slide-mobile-2.png"),
     alt: "Pirelli Diablo Rosso IV - Domina cada curva",
     href: "/catalogo",
   },
   {
-    desktop: "/images/hero-slide-3.png",
-    mobile: "/images/hero-slide-mobile-3.png",
+    desktop: publicAsset("/images/hero-slide-3.png"),
+    mobile: publicAsset("/images/hero-slide-mobile-3.png"),
     alt: "Repuestos que mueven tu moto",
     href: "/catalogo",
   },

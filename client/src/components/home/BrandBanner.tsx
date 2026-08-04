@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { publicAsset } from "@/lib/assets";
 
 export function BrandBanner() {
   return (
@@ -9,7 +10,7 @@ export function BrandBanner() {
           {/* Background image & gradient */}
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: 'url("/images/pirelli-banner-bg.png")' }}
+            style={{ backgroundImage: `url("${publicAsset("/images/pirelli-banner-bg.png")}")` }}
           ></div>
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
           
