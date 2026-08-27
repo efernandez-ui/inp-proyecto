@@ -13,13 +13,13 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { LayoutGrid, List, Filter, Download, ChevronDown, X, ShoppingCart } from "lucide-react";
+import { LayoutGrid, List, Table2, Download, X, ShoppingCart, Plus, Trash2 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Catalog() {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'spreadsheet'>('grid');
   const [sortBy, setSortBy] = useState('relevante');
   const [filters, setFilters] = useState<any>({});
 
@@ -30,6 +30,8 @@ export default function Catalog() {
   const [showPrecioPublico, setShowPrecioPublico] = useState(false);
   const [markup, setMarkup] = useState('');
   const [currency, setCurrency] = useState('ARS');
+  const [spreadsheetQuantities, setSpreadsheetQuantities] = useState<Record<number, string>>({});
+  const [spreadsheetAdded, setSpreadsheetAdded] = useState<Record<number, boolean>>({});
 
   const [motoSearch, setMotoSearch] = useState({
     fabricante: '',
@@ -120,6 +122,77 @@ export default function Catalog() {
 
   const dailyDeals = PRODUCTS.filter(p => p.originalPrice && p.originalPrice > p.price).slice(0, 6);
 
+  const formatPrice = (value: number) => value.toLocaleString('es-AR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+
+  const markupRate = Number(markup.replace(",", ".")) || 0;
+  const getPublicPrice = (price: number) => price * (1 + markupRate / 100);
+
+  const getStockCellClass = (qty: number) => {
+    if (qty === 0) return "bg-red-50 text-red-700";
+    if (qty <= 3) return "bg-amber-50 text-amber-700";
+    return "bg-emerald-50 text-emerald-700";
+  };
+
+  const focusQuantityCell = (rowIndex: number) => {
+    const nextInput = document.querySelector<HTMLInputElement>(`[data-quantity-row="${rowIndex}"]`);
+    nextInput?.focus();
+    nextInput?.select();
+  };
+
+  const handleQuantityKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, rowIndex: number) => {
+    if (event.key === "Enter" || event.key === "ArrowDown") {
+      event.preventDefault();
+      focusQuantityCell(rowIndex + 1);
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      focusQuantityCell(rowIndex - 1);
+    }
+  };
+
+  const getSpreadsheetQuantity = (productId: number) => spreadsheetQuantities[productId] ?? "0";
+
+  const setSpreadsheetQuantity = (productId: number, value: string) => {
+    const numericValue = value.replace(/\D/g, "");
+    const nextValue = numericValue === "" ? "0" : String(Number(numericValue));
+
+    setSpreadsheetQuantities((current) => ({
+      ...current,
+      [productId]: nextValue
+    }));
+
+    if (nextValue === "0") {
+      setSpreadsheetAdded((current) => ({
+        ...current,
+        [productId]: false
+      }));
+    }
+  };
+
+  const resetSpreadsheetQuantity = (productId: number) => {
+    setSpreadsheetQuantities((current) => ({
+      ...current,
+      [productId]: "0"
+    }));
+    setSpreadsheetAdded((current) => ({
+      ...current,
+      [productId]: false
+    }));
+  };
+
+  const addSpreadsheetProduct = (productId: number) => {
+    if (Number(getSpreadsheetQuantity(productId)) <= 0) return;
+
+    setSpreadsheetAdded((current) => ({
+      ...current,
+      [productId]: true
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-intercap-bg flex flex-col font-sans pt-24">
       <Header />
@@ -186,6 +259,9 @@ export default function Catalog() {
                     <button onClick={() => setViewMode('list')} className={`p-1.5 rounded ${viewMode === 'list' ? 'bg-intercap-blue-main text-white' : 'text-gray-500 hover:text-white'}`}>
                       <List className="w-4 h-4" />
                     </button>
+                    <button onClick={() => setViewMode('spreadsheet')} className={`p-1.5 rounded ${viewMode === 'spreadsheet' ? 'bg-intercap-blue-main text-white' : 'text-gray-500 hover:text-white'}`} title="Vista lista tipo Excel">
+                      <Table2 className="w-4 h-4" />
+                    </button>
                   </div>
                   <Select value={itemsPerPage.toString()} onValueChange={(v) => { setItemsPerPage(Number(v)); setCurrentPage(1); }}>
                     <SelectTrigger className="w-[60px] h-8 bg-white/5 border-none text-white text-[10px] font-black"><SelectValue /></SelectTrigger>
@@ -211,11 +287,19 @@ export default function Catalog() {
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-4 border-l border-white/10 pl-4">
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <Checkbox checked={showPrecioCompra} onCheckedChange={(checked) => setShowPrecioCompra(!!checked)} className="border-gray-600 data-[state=checked]:bg-intercap-blue-main" />
+                      <Checkbox
+                        checked={showPrecioCompra}
+                        onCheckedChange={(checked) => setShowPrecioCompra(!!checked)}
+                        className="border-gray-600 data-[state=checked]:bg-intercap-blue-main"
+                      />
                       <span className="text-[10px] font-black text-white group-hover:text-intercap-blue-main uppercase tracking-tighter">Precio Compra</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer group">
-                      <Checkbox checked={showPrecioPublico} onCheckedChange={(checked) => setShowPrecioPublico(!!checked)} className="border-gray-600 data-[state=checked]:bg-intercap-blue-main" />
+                      <Checkbox
+                        checked={showPrecioPublico}
+                        onCheckedChange={(checked) => setShowPrecioPublico(!!checked)}
+                        className="border-gray-600 data-[state=checked]:bg-intercap-blue-main"
+                      />
                       <span className="text-[10px] font-black text-white group-hover:text-intercap-blue-main uppercase tracking-tighter">Precio al Público</span>
                     </label>
                     <div className="relative">
@@ -267,9 +351,132 @@ export default function Catalog() {
                 <button onClick={clearAllFilters} className="text-intercap-blue-main text-[9px] font-black uppercase hover:underline ml-2">Borrar todo</button>
               </div>
             )}
-            <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
-              {paginatedProducts.map((product) => <ProductCard key={product.id} product={product} viewMode={viewMode} />)}
-            </div>
+            {viewMode === 'spreadsheet' ? (
+              <div className="bg-white border border-gray-200 rounded-[4px] shadow-sm overflow-hidden">
+                <div className="flex items-center justify-between gap-3 border-b border-gray-200 bg-[#f3f6fb] px-3 py-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Table2 className="w-4 h-4 text-intercap-blue-main shrink-0" />
+                    <span className="text-[10px] font-black text-intercap-blue-dark uppercase tracking-tighter truncate">Vista de lista editable</span>
+                  </div>
+                  <Button className="h-8 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black uppercase px-3">
+                    <Plus className="w-3.5 h-3.5 mr-1.5" />
+                    Nueva lista
+                  </Button>
+                </div>
+                <div className="overflow-x-auto custom-scrollbar">
+                  <table className="w-full min-w-[1280px] table-fixed border-collapse text-[11px]">
+                    <thead className="sticky top-0 z-10">
+                      <tr className="bg-[#e9eef7] text-[10px] text-slate-600 uppercase">
+                        <th className="w-[34px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">#</th>
+                        <th className="w-[100px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cod.</th>
+                        <th className="w-[68px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Marca</th>
+                        <th className="w-[470px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Producto</th>
+                        <th className="w-[182px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Presentacion</th>
+                        <th className="w-[78px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Tipo</th>
+                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NOA</th>
+                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NEA</th>
+                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">BUE</th>
+                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">CUY</th>
+                        {showPrecioCompra && (
+                          <th className="w-[108px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio final</th>
+                        )}
+                        {showPrecioCompra && (
+                          <th className="w-[108px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio lista</th>
+                        )}
+                        {showPrecioPublico && (
+                          <th className="w-[126px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio publico</th>
+                        )}
+                        <th className="w-[58px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cant.</th>
+                        <th className="w-[96px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Accion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {paginatedProducts.map((product, index) => {
+                        const publicPrice = getPublicPrice(product.price);
+                        const quantityValue = getSpreadsheetQuantity(product.id);
+                        const isAdded = spreadsheetAdded[product.id] && Number(quantityValue) > 0;
+
+                        return (
+                          <tr key={product.id} className="group odd:bg-white even:bg-[#fbfcff] hover:bg-blue-50">
+                            <td className="border border-gray-200 bg-[#f8fafc] px-2 py-1.5 text-center font-bold text-slate-500">
+                              {((currentPage - 1) * itemsPerPage) + index + 1}
+                            </td>
+                            <td className="border border-gray-200 px-2 py-1.5 font-mono text-[10px] text-slate-700">{product.code}</td>
+                            <td className="border border-gray-200 px-2 py-1.5 font-black text-intercap-blue-main uppercase">{product.brand}</td>
+                            <td className="border border-gray-200 px-2 py-1.5 font-bold text-intercap-blue-dark uppercase">
+                              <div className="flex items-center gap-2">
+                                <span className="group/photo relative flex h-8 w-8 shrink-0 items-center justify-center">
+                                  <img src={product.image} alt={product.title} className="max-h-8 max-w-8 object-contain mix-blend-multiply" />
+                                  <span className="pointer-events-none absolute left-10 top-1/2 z-30 hidden h-[250px] w-[250px] -translate-y-1/2 items-center justify-center rounded-[4px] border border-gray-200 bg-white p-4 shadow-xl group-hover/photo:flex">
+                                    <img src={product.image} alt="" className="max-h-full max-w-full object-contain mix-blend-multiply" />
+                                  </span>
+                                </span>
+                                <span className="truncate">{product.title}</span>
+                              </div>
+                            </td>
+                            <td className="border border-gray-200 px-2 py-1.5 text-slate-600">Botella 1 UNI / Caja 12 UNI</td>
+                            <td className="border border-gray-200 px-2 py-1.5 text-slate-600">{product.type || "-"}</td>
+                            <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.NOA)}`}>{product.stock.NOA}</td>
+                            <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.NEA)}`}>{product.stock.NEA}</td>
+                            <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.BUE)}`}>{product.stock.BUE}</td>
+                            <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.CUYO)}`}>{product.stock.CUYO}</td>
+                            {showPrecioCompra && (
+                              <td className="border border-gray-200 px-2 py-1.5 text-right font-black text-intercap-blue-main">${formatPrice(product.price)}</td>
+                            )}
+                            {showPrecioCompra && (
+                              <td className="border border-gray-200 px-2 py-1.5 text-right font-bold text-gray-400 line-through">${formatPrice(product.originalPrice * 1.1)}</td>
+                            )}
+                            {showPrecioPublico && (
+                              <td className="border border-gray-200 px-2 py-1.5 text-right font-black text-orange-500">
+                                ${formatPrice(publicPrice)}
+                              </td>
+                            )}
+                            <td className="border border-gray-200 px-0 py-0">
+                              <Input
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                value={quantityValue}
+                                onChange={(event) => setSpreadsheetQuantity(product.id, event.target.value)}
+                                data-quantity-row={index}
+                                onKeyDown={(event) => handleQuantityKeyDown(event, index)}
+                                onFocus={(event) => event.currentTarget.select()}
+                                className="h-12 w-full rounded-none border-0 bg-transparent px-2 text-center text-[12px] font-black text-intercap-blue-dark shadow-none outline-none ring-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-intercap-blue-main"
+                              />
+                            </td>
+                            <td className="border border-gray-200 px-2 py-1.5">
+                              {isAdded ? (
+                                <Button
+                                  variant="outline"
+                                  className="h-8 w-full border-orange-200 bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-700 text-[10px] font-black uppercase px-2"
+                                  onClick={() => resetSpreadsheetQuantity(product.id)}
+                                >
+                                  <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+                                  Quitar
+                                </Button>
+                              ) : (
+                                <Button
+                                  className="h-8 w-full bg-intercap-blue-main hover:bg-intercap-blue-dark text-white text-[10px] font-black px-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                  disabled={Number(quantityValue) <= 0}
+                                  onClick={() => addSpreadsheetProduct(product.id)}
+                                >
+                                  <ShoppingCart className="w-3.5 h-3.5 mr-1" />
+                                  Agregar
+                                </Button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ) : (
+              <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
+                {paginatedProducts.map((product) => <ProductCard key={product.id} product={product} viewMode={viewMode} />)}
+              </div>
+            )}
             <div className="mt-8"><Footer /></div>
           </div>
         </main>
