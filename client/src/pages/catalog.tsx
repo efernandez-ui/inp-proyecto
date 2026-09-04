@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PRODUCTS } from "@/lib/products";
@@ -13,7 +13,7 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { LayoutGrid, List, Table2, Download, X, ShoppingCart, Plus, Trash2 } from "lucide-react";
+import { LayoutGrid, List, Table2, Download, X, ShoppingCart, Plus, Trash2, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -32,6 +32,9 @@ export default function Catalog() {
   const [currency, setCurrency] = useState('ARS');
   const [spreadsheetQuantities, setSpreadsheetQuantities] = useState<Record<number, string>>({});
   const [spreadsheetAdded, setSpreadsheetAdded] = useState<Record<number, boolean>>({});
+  const [productSearch, setProductSearch] = useState("");
+  const [showOnlyCartProducts, setShowOnlyCartProducts] = useState(false);
+  const [activeCartName, setActiveCartName] = useState("Carrito actual");
 
   const [motoSearch, setMotoSearch] = useState({
     fabricante: '',
@@ -41,10 +44,50 @@ export default function Catalog() {
     anio: ''
   });
 
-  const filteredProducts = useMemo(() => {
+  useEffect(() => {
     setCurrentPage(1);
+  }, [filters, sortBy, productSearch, showOnlyCartProducts]);
+
+  const filteredProducts = useMemo(() => {
+    const normalizeSearchText = (value: string) =>
+      value
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\u00a0/g, " ")
+        .replace(/[^\w./-]+/g, " ")
+        .replace(/\s+/g, " ");
+
+    const searchTerms = normalizeSearchText(productSearch)
+      .split(" ")
+      .filter(Boolean);
 
     return PRODUCTS.filter(product => {
+      if (showOnlyCartProducts && (!spreadsheetAdded[product.id] || Number(spreadsheetQuantities[product.id] ?? "0") <= 0)) {
+        return false;
+      }
+
+      if (searchTerms.length > 0) {
+        const searchableText = [
+          product.title,
+          product.code,
+          product.brand,
+          product.type,
+          product.subtype,
+          product.origin,
+          product.width,
+          product.ratio,
+          product.rim
+        ]
+          .filter((value) => value !== undefined && value !== null)
+          .join(" ")
+          .replace(/\u00a0/g, " ");
+
+        const normalizedProductText = normalizeSearchText(searchableText);
+        if (!searchTerms.every((term) => normalizedProductText.includes(term))) return false;
+      }
+
       const brandFilters = filters.marca || [];
       if (brandFilters.length > 0) {
         if (!brandFilters.some((f: string) => f.toUpperCase() === (product.brand || "").toUpperCase())) return false;
@@ -104,9 +147,12 @@ export default function Catalog() {
       if (sortBy === 'novedades') return (a.isNew ? -1 : 1);
       return 0;
     });
-  }, [filters, sortBy]);
+  }, [filters, sortBy, productSearch, showOnlyCartProducts, spreadsheetAdded, spreadsheetQuantities]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const hasProducts = filteredProducts.length > 0;
+  const firstVisibleProduct = hasProducts ? ((currentPage - 1) * itemsPerPage) + 1 : 0;
+  const lastVisibleProduct = hasProducts ? Math.min(currentPage * itemsPerPage, filteredProducts.length) : 0;
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -191,6 +237,13 @@ export default function Catalog() {
       ...current,
       [productId]: true
     }));
+  };
+
+  const startNewCart = () => {
+    setActiveCartName("Nueva lista");
+    setSpreadsheetQuantities({});
+    setSpreadsheetAdded({});
+    setShowOnlyCartProducts(false);
   };
 
   return (
@@ -324,19 +377,23 @@ export default function Catalog() {
 
           <div className="px-4 pb-10">
             <div className="bg-white rounded-[4px] p-2 mb-4 mt-4 border border-gray-200 flex items-center justify-between shadow-sm">
-              <div className="text-[10px] font-black text-intercap-blue-dark uppercase tracking-tighter">Mostrando {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredProducts.length)} de {filteredProducts.length} productos</div>
+              <div className="text-[10px] font-black text-intercap-blue-dark uppercase tracking-tighter">Mostrando {firstVisibleProduct} - {lastVisibleProduct} de {filteredProducts.length} productos</div>
               <div className="flex items-center gap-1">
-                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>&lt;&lt;</Button>
-                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&lt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(1)} disabled={currentPage === 1 || !hasProducts}>&lt;&lt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1 || !hasProducts}>&lt;</Button>
                 <div className="flex items-center gap-1 mx-2">
-                  {[1, 2, 3, 4].map(p => (
+                  {[1, 2, 3, 4].filter((p) => p <= totalPages).map(p => (
                     <Button key={p} size="sm" className={`w-7 h-7 p-0 text-[10px] font-black ${currentPage === p ? "bg-intercap-blue-main text-white" : "bg-transparent text-intercap-blue-dark hover:bg-gray-100"}`} onClick={() => setCurrentPage(p)}>{p}</Button>
                   ))}
-                  <span className="text-intercap-blue-dark mx-1 text-[10px] font-black">...</span>
-                  <Button size="sm" className={`w-7 h-7 p-0 text-[10px] font-black ${currentPage === totalPages ? "bg-intercap-blue-main text-white" : "bg-transparent text-intercap-blue-dark hover:bg-gray-100"}`} onClick={() => setCurrentPage(totalPages)}>{totalPages}</Button>
+                  {totalPages > 4 && (
+                    <>
+                      <span className="text-intercap-blue-dark mx-1 text-[10px] font-black">...</span>
+                      <Button size="sm" className={`w-7 h-7 p-0 text-[10px] font-black ${currentPage === totalPages ? "bg-intercap-blue-main text-white" : "bg-transparent text-intercap-blue-dark hover:bg-gray-100"}`} onClick={() => setCurrentPage(totalPages)}>{totalPages}</Button>
+                    </>
+                  )}
                 </div>
-                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&gt;</Button>
-                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>&gt;&gt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages || !hasProducts}>&gt;</Button>
+                <Button size="sm" variant="ghost" className="w-7 h-7 p-0" onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages || !hasProducts}>&gt;&gt;</Button>
               </div>
             </div>
             {Object.keys(filters).some(k => filters[k]?.length > 0) && (
@@ -358,13 +415,50 @@ export default function Catalog() {
                     <Table2 className="w-4 h-4 text-intercap-blue-main shrink-0" />
                     <span className="text-[10px] font-black text-intercap-blue-dark uppercase tracking-tighter truncate">Vista de lista editable</span>
                   </div>
-                  <Button className="h-8 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black uppercase px-3">
+                  <div className="relative flex-1 max-w-[420px]">
+                    <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                    <Input
+                      type="search"
+                      value={productSearch}
+                      onChange={(event) => setProductSearch(event.target.value)}
+                      placeholder="Buscar por nombre, marca, codigo o medida"
+                      className="h-8 rounded-[4px] border-gray-300 bg-white pl-9 pr-8 text-[11px] font-black text-intercap-blue-dark shadow-none placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-intercap-blue-main"
+                    />
+                    {productSearch && (
+                      <button
+                        type="button"
+                        onClick={() => setProductSearch("")}
+                        className="absolute right-2 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-intercap-blue-dark"
+                        aria-label="Limpiar busqueda"
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <label className="flex h-8 items-center gap-2 rounded-[4px] border border-gray-300 bg-white px-3 text-[10px] font-black uppercase text-intercap-blue-dark">
+                      <Checkbox
+                        checked={showOnlyCartProducts}
+                        onCheckedChange={(checked) => setShowOnlyCartProducts(!!checked)}
+                        className="h-4 w-4 border-slate-400 data-[state=checked]:bg-intercap-blue-main data-[state=checked]:border-intercap-blue-main"
+                      />
+                      Solo carrito
+                    </label>
+                    <div className="min-w-[140px] text-right">
+                      <div className="text-[8px] font-black uppercase text-slate-400">Carrito activo</div>
+                      <div className="truncate text-[11px] font-black uppercase text-intercap-blue-dark">{activeCartName}</div>
+                    </div>
+                  </div>
+                  <Button
+                    className="h-8 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black uppercase px-3"
+                    onClick={startNewCart}
+                  >
                     <Plus className="w-3.5 h-3.5 mr-1.5" />
                     Nueva lista
                   </Button>
                 </div>
                 <div className="overflow-x-auto custom-scrollbar">
-                  <table className="w-full min-w-[1280px] table-fixed border-collapse text-[11px]">
+                  <table className="w-full min-w-[1400px] table-fixed border-collapse text-[11px]">
                     <thead className="sticky top-0 z-10">
                       <tr className="bg-[#e9eef7] text-[10px] text-slate-600 uppercase">
                         <th className="w-[34px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">#</th>
@@ -388,12 +482,21 @@ export default function Catalog() {
                         )}
                         <th className="w-[58px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cant.</th>
                         <th className="w-[96px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Accion</th>
+                        <th className="w-[120px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Subtotal</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {paginatedProducts.map((product, index) => {
+                      {paginatedProducts.length === 0 ? (
+                        <tr>
+                          <td colSpan={15} className="border border-gray-200 px-4 py-8 text-center text-[11px] font-black uppercase text-slate-500">
+                            No se encontraron productos
+                          </td>
+                        </tr>
+                      ) : paginatedProducts.map((product, index) => {
                         const publicPrice = getPublicPrice(product.price);
                         const quantityValue = getSpreadsheetQuantity(product.id);
+                        const subtotalPrice = showPrecioPublico ? publicPrice : product.price;
+                        const subtotal = Number(quantityValue) * subtotalPrice;
                         const isAdded = spreadsheetAdded[product.id] && Number(quantityValue) > 0;
 
                         return (
@@ -464,6 +567,9 @@ export default function Catalog() {
                                   Agregar
                                 </Button>
                               )}
+                            </td>
+                            <td className="border border-gray-200 bg-[#f8fafc] px-2 py-1.5 text-right font-black text-intercap-blue-dark">
+                              ${formatPrice(subtotal)}
                             </td>
                           </tr>
                         );

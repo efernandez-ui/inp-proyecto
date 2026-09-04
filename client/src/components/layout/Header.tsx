@@ -68,7 +68,6 @@ export function Header({ mode }: HeaderProps) {
 
           {/* Logo */}
           <Link href="/home" className="flex items-center gap-2 shrink-0 text-white no-underline mr-2">
-            <div className="w-[5px] h-7 rounded-[3px] bg-intercap-blue-main" />
             <img src={intercapLogo} alt="Intercap" className="h-7 w-auto" />
           </Link>
 

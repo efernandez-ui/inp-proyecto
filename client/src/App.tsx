@@ -1,4 +1,5 @@
-import { Router as WouterRouter, Switch, Route } from "wouter";
+import { MessageCircle } from "lucide-react";
+import { Router as WouterRouter, Switch, Route, useLocation } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
@@ -22,6 +23,25 @@ function Router() {
   );
 }
 
+function WhatsAppFloatButton() {
+  const [location] = useLocation();
+  const isCatalogView = location.startsWith("/catalogo");
+
+  if (isCatalogView) return null;
+
+  return (
+    <a
+      href="https://api.whatsapp.com/send?phone=5493482440801"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Contactar por WhatsApp"
+      className="fixed bottom-5 right-5 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-black/20 transition hover:scale-105 hover:bg-[#20bd5a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+    >
+      <MessageCircle className="h-7 w-7" strokeWidth={2.6} />
+    </a>
+  );
+}
+
 function App() {
   const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -29,6 +49,7 @@ function App() {
     <TooltipProvider>
       <WouterRouter base={base}>
         <Router />
+        <WhatsAppFloatButton />
       </WouterRouter>
     </TooltipProvider>
   );
