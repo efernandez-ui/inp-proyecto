@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PRODUCTS } from "@/lib/products";
@@ -13,7 +14,7 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { LayoutGrid, List, Table2, Download, X, ShoppingCart, Plus, Trash2, Search } from "lucide-react";
+import { LayoutGrid, List, Table2, Download, X, ShoppingCart, Trash2, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,7 +35,8 @@ export default function Catalog() {
   const [spreadsheetAdded, setSpreadsheetAdded] = useState<Record<number, boolean>>({});
   const [productSearch, setProductSearch] = useState("");
   const [showOnlyCartProducts, setShowOnlyCartProducts] = useState(false);
-  const [activeCartName, setActiveCartName] = useState("Carrito actual");
+  const [spreadsheetColumnWidths, setSpreadsheetColumnWidths] = useState<Record<string, number>>({});
+  const columnResizeRef = useRef<{ columnId: string; startX: number; startWidth: number } | null>(null);
 
   const [motoSearch, setMotoSearch] = useState({
     fabricante: '',
@@ -239,11 +241,104 @@ export default function Catalog() {
     }));
   };
 
-  const startNewCart = () => {
-    setActiveCartName("Nueva lista");
-    setSpreadsheetQuantities({});
-    setSpreadsheetAdded({});
-    setShowOnlyCartProducts(false);
+  const startColumnResize = (event: ReactPointerEvent<HTMLElement>, columnId: string, currentWidth: number) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    columnResizeRef.current = { columnId, startX: event.clientX, startWidth: spreadsheetColumnWidths[columnId] ?? currentWidth };
+    const previousCursor = document.body.style.cursor;
+    const previousUserSelect = document.body.style.userSelect;
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+
+    const handlePointerMove = (moveEvent: PointerEvent) => {
+      const resize = columnResizeRef.current;
+      if (!resize) return;
+      setSpreadsheetColumnWidths((widths) => ({
+        ...widths,
+        [resize.columnId]: Math.max(48, resize.startWidth + moveEvent.clientX - resize.startX)
+      }));
+    };
+
+    const stopColumnResize = () => {
+      columnResizeRef.current = null;
+      document.body.style.cursor = previousCursor;
+      document.body.style.userSelect = previousUserSelect;
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", stopColumnResize);
+      window.removeEventListener("pointercancel", stopColumnResize);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", stopColumnResize);
+    window.addEventListener("pointercancel", stopColumnResize);
+  };
+
+  const handleSpreadsheetHeaderPointerDown = (event: ReactPointerEvent<HTMLTableSectionElement>) => {
+    const header = (event.target as HTMLElement).closest("th");
+    if (!header) return;
+
+    const headerBounds = header.getBoundingClientRect();
+    const distanceToLeft = event.clientX - headerBounds.left;
+    const distanceToRight = headerBounds.right - event.clientX;
+    if (Math.min(distanceToLeft, distanceToRight) > 8) return;
+
+    const headerIndex = Array.from(header.parentElement?.children ?? []).indexOf(header);
+    const columns = [
+      ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
+      ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+      ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+      ...(showPrecioPublico ? [["publicPrice", 105]] : []),
+      ["quantity", 58], ["action", 96], ["subtotal", 120]
+    ] as [string, number][];
+    const column = columns[distanceToLeft <= distanceToRight ? headerIndex - 1 : headerIndex];
+    if (column) startColumnResize(event, column[0], column[1]);
+  };
+
+  const handleSpreadsheetBodyPointerDown = (event: ReactPointerEvent<HTMLTableSectionElement>) => {
+    const cell = (event.target as HTMLElement).closest("td");
+    if (!cell) return;
+
+    const cellBounds = cell.getBoundingClientRect();
+    const distanceToLeft = event.clientX - cellBounds.left;
+    const distanceToRight = cellBounds.right - event.clientX;
+    if (Math.min(distanceToLeft, distanceToRight) > 8) return;
+
+    const columnIndex = Array.from(cell.parentElement?.children ?? []).indexOf(cell);
+    const columns = [
+      ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
+      ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+      ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+      ...(showPrecioPublico ? [["publicPrice", 105]] : []),
+      ["quantity", 58], ["action", 96], ["subtotal", 120]
+    ] as [string, number][];
+    const column = columns[distanceToLeft <= distanceToRight ? columnIndex - 1 : columnIndex];
+    if (column) startColumnResize(event, column[0], column[1]);
+  };
+
+  const handleSpreadsheetColumnDoubleClick = (event: ReactMouseEvent<HTMLTableSectionElement>) => {
+    const cell = (event.target as HTMLElement).closest("th, td") as HTMLTableCellElement | null;
+    if (!cell || cell.getBoundingClientRect().right - event.clientX > 8) return;
+
+    const columnIndex = Array.from(cell.parentElement?.children ?? []).indexOf(cell);
+    const columns = [
+      ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
+      ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+      ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+      ...(showPrecioPublico ? [["publicPrice", 105]] : []),
+      ["quantity", 58], ["action", 96], ["subtotal", 120]
+    ] as [string, number][];
+    const column = columns[columnIndex];
+    const table = cell.closest("table");
+    if (!column || !table) return;
+
+    event.preventDefault();
+    const cells = Array.from(table.querySelectorAll(`tr > :nth-child(${columnIndex + 1})`)) as HTMLTableCellElement[];
+    const contentWidth = Math.ceil(Math.max(...cells.map((item) => item.scrollWidth)) + 1);
+    setSpreadsheetColumnWidths((widths) => ({
+      ...widths,
+      [column[0]]: Math.max(widths[column[0]] ?? column[1], contentWidth)
+    }));
   };
 
   return (
@@ -442,53 +537,62 @@ export default function Catalog() {
                         onCheckedChange={(checked) => setShowOnlyCartProducts(!!checked)}
                         className="h-4 w-4 border-slate-400 data-[state=checked]:bg-intercap-blue-main data-[state=checked]:border-intercap-blue-main"
                       />
-                      Solo carrito
+                      Ver Solo Productos agregados
                     </label>
                     <div className="min-w-[140px] text-right">
                       <div className="text-[8px] font-black uppercase text-slate-400">Carrito activo</div>
-                      <div className="truncate text-[11px] font-black uppercase text-intercap-blue-dark">{activeCartName}</div>
+                      <button
+                        type="button"
+                        className="mt-1 inline-flex h-[18px] items-center justify-center rounded-md bg-intercap-blue-main px-4 text-[9px] font-black tracking-tight text-white"
+                      >
+                        Baterias
+                      </button>
                     </div>
                   </div>
-                  <Button
-                    className="h-8 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black uppercase px-3"
-                    onClick={startNewCart}
-                  >
-                    <Plus className="w-3.5 h-3.5 mr-1.5" />
-                    Nueva lista
-                  </Button>
                 </div>
                 <div className="overflow-x-auto custom-scrollbar">
-                  <table className="w-full min-w-[1400px] table-fixed border-collapse text-[11px]">
-                    <thead className="sticky top-0 z-10">
+                  <table className="w-full min-w-[1470px] table-fixed border-collapse text-[10px] font-normal [&_*]:!text-[10px] [&_*]:!font-normal [&_span.product-title]:!font-bold [&_td[data-price]]:!font-bold [&_td[data-subtotal]]:!font-bold [&_th]:!font-bold [&_th]:overflow-hidden [&_th]:text-ellipsis">
+                    <colgroup>
+                      {[
+                        ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
+                        ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+                        ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+                        ...(showPrecioPublico ? [["publicPrice", 105]] : []),
+                        ["quantity", 58], ["action", 96], ["subtotal", 120]
+                      ].map(([columnId, defaultWidth]) => (
+                        <col key={columnId} style={{ width: spreadsheetColumnWidths[columnId] ?? defaultWidth }} />
+                      ))}
+                    </colgroup>
+                    <thead className="sticky top-0 z-10" onPointerDown={handleSpreadsheetHeaderPointerDown} onDoubleClick={handleSpreadsheetColumnDoubleClick}>
                       <tr className="bg-[#e9eef7] text-[10px] text-slate-600 uppercase">
-                        <th className="w-[34px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">#</th>
-                        <th className="w-[100px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cod.</th>
-                        <th className="w-[68px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Marca</th>
-                        <th className="w-[470px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Producto</th>
-                        <th className="w-[182px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Presentacion</th>
-                        <th className="w-[78px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Tipo</th>
-                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NOA</th>
-                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NEA</th>
-                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">BUE</th>
-                        <th className="w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">CUY</th>
+                        <th className="relative w-[34px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">#<button type="button" aria-label="Ajustar ancho de numero" onPointerDown={(event) => startColumnResize(event, "row", 34)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[90px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cod.<button type="button" aria-label="Ajustar ancho de codigo" onPointerDown={(event) => startColumnResize(event, "code", 90)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[68px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Marca<button type="button" aria-label="Ajustar ancho de marca" onPointerDown={(event) => startColumnResize(event, "brand", 68)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[400px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Producto<button type="button" aria-label="Ajustar ancho de producto" onPointerDown={(event) => startColumnResize(event, "product", 400)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[130px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Presentaciones<button type="button" aria-label="Ajustar ancho de presentaciones" onPointerDown={(event) => startColumnResize(event, "presentations", 130)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[78px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Tipo<button type="button" aria-label="Ajustar ancho de tipo" onPointerDown={(event) => startColumnResize(event, "type", 78)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NOA<button type="button" aria-label="Ajustar ancho de NOA" onPointerDown={(event) => startColumnResize(event, "noa", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NEA<button type="button" aria-label="Ajustar ancho de NEA" onPointerDown={(event) => startColumnResize(event, "nea", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">BUE<button type="button" aria-label="Ajustar ancho de BUE" onPointerDown={(event) => startColumnResize(event, "bue", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">CUY<button type="button" aria-label="Ajustar ancho de CUY" onPointerDown={(event) => startColumnResize(event, "cuyo", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         {showPrecioCompra && (
-                          <th className="w-[108px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio final</th>
+                          <th className="relative w-[105px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio final<button type="button" aria-label="Ajustar ancho de precio final" onPointerDown={(event) => startColumnResize(event, "finalPrice", 105)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         )}
                         {showPrecioCompra && (
-                          <th className="w-[108px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio lista</th>
+                          <th className="relative w-[105px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio lista<button type="button" aria-label="Ajustar ancho de precio lista" onPointerDown={(event) => startColumnResize(event, "listPrice", 105)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         )}
                         {showPrecioPublico && (
-                          <th className="w-[126px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio publico</th>
+                          <th className="relative w-[105px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio publico<button type="button" aria-label="Ajustar ancho de precio publico" onPointerDown={(event) => startColumnResize(event, "publicPrice", 105)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         )}
-                        <th className="w-[58px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cant.</th>
-                        <th className="w-[96px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Accion</th>
-                        <th className="w-[120px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Subtotal</th>
+                        <th className="relative w-[58px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cant.<button type="button" aria-label="Ajustar ancho de cantidad" onPointerDown={(event) => startColumnResize(event, "quantity", 58)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[96px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Accion<button type="button" aria-label="Ajustar ancho de accion" onPointerDown={(event) => startColumnResize(event, "action", 96)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                        <th className="relative w-[120px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Subtotal<button type="button" aria-label="Ajustar ancho de subtotal" onPointerDown={(event) => startColumnResize(event, "subtotal", 120)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody onPointerDown={handleSpreadsheetBodyPointerDown} onDoubleClick={handleSpreadsheetColumnDoubleClick}>
                       {paginatedProducts.length === 0 ? (
                         <tr>
-                          <td colSpan={15} className="border border-gray-200 px-4 py-8 text-center text-[11px] font-black uppercase text-slate-500">
+                          <td colSpan={14 + (showPrecioCompra ? 2 : 0) + (showPrecioPublico ? 1 : 0)} className="border border-gray-200 px-4 py-8 text-center text-[11px] font-black uppercase text-slate-500">
                             No se encontraron productos
                           </td>
                         </tr>
@@ -504,33 +608,38 @@ export default function Catalog() {
                             <td className="border border-gray-200 bg-[#f8fafc] px-2 py-1.5 text-center font-bold text-slate-500">
                               {((currentPage - 1) * itemsPerPage) + index + 1}
                             </td>
-                            <td className="border border-gray-200 px-2 py-1.5 font-mono text-[10px] text-slate-700">{product.code}</td>
-                            <td className="border border-gray-200 px-2 py-1.5 font-black text-intercap-blue-main uppercase">{product.brand}</td>
+                            <td className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 font-mono text-[10px] text-slate-700">{product.code}</td>
+                            <td className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 font-black text-intercap-blue-main uppercase">{product.brand}</td>
                             <td className="border border-gray-200 px-2 py-1.5 font-bold text-intercap-blue-dark uppercase">
-                              <div className="flex items-center gap-2">
+                              <div className="flex min-w-0 items-center gap-2">
                                 <span className="group/photo relative flex h-8 w-8 shrink-0 items-center justify-center">
                                   <img src={product.image} alt={product.title} className="max-h-8 max-w-8 object-contain mix-blend-multiply" />
                                   <span className="pointer-events-none absolute left-10 top-1/2 z-30 hidden h-[250px] w-[250px] -translate-y-1/2 items-center justify-center rounded-[4px] border border-gray-200 bg-white p-4 shadow-xl group-hover/photo:flex">
                                     <img src={product.image} alt="" className="max-h-full max-w-full object-contain mix-blend-multiply" />
                                   </span>
                                 </span>
-                                <span className="truncate">{product.title}</span>
+                                <span className="product-title min-w-0 truncate">{product.title}</span>
                               </div>
                             </td>
-                            <td className="border border-gray-200 px-2 py-1.5 text-slate-600">Botella 1 UNI / Caja 12 UNI</td>
-                            <td className="border border-gray-200 px-2 py-1.5 text-slate-600">{product.type || "-"}</td>
+                            <td className="overflow-hidden border border-gray-200 px-2 py-1.5 text-[9px] text-slate-600">
+                              <div className="space-y-0.5">
+                                <div className="truncate">1° Envase Botella 1 UNI</div>
+                                <div className="truncate">2° Envase Cajas 10 UNI</div>
+                              </div>
+                            </td>
+                            <td className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-slate-600">{product.type || "-"}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.NOA)}`}>{product.stock.NOA}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.NEA)}`}>{product.stock.NEA}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.BUE)}`}>{product.stock.BUE}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.CUYO)}`}>{product.stock.CUYO}</td>
                             {showPrecioCompra && (
-                              <td className="border border-gray-200 px-2 py-1.5 text-right font-black text-intercap-blue-main">${formatPrice(product.price)}</td>
+                              <td data-price className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-right font-black text-intercap-blue-main">${formatPrice(product.price)}</td>
                             )}
                             {showPrecioCompra && (
-                              <td className="border border-gray-200 px-2 py-1.5 text-right font-bold text-gray-400 line-through">${formatPrice(product.originalPrice * 1.1)}</td>
+                              <td data-price className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-right font-bold text-gray-400 line-through">${formatPrice(product.originalPrice * 1.1)}</td>
                             )}
                             {showPrecioPublico && (
-                              <td className="border border-gray-200 px-2 py-1.5 text-right font-black text-orange-500">
+                              <td data-price className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-right font-black text-orange-500">
                                 ${formatPrice(publicPrice)}
                               </td>
                             )}
@@ -544,7 +653,7 @@ export default function Catalog() {
                                 data-quantity-row={index}
                                 onKeyDown={(event) => handleQuantityKeyDown(event, index)}
                                 onFocus={(event) => event.currentTarget.select()}
-                                className="h-12 w-full rounded-none border-0 bg-transparent px-2 text-center text-[12px] font-black text-intercap-blue-dark shadow-none outline-none ring-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-intercap-blue-main"
+                                className="h-10 w-full rounded-none border-0 bg-transparent px-2 text-center text-[12px] font-black text-intercap-blue-dark shadow-none outline-none ring-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-intercap-blue-main"
                               />
                             </td>
                             <td className="border border-gray-200 px-2 py-1.5">
@@ -568,7 +677,7 @@ export default function Catalog() {
                                 </Button>
                               )}
                             </td>
-                            <td className="border border-gray-200 bg-[#f8fafc] px-2 py-1.5 text-right font-black text-intercap-blue-dark">
+                            <td data-subtotal className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 bg-[#f8fafc] px-2 py-1.5 text-right font-black text-intercap-blue-dark">
                               ${formatPrice(subtotal)}
                             </td>
                           </tr>
