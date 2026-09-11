@@ -1,63 +1,115 @@
-import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Facebook, Headphones, Instagram, Linkedin, MapPin, Truck, WalletCards, Youtube } from "lucide-react";
+import { Link } from "wouter";
+import intercapLogo from "@assets/intercap-logo-blanco.png";
 
-export function Footer() {
+type FooterVariant = "landing" | "portal";
+
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/intercapsrl/", icon: Instagram },
+  { label: "Facebook", href: "https://www.facebook.com/intercapsrl/", icon: Facebook },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/intercap-s-r-l", icon: Linkedin },
+  { label: "YouTube", href: "https://www.youtube.com/@intercapsrl", icon: Youtube },
+];
+
+const landingUserLinks = [
+  { label: "Acceso clientes", href: "/home" },
+  { label: "Catálogo", href: "/catalogo" },
+  { label: "Solicitud de cliente", href: "#quiero-ser-cliente" },
+  { label: "Formá parte", href: "https://www.intercap.com.ar/TiendaVirtual/forma-parte;jsessionid=0f54a49cd6f6af23cb237ea377bc" },
+  { label: "Bancos", href: "#" },
+];
+
+const portalUserLinks = [
+  { label: "Mi cuenta", href: "/home" },
+  { label: "Catálogo", href: "/catalogo" },
+  { label: "Mis carritos", href: "#" },
+  { label: "Pedidos", href: "#" },
+  { label: "Cuenta corriente", href: "#" },
+  { label: "Informar un pago", href: "#" },
+  { label: "Consultas y reclamos", href: "#" },
+];
+
+const landingInfoLinks = ["Sobre nosotros", "Sucursales", "Preguntas frecuentes", "Información útil", "Ayuda"];
+const portalInfoLinks = ["Sobre nosotros", "Sucursales", "Cobrá con Inpay", "Bancos", "Preguntas frecuentes", "Información útil", "Ayuda"];
+
+function FooterLink({ label, href }: { label: string; href: string }) {
+  const className = "block w-fit transition hover:text-blue-600 hover:underline";
+  if (href.startsWith("http") || href.startsWith("#")) return <a className={className} href={href}>{label}</a>;
+  return <Link className={className} href={href}>{label}</Link>;
+}
+
+export function Footer({ variant = "portal" }: { variant?: FooterVariant }) {
+  const isLanding = variant === "landing";
+  const userLinks = isLanding ? landingUserLinks : portalUserLinks;
+  const infoLinks = isLanding ? landingInfoLinks : portalInfoLinks;
+
   return (
-    <footer className="bg-white border-t border-gray-200 pt-12 pb-6">
-      <div className="container mx-auto px-4">
-        
-        {/* About Box */}
-        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 p-8 text-center mb-12 shadow-sm">
-           <p className="text-lg font-medium text-gray-700 mb-6">
-             Desde el año 1991 somos expertos en el negocio de repuestos y accesorios para motos
-           </p>
-           <Button className="bg-intercap-blue hover:bg-blue-600 text-white font-bold rounded-full px-8">
-             Conocé más de Nosotros <ArrowRight className="w-4 h-4 ml-2" />
-           </Button>
+    <footer className="border-t border-slate-200 bg-white text-[#062642]">
+      {isLanding && (
+        <section className="bg-[#062642] px-5 py-10 text-white">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
+              <div className="flex flex-col items-center">
+                <MapPin className="h-6 w-6" strokeWidth={2.2} />
+                <h3 className="mt-3 text-sm font-black">Estamos cerca tuyo</h3>
+                <p className="mt-2 max-w-[230px] text-xs font-medium leading-5">Depósitos en Buenos Aires, Tucumán, Resistencia y Mendoza</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <Truck className="h-6 w-6" strokeWidth={2.2} />
+                <h3 className="mt-3 text-sm font-black">Envíos rápidos a todo el país</h3>
+                <p className="mt-2 max-w-[230px] text-xs font-medium leading-5">Ahorrando en cada compra</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <Headphones className="h-6 w-6" strokeWidth={2.2} />
+                <h3 className="mt-3 text-sm font-black">Atención personalizada</h3>
+                <p className="mt-2 max-w-[230px] text-xs font-medium leading-5">Asesor comercial y servicio al cliente</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <WalletCards className="h-6 w-6" strokeWidth={2.2} />
+                <h3 className="mt-3 text-sm font-black">Ahorrá tiempo con autogestión</h3>
+                <p className="mt-2 max-w-[230px] text-xs font-medium leading-5">Cuenta corriente y pedidos online</p>
+              </div>
+            </div>
+            <div className="mt-10 flex flex-col gap-4 text-center text-xs font-black md:flex-row md:items-center md:justify-between md:text-left">
+              <p>Desde el año 1991 somos expertos en el negocio de repuestos y accesorios para motos</p>
+              <a href="http://192.168.0.205:3000/info/quienes-somos" className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-white transition hover:bg-sky-300">
+                Conocé más de nosotros
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+      <div className="mx-auto grid max-w-[1500px] gap-10 px-5 py-12 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1.35fr] lg:gap-12">
+        <div className="pt-1">
+          <img src={intercapLogo} alt="Intercap" className="h-8 w-auto [filter:brightness(0)_saturate(100%)_invert(18%)_sepia(42%)_saturate(2384%)_hue-rotate(232deg)_brightness(93%)_contrast(95%)]" />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left border-t border-gray-100 pt-8">
-           <div>
-             <h4 className="font-bold text-gray-800 mb-4 uppercase text-sm tracking-wider">Contacto</h4>
-             <ul className="space-y-3 text-sm text-gray-600">
-               <li className="flex items-center justify-center md:justify-start gap-2">
-                 <MapPin className="w-4 h-4 text-intercap-blue" /> Belgrano 777, Reconquista, Santa Fe
-               </li>
-               <li className="flex items-center justify-center md:justify-start gap-2">
-                 <Phone className="w-4 h-4 text-intercap-blue" /> 0810-888-21130
-               </li>
-               <li className="flex items-center justify-center md:justify-start gap-2">
-                 <Mail className="w-4 h-4 text-intercap-blue" /> info@intercap.com.ar
-               </li>
-             </ul>
-           </div>
-           
-           <div>
-             <h4 className="font-bold text-gray-800 mb-4 uppercase text-sm tracking-wider">Horarios</h4>
-             <ul className="space-y-2 text-sm text-gray-600">
-               <li>Lunes a Viernes: 8:00 - 12:00 / 16:00 - 20:00</li>
-               <li>Sábados: 8:30 - 12:30</li>
-             </ul>
-           </div>
-
-           <div>
-             <h4 className="font-bold text-gray-800 mb-4 uppercase text-sm tracking-wider">Síguenos</h4>
-             <div className="flex justify-center md:justify-start gap-4">
-               <a href="#" className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                 <Facebook className="w-5 h-5" />
-               </a>
-               <a href="#" className="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                 <Instagram className="w-5 h-5" />
-               </a>
-               <a href="#" className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                 <Youtube className="w-5 h-5" />
-               </a>
-             </div>
-           </div>
+        <div>
+          <h3 className="text-xl font-medium text-[#39328b]">Usuarios</h3>
+          <ul className="mt-3 space-y-1 text-sm leading-5">
+            {userLinks.map((link) => <li key={link.label}><FooterLink {...link} /></li>)}
+          </ul>
         </div>
-
-        <div className="mt-12 border-t border-gray-100 pt-6 text-center text-xs text-gray-400">
-          <p>© 2025 Intercap S.A. Todos los derechos reservados.</p>
+        <div>
+          <h3 className="text-xl font-medium text-[#39328b]">Información</h3>
+          <ul className="mt-3 space-y-1 text-sm leading-5">
+            {infoLinks.map((label) => <li key={label}><a className="block w-fit transition hover:text-blue-600 hover:underline" href="#">{label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-xl font-medium text-[#39328b]">Hablá con nosotros</h3>
+          <div className="mt-3 text-sm leading-5">
+            <a className="block w-fit transition hover:text-blue-600 hover:underline" href="mailto:info@intercap.com.ar">Contacto</a>
+            <a className="block w-fit transition hover:text-blue-600 hover:underline" href="tel:+54081088821130">+54 0810-888-21130</a>
+            <a className="block w-fit transition hover:text-blue-600 hover:underline" href="mailto:info@intercap.com.ar">info@intercap.com.ar</a>
+          </div>
+          <p className="mt-6 text-sm leading-5">Lunes a Viernes: 08:00 a 17:00 hs<br />Sábados: 09:00 a 12:00 hs</p>
+          <p className="mt-5 text-sm">Seguinos en redes</p>
+          <div className="mt-3 flex gap-3">
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+              return <a key={social.label} href={social.href} target="_blank" rel="noreferrer" aria-label={social.label} className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#39328b] text-white transition hover:bg-blue-600"><Icon className="h-4 w-4" strokeWidth={2.2} /></a>;
+            })}
+          </div>
         </div>
       </div>
     </footer>

@@ -36,7 +36,11 @@ export default function Catalog() {
   const [productSearch, setProductSearch] = useState("");
   const [showOnlyCartProducts, setShowOnlyCartProducts] = useState(false);
   const [spreadsheetColumnWidths, setSpreadsheetColumnWidths] = useState<Record<string, number>>({});
+  const [spreadsheetScrollbarWidth, setSpreadsheetScrollbarWidth] = useState(0);
+  const [spreadsheetScrollbarViewport, setSpreadsheetScrollbarViewport] = useState({ left: 0, width: 0 });
   const columnResizeRef = useRef<{ columnId: string; startX: number; startWidth: number } | null>(null);
+  const spreadsheetScrollRef = useRef<HTMLDivElement>(null);
+  const bottomSpreadsheetScrollRef = useRef<HTMLDivElement>(null);
 
   const [motoSearch, setMotoSearch] = useState({
     fabricante: '',
@@ -49,6 +53,29 @@ export default function Catalog() {
   useEffect(() => {
     setCurrentPage(1);
   }, [filters, sortBy, productSearch, showOnlyCartProducts]);
+
+  useEffect(() => {
+    const spreadsheetScroll = spreadsheetScrollRef.current;
+    if (viewMode !== "spreadsheet" || !spreadsheetScroll) {
+      return;
+    }
+
+    const updateScrollbar = () => {
+      setSpreadsheetScrollbarWidth(Math.max(spreadsheetScroll.scrollWidth, spreadsheetScroll.clientWidth + 1));
+      const { left, width } = spreadsheetScroll.getBoundingClientRect();
+      setSpreadsheetScrollbarViewport({ left, width });
+    };
+
+    updateScrollbar();
+    const observer = new ResizeObserver(updateScrollbar);
+    observer.observe(spreadsheetScroll);
+    window.addEventListener("resize", updateScrollbar);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateScrollbar);
+    };
+  }, [viewMode, spreadsheetColumnWidths, showPrecioCompra, showPrecioPublico]);
 
   const filteredProducts = useMemo(() => {
     const normalizeSearchText = (value: string) =>
@@ -505,12 +532,12 @@ export default function Catalog() {
             )}
             {viewMode === 'spreadsheet' ? (
               <div className="bg-white border border-gray-200 rounded-[4px] shadow-sm overflow-hidden">
-                <div className="flex items-center justify-between gap-3 border-b border-gray-200 bg-[#f3f6fb] px-3 py-2">
+                <div className="flex flex-col gap-2 border-b border-gray-200 bg-[#f3f6fb] px-3 py-2 lg:flex-row lg:items-center lg:justify-between">
                   <div className="flex items-center gap-2 min-w-0">
                     <Table2 className="w-4 h-4 text-intercap-blue-main shrink-0" />
                     <span className="text-[10px] font-black text-intercap-blue-dark uppercase tracking-tighter truncate">Vista de lista editable</span>
                   </div>
-                  <div className="relative flex-1 max-w-[420px]">
+                  <div className="relative w-full lg:max-w-[420px] lg:flex-1">
                     <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
                     <Input
                       type="search"
@@ -530,8 +557,8 @@ export default function Catalog() {
                       </button>
                     )}
                   </div>
-                  <div className="flex items-center gap-3">
-                    <label className="flex h-8 items-center gap-2 rounded-[4px] border border-gray-300 bg-white px-3 text-[10px] font-black uppercase text-intercap-blue-dark">
+                  <div className="flex flex-col items-stretch gap-2 min-[520px]:flex-row min-[520px]:items-center lg:ml-auto">
+                    <label className="flex h-8 items-center justify-center gap-2 rounded-[4px] border border-gray-300 bg-white px-3 text-[10px] font-black uppercase text-intercap-blue-dark">
                       <Checkbox
                         checked={showOnlyCartProducts}
                         onCheckedChange={(checked) => setShowOnlyCartProducts(!!checked)}
@@ -539,7 +566,7 @@ export default function Catalog() {
                       />
                       Ver Solo Productos agregados
                     </label>
-                    <div className="min-w-[140px] text-right">
+                    <div className="min-w-[140px] text-center min-[520px]:text-right">
                       <div className="text-[8px] font-black uppercase text-slate-400">Carrito activo</div>
                       <button
                         type="button"
@@ -550,7 +577,16 @@ export default function Catalog() {
                     </div>
                   </div>
                 </div>
-                <div className="overflow-x-auto custom-scrollbar">
+                <div
+                  ref={spreadsheetScrollRef}
+                  className="overflow-x-auto custom-scrollbar"
+                  onScroll={(event) => {
+                    const bottomScroll = bottomSpreadsheetScrollRef.current;
+                    if (bottomScroll && bottomScroll.scrollLeft !== event.currentTarget.scrollLeft) {
+                      bottomScroll.scrollLeft = event.currentTarget.scrollLeft;
+                    }
+                  }}
+                >
                   <table className="w-full min-w-[1470px] table-fixed border-collapse text-[10px] font-normal [&_*]:!text-[10px] [&_*]:!font-normal [&_span.product-title]:!font-bold [&_td[data-price]]:!font-bold [&_td[data-subtotal]]:!font-bold [&_th]:!font-bold [&_th]:overflow-hidden [&_th]:text-ellipsis">
                     <colgroup>
                       {[
@@ -686,6 +722,24 @@ export default function Catalog() {
                     </tbody>
                   </table>
                 </div>
+                <div
+                  className="fixed bottom-0 z-50 border-t border-slate-300 bg-white/95 pt-1 shadow-[0_-2px_8px_rgba(15,23,42,0.12)] backdrop-blur-sm"
+                  style={{ left: spreadsheetScrollbarViewport.left, width: spreadsheetScrollbarViewport.width }}
+                >
+                  <div
+                    ref={bottomSpreadsheetScrollRef}
+                    className="h-4 overflow-x-auto custom-scrollbar"
+                    onScroll={(event) => {
+                      const spreadsheetScroll = spreadsheetScrollRef.current;
+                      if (spreadsheetScroll && spreadsheetScroll.scrollLeft !== event.currentTarget.scrollLeft) {
+                        spreadsheetScroll.scrollLeft = event.currentTarget.scrollLeft;
+                      }
+                    }}
+                    aria-label="Desplazamiento horizontal de la planilla"
+                  >
+                    <div className="h-px" style={{ width: spreadsheetScrollbarWidth }} />
+                  </div>
+                </div>
               </div>
             ) : (
               <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5' : 'grid-cols-1'}`}>
@@ -696,7 +750,7 @@ export default function Catalog() {
           </div>
         </main>
       </div>
-      <style>{`.custom-scrollbar::-webkit-scrollbar { width: 4px; } .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); } .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }`}</style>
+      <style>{`.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 10px; } .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); } .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }`}</style>
     </div>
   );
 }

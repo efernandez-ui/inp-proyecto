@@ -14,6 +14,7 @@ import {
   WalletCards,
   Youtube,
 } from "lucide-react";
+import { Footer } from "@/components/layout/Footer";
 import {
   Dialog,
   DialogContent,
@@ -168,7 +169,7 @@ const navLinks = [
   { label: "¿QUIÉNES SOMOS?", href: "#quienes-somos" },
   { label: "QUIERO SER CLIENTE", href: "#quiero-ser-cliente" },
   { label: "SUCURSALES", href: "#sucursales" },
-  { label: "FORMA PARTE", href: "#forma-parte" },
+  { label: "FORMA PARTE", href: "https://www.intercap.com.ar/TiendaVirtual/forma-parte;jsessionid=0f54a49cd6f6af23cb237ea377bc" },
 ];
 
 export default function Landing() {
@@ -287,6 +288,14 @@ export default function Landing() {
           <div className="mx-auto flex h-full w-full max-w-[1500px] items-center justify-start gap-1 overflow-x-auto px-4 [scrollbar-width:none] sm:px-6 [&::-webkit-scrollbar]:hidden">
             {navLinks.map((item) =>
               item.href.startsWith("#") ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="flex h-10 shrink-0 items-center px-4 text-[11px] font-black uppercase tracking-wide text-white/85 transition hover:text-white"
+                >
+                  {item.label}
+                </a>
+              ) : item.href.startsWith("http") ? (
                 <a
                   key={item.href}
                   href={item.href}
@@ -663,6 +672,7 @@ export default function Landing() {
         </section>
       </main>
 
+      {/*
       <footer>
         <div className="bg-[#062642] px-5 py-10 text-white">
           <div className="mx-auto max-w-6xl">
@@ -781,6 +791,8 @@ export default function Landing() {
           </div>
         </div>
       </footer>
+      */}
+      <Footer variant="landing" />
     </div>
   );
 }
