@@ -312,9 +312,9 @@ export default function Catalog() {
 
     const headerIndex = Array.from(header.parentElement?.children ?? []).indexOf(header);
     const columns = [
-      ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
-      ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
-      ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+      ["row", 34], ["code", 90], ["product", 400], ["presentations", 130],
+      ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+      ...(showPrecioCompra ? [["finalPrice", 145]] : []),
       ...(showPrecioPublico ? [["publicPrice", 105]] : []),
       ["quantity", 58], ["action", 96], ["subtotal", 120]
     ] as [string, number][];
@@ -333,9 +333,9 @@ export default function Catalog() {
 
     const columnIndex = Array.from(cell.parentElement?.children ?? []).indexOf(cell);
     const columns = [
-      ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
-      ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
-      ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+      ["row", 34], ["code", 90], ["product", 400], ["presentations", 130],
+      ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+      ...(showPrecioCompra ? [["finalPrice", 145]] : []),
       ...(showPrecioPublico ? [["publicPrice", 105]] : []),
       ["quantity", 58], ["action", 96], ["subtotal", 120]
     ] as [string, number][];
@@ -349,9 +349,9 @@ export default function Catalog() {
 
     const columnIndex = Array.from(cell.parentElement?.children ?? []).indexOf(cell);
     const columns = [
-      ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
-      ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
-      ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+      ["row", 34], ["code", 90], ["product", 400], ["presentations", 130],
+      ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+      ...(showPrecioCompra ? [["finalPrice", 145]] : []),
       ...(showPrecioPublico ? [["publicPrice", 105]] : []),
       ["quantity", 58], ["action", 96], ["subtotal", 120]
     ] as [string, number][];
@@ -587,12 +587,12 @@ export default function Catalog() {
                     }
                   }}
                 >
-                  <table className="w-full min-w-[1470px] table-fixed border-collapse text-[10px] font-normal [&_*]:!text-[10px] [&_*]:!font-normal [&_span.product-title]:!font-bold [&_td[data-price]]:!font-bold [&_td[data-subtotal]]:!font-bold [&_th]:!font-bold [&_th]:overflow-hidden [&_th]:text-ellipsis">
+                  <table className="w-full min-w-[1259px] table-fixed border-collapse text-[10px] font-normal [&_*]:!text-[10px] [&_*]:!font-normal [&_span.product-brand]:!font-bold [&_span.product-title]:!font-bold [&_.discount-badge]:!font-black [&_.discount-badge]:!text-[8px] [&_.final-price]:!font-bold [&_.final-price]:!text-[12px] [&_td[data-price]]:!font-bold [&_td[data-subtotal]]:!font-bold [&_th]:!font-bold [&_th]:overflow-hidden [&_th]:text-ellipsis">
                     <colgroup>
                       {[
-                        ["row", 34], ["code", 90], ["brand", 68], ["product", 400], ["presentations", 130],
-                        ["type", 78], ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
-                        ...(showPrecioCompra ? [["finalPrice", 105], ["listPrice", 105]] : []),
+                        ["row", 34], ["code", 90], ["product", 400], ["presentations", 130],
+                        ["noa", 46], ["nea", 46], ["bue", 46], ["cuyo", 46],
+                        ...(showPrecioCompra ? [["finalPrice", 145]] : []),
                         ...(showPrecioPublico ? [["publicPrice", 105]] : []),
                         ["quantity", 58], ["action", 96], ["subtotal", 120]
                       ].map(([columnId, defaultWidth]) => (
@@ -603,19 +603,14 @@ export default function Catalog() {
                       <tr className="bg-[#e9eef7] text-[10px] text-slate-600 uppercase">
                         <th className="relative w-[34px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">#<button type="button" aria-label="Ajustar ancho de numero" onPointerDown={(event) => startColumnResize(event, "row", 34)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[90px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Cod.<button type="button" aria-label="Ajustar ancho de codigo" onPointerDown={(event) => startColumnResize(event, "code", 90)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
-                        <th className="relative w-[68px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Marca<button type="button" aria-label="Ajustar ancho de marca" onPointerDown={(event) => startColumnResize(event, "brand", 68)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[400px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Producto<button type="button" aria-label="Ajustar ancho de producto" onPointerDown={(event) => startColumnResize(event, "product", 400)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[130px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Presentaciones<button type="button" aria-label="Ajustar ancho de presentaciones" onPointerDown={(event) => startColumnResize(event, "presentations", 130)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
-                        <th className="relative w-[78px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Tipo<button type="button" aria-label="Ajustar ancho de tipo" onPointerDown={(event) => startColumnResize(event, "type", 78)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NOA<button type="button" aria-label="Ajustar ancho de NOA" onPointerDown={(event) => startColumnResize(event, "noa", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">NEA<button type="button" aria-label="Ajustar ancho de NEA" onPointerDown={(event) => startColumnResize(event, "nea", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">BUE<button type="button" aria-label="Ajustar ancho de BUE" onPointerDown={(event) => startColumnResize(event, "bue", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         <th className="relative w-[46px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">CUY<button type="button" aria-label="Ajustar ancho de CUY" onPointerDown={(event) => startColumnResize(event, "cuyo", 46)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         {showPrecioCompra && (
-                          <th className="relative w-[105px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio final<button type="button" aria-label="Ajustar ancho de precio final" onPointerDown={(event) => startColumnResize(event, "finalPrice", 105)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
-                        )}
-                        {showPrecioCompra && (
-                          <th className="relative w-[105px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio lista<button type="button" aria-label="Ajustar ancho de precio lista" onPointerDown={(event) => startColumnResize(event, "listPrice", 105)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
+                          <th className="relative w-[145px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio final<button type="button" aria-label="Ajustar ancho de precio final" onPointerDown={(event) => startColumnResize(event, "finalPrice", 145)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
                         )}
                         {showPrecioPublico && (
                           <th className="relative w-[105px] border border-gray-300 px-2 py-2 text-left font-black whitespace-nowrap">Precio publico<button type="button" aria-label="Ajustar ancho de precio publico" onPointerDown={(event) => startColumnResize(event, "publicPrice", 105)} className="absolute -right-1 top-0 z-20 h-full w-2 cursor-col-resize touch-none" /></th>
@@ -628,12 +623,14 @@ export default function Catalog() {
                     <tbody onPointerDown={handleSpreadsheetBodyPointerDown} onDoubleClick={handleSpreadsheetColumnDoubleClick}>
                       {paginatedProducts.length === 0 ? (
                         <tr>
-                          <td colSpan={14 + (showPrecioCompra ? 2 : 0) + (showPrecioPublico ? 1 : 0)} className="border border-gray-200 px-4 py-8 text-center text-[11px] font-black uppercase text-slate-500">
+                          <td colSpan={11 + (showPrecioCompra ? 1 : 0) + (showPrecioPublico ? 1 : 0)} className="border border-gray-200 px-4 py-8 text-center text-[11px] font-black uppercase text-slate-500">
                             No se encontraron productos
                           </td>
                         </tr>
                       ) : paginatedProducts.map((product, index) => {
                         const publicPrice = getPublicPrice(product.price);
+                        const listPrice = product.originalPrice * 1.1;
+                        const discountPercent = listPrice > product.price ? Math.round((1 - product.price / listPrice) * 100) : 0;
                         const quantityValue = getSpreadsheetQuantity(product.id);
                         const subtotalPrice = showPrecioPublico ? publicPrice : product.price;
                         const subtotal = Number(quantityValue) * subtotalPrice;
@@ -645,7 +642,6 @@ export default function Catalog() {
                               {((currentPage - 1) * itemsPerPage) + index + 1}
                             </td>
                             <td className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 font-mono text-[10px] text-slate-700">{product.code}</td>
-                            <td className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 font-black text-intercap-blue-main uppercase">{product.brand}</td>
                             <td className="border border-gray-200 px-2 py-1.5 font-bold text-intercap-blue-dark uppercase">
                               <div className="flex min-w-0 items-center gap-2">
                                 <span className="group/photo relative flex h-8 w-8 shrink-0 items-center justify-center">
@@ -654,25 +650,32 @@ export default function Catalog() {
                                     <img src={product.image} alt="" className="max-h-full max-w-full object-contain mix-blend-multiply" />
                                   </span>
                                 </span>
-                                <span className="product-title min-w-0 truncate">{product.title}</span>
+                                <span className="flex min-w-0 flex-col gap-0.5">
+                                  <span className="product-brand truncate text-intercap-blue-main">{product.brand}</span>
+                                  <span className="product-title truncate">{product.title}</span>
+                                </span>
                               </div>
                             </td>
                             <td className="overflow-hidden border border-gray-200 px-2 py-1.5 text-[9px] text-slate-600">
                               <div className="space-y-0.5">
-                                <div className="truncate">1° Envase Botella 1 UNI</div>
-                                <div className="truncate">2° Envase Cajas 10 UNI</div>
+                                <div className="truncate">Botella 1 UNI</div>
+                                <div className="truncate">Cajas 10 UNI</div>
                               </div>
                             </td>
-                            <td className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-slate-600">{product.type || "-"}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.NOA)}`}>{product.stock.NOA}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.NEA)}`}>{product.stock.NEA}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.BUE)}`}>{product.stock.BUE}</td>
                             <td className={`border border-gray-200 px-2 py-1.5 text-center font-black ${getStockCellClass(product.stock.CUYO)}`}>{product.stock.CUYO}</td>
                             {showPrecioCompra && (
-                              <td data-price className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-right font-black text-intercap-blue-main">${formatPrice(product.price)}</td>
-                            )}
-                            {showPrecioCompra && (
-                              <td data-price className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-right font-bold text-gray-400 line-through">${formatPrice(product.originalPrice * 1.1)}</td>
+                              <td data-price className="border border-gray-200 px-2 py-1.5 text-intercap-blue-main">
+                                <div className="flex items-center justify-between gap-1.5 whitespace-nowrap">
+                                  {discountPercent > 0 && <span className="discount-badge flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-600 text-white shadow-sm" title={`${discountPercent}% de descuento`}>-{discountPercent}%</span>}
+                                  <span className="min-w-0 flex-1 text-right">
+                                    <span className="final-price block">${formatPrice(product.price)}</span>
+                                    <span className="block text-gray-400 line-through">${formatPrice(listPrice)}</span>
+                                  </span>
+                                </div>
+                              </td>
                             )}
                             {showPrecioPublico && (
                               <td data-price className="overflow-hidden text-ellipsis whitespace-nowrap border border-gray-200 px-2 py-1.5 text-right font-black text-orange-500">
