@@ -111,7 +111,7 @@ const heroBanners = [
   { type: "image", src: ngkBanner, alt: "NGK spark plugs" },
 ];
 
-const branches = [
+export const branches = [
   {
     name: "Reconquista",
     type: "Administracion Central",

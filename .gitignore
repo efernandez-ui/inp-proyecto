@@ -1,6 +1,7 @@
 node_modules
 dist
 .local
+.env.local
 .agents
 .DS_Store
 vite.config.ts.*

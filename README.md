@@ -47,6 +47,16 @@ Si PowerShell bloquea scripts:
 npm.cmd run dev
 ```
 
+## Feed de Instagram
+
+La subsolapa **Información útil → Redes Sociales y videos** muestra el widget de Instagram Feed de Elfsight proporcionado para `@intercap_srl`. Para usar otro widget, crear un archivo `.env.local` en la raíz del proyecto con:
+
+```text
+VITE_ELFSIGHT_INSTAGRAM_WIDGET_ID=ID_DEL_WIDGET
+```
+
+Reiniciar el servidor de desarrollo o volver a generar el build para aplicar el cambio de ID.
+
 ## Scripts
 
 - `npm run dev`: inicia Vite en modo desarrollo.

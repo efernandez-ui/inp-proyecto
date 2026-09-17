@@ -8,6 +8,8 @@ import AdminHome from "@/pages/admin-home";
 import SellerHome from "@/pages/seller-home";
 import Catalog from "@/pages/catalog";
 import ProductDetail from "@/pages/product-detail";
+import QuickHelp from "@/pages/quick-help";
+import Orders from "@/pages/orders";
 
 function Router() {
   return (
@@ -18,6 +20,8 @@ function Router() {
       <Route path="/vendedor" component={SellerHome} />
       <Route path="/catalogo" component={Catalog} />
       <Route path="/producto/:id" component={ProductDetail} />
+      <Route path="/info/ayuda-rapida" component={QuickHelp} />
+      <Route path="/pedidos" component={Orders} />
       <Route component={NotFound} />
     </Switch>
   );

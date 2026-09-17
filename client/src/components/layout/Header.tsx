@@ -17,7 +17,7 @@ import {
 const NAV_LINKS = [
   { label: "CATÁLOGO", href: "/catalogo", hasDropdown: true },
   { label: "CARRITO", href: "/carrito" },
-  { label: "PEDIDOS", href: "/pedidos" },
+  { label: "PEDIDOS Y SEGUIMIENTO", href: "/pedidos" },
   { label: "CUENTA CORRIENTE", href: "/cuenta-corriente" },
   { label: "COBRÁ CON INPAY", href: "/inpay" },
   { label: "RECLAMOS", href: "/reclamos" },
@@ -212,10 +212,16 @@ export function Header({ mode }: HeaderProps) {
           </DropdownMenu>
 
           {/* Ayuda */}
-          <button className="hidden lg:flex items-center gap-1.5 text-white/80 hover:text-white text-[11px] font-bold transition-colors">
+          <Link
+            href="/info/ayuda-rapida"
+            className={`hidden lg:flex items-center gap-1.5 text-[11px] font-bold transition-colors ${
+              location === "/info/ayuda-rapida" ? "text-white" : "text-white/80 hover:text-white"
+            }`}
+            aria-current={location === "/info/ayuda-rapida" ? "page" : undefined}
+          >
             AYUDA
             <HelpCircle className="w-3.5 h-3.5" />
-          </button>
+          </Link>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -265,6 +271,14 @@ export function Header({ mode }: HeaderProps) {
                     {link.label}
                   </Link>
                 ))}
+                <Link
+                  href="/info/ayuda-rapida"
+                  className="flex items-center gap-2 text-base font-bold"
+                  aria-current={location === "/info/ayuda-rapida" ? "page" : undefined}
+                >
+                  <HelpCircle className="h-4 w-4" />
+                  AYUDA
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>

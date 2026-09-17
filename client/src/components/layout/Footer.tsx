@@ -29,8 +29,12 @@ const portalUserLinks = [
   { label: "Consultas y reclamos", href: "#" },
 ];
 
-const landingInfoLinks = ["Sobre nosotros", "Sucursales", "Preguntas frecuentes", "Información útil", "Ayuda"];
-const portalInfoLinks = ["Sobre nosotros", "Sucursales", "Cobrá con Inpay", "Bancos", "Preguntas frecuentes", "Información útil", "Ayuda"];
+const landingInfoLinks = [
+  { label: "Sobre nosotros", href: "#" }, { label: "Sucursales", href: "#" }, { label: "Preguntas frecuentes", href: "#" }, { label: "Información útil", href: "#" }, { label: "Ayuda", href: "/info/ayuda-rapida" },
+];
+const portalInfoLinks = [
+  { label: "Sobre nosotros", href: "#" }, { label: "Sucursales", href: "#" }, { label: "Cobrá con Inpay", href: "#" }, { label: "Bancos", href: "#" }, { label: "Preguntas frecuentes", href: "#" }, { label: "Información útil", href: "#" }, { label: "Ayuda", href: "/info/ayuda-rapida" },
+];
 
 function FooterLink({ label, href }: { label: string; href: string }) {
   const className = "block w-fit transition hover:text-blue-600 hover:underline";
@@ -92,7 +96,7 @@ export function Footer({ variant = "portal" }: { variant?: FooterVariant }) {
         <div>
           <h3 className="text-xl font-medium text-[#39328b]">Información</h3>
           <ul className="mt-3 space-y-1 text-sm leading-5">
-            {infoLinks.map((label) => <li key={label}><a className="block w-fit transition hover:text-blue-600 hover:underline" href="#">{label}</a></li>)}
+            {infoLinks.map((link) => <li key={link.label}><FooterLink {...link} /></li>)}
           </ul>
         </div>
         <div>
