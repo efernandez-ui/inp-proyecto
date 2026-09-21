@@ -20,6 +20,12 @@ function Router() {
       <Route path="/vendedor" component={SellerHome} />
       <Route path="/catalogo" component={Catalog} />
       <Route path="/producto/:id" component={ProductDetail} />
+      <Route path="/info/ayuda-rapida/forma-parte" component={QuickHelp} />
+      <Route path="/info/ayuda-rapida/sobre-nosotros" component={QuickHelp} />
+      <Route path="/info/ayuda-rapida/sucursales" component={QuickHelp} />
+      <Route path="/info/ayuda-rapida/bancos" component={QuickHelp} />
+      <Route path="/info/ayuda-rapida/informacion-util" component={QuickHelp} />
+      <Route path="/info/ayuda-rapida/solicitud-de-cliente" component={QuickHelp} />
       <Route path="/info/ayuda-rapida" component={QuickHelp} />
       <Route path="/pedidos" component={Orders} />
       <Route component={NotFound} />

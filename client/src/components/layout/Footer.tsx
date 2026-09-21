@@ -5,18 +5,18 @@ import intercapLogo from "@assets/intercap-logo-blanco.png";
 type FooterVariant = "landing" | "portal";
 
 const socialLinks = [
-  { label: "Instagram", href: "https://www.instagram.com/intercapsrl/", icon: Instagram },
+  { label: "Instagram", href: "https://www.instagram.com/intercap_srl/", icon: Instagram },
   { label: "Facebook", href: "https://www.facebook.com/intercapsrl/", icon: Facebook },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/intercap-s-r-l", icon: Linkedin },
-  { label: "YouTube", href: "https://www.youtube.com/@intercapsrl", icon: Youtube },
+  { label: "LinkedIn", href: "https://ar.linkedin.com/company/intercap-s-r-l", icon: Linkedin },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCIa77xvGpcok30JGzr4ko7w", icon: Youtube },
 ];
 
 const landingUserLinks = [
   { label: "Acceso clientes", href: "/home" },
   { label: "Catálogo", href: "/catalogo" },
-  { label: "Solicitud de cliente", href: "#quiero-ser-cliente" },
-  { label: "Formá parte", href: "https://www.intercap.com.ar/TiendaVirtual/forma-parte;jsessionid=0f54a49cd6f6af23cb237ea377bc" },
-  { label: "Bancos", href: "#" },
+  { label: "Solicitud de cliente", href: "/info/ayuda-rapida/solicitud-de-cliente" },
+  { label: "Formá parte", href: "/info/ayuda-rapida/forma-parte" },
+  { label: "Bancos", href: "/info/ayuda-rapida/bancos" },
 ];
 
 const portalUserLinks = [
@@ -30,10 +30,10 @@ const portalUserLinks = [
 ];
 
 const landingInfoLinks = [
-  { label: "Sobre nosotros", href: "#" }, { label: "Sucursales", href: "#" }, { label: "Preguntas frecuentes", href: "#" }, { label: "Información útil", href: "#" }, { label: "Ayuda", href: "/info/ayuda-rapida" },
+  { label: "Sobre nosotros", href: "/info/ayuda-rapida/sobre-nosotros" }, { label: "Sucursales", href: "/info/ayuda-rapida/sucursales" }, { label: "Preguntas frecuentes", href: "/info/ayuda-rapida" }, { label: "Información útil", href: "/info/ayuda-rapida/informacion-util" }, { label: "Ayuda", href: "/info/ayuda-rapida" },
 ];
 const portalInfoLinks = [
-  { label: "Sobre nosotros", href: "#" }, { label: "Sucursales", href: "#" }, { label: "Cobrá con Inpay", href: "#" }, { label: "Bancos", href: "#" }, { label: "Preguntas frecuentes", href: "#" }, { label: "Información útil", href: "#" }, { label: "Ayuda", href: "/info/ayuda-rapida" },
+  { label: "Sobre nosotros", href: "/info/ayuda-rapida/sobre-nosotros" }, { label: "Sucursales", href: "/info/ayuda-rapida/sucursales" }, { label: "Cobrá con Inpay", href: "#" }, { label: "Bancos", href: "/info/ayuda-rapida/bancos" }, { label: "Preguntas frecuentes", href: "/info/ayuda-rapida" }, { label: "Información útil", href: "/info/ayuda-rapida/informacion-util" }, { label: "Ayuda", href: "/info/ayuda-rapida" },
 ];
 
 function FooterLink({ label, href }: { label: string; href: string }) {
@@ -76,9 +76,9 @@ export function Footer({ variant = "portal" }: { variant?: FooterVariant }) {
             </div>
             <div className="mt-10 flex flex-col gap-4 text-center text-xs font-black md:flex-row md:items-center md:justify-between md:text-left">
               <p>Desde el año 1991 somos expertos en el negocio de repuestos y accesorios para motos</p>
-              <a href="http://192.168.0.205:3000/info/quienes-somos" className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-white transition hover:bg-sky-300">
+              <Link href="/info/ayuda-rapida/sobre-nosotros" className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-white transition hover:bg-sky-300">
                 Conocé más de nosotros
-              </a>
+              </Link>
             </div>
           </div>
         </section>

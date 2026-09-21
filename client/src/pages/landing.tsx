@@ -6,6 +6,7 @@ import {
   Clock3,
   Facebook,
   Headphones,
+  HelpCircle,
   Instagram,
   Linkedin,
   MapPin,
@@ -169,7 +170,7 @@ const navLinks = [
   { label: "¿QUIÉNES SOMOS?", href: "#quienes-somos" },
   { label: "QUIERO SER CLIENTE", href: "#quiero-ser-cliente" },
   { label: "SUCURSALES", href: "#sucursales" },
-  { label: "FORMA PARTE", href: "https://www.intercap.com.ar/TiendaVirtual/forma-parte;jsessionid=0f54a49cd6f6af23cb237ea377bc" },
+  { label: "FORMA PARTE", href: "/info/ayuda-rapida/forma-parte" },
 ];
 
 export default function Landing() {
@@ -280,6 +281,13 @@ export default function Landing() {
               className="hidden rounded bg-teal-600 px-4 py-2 text-[11px] font-black uppercase tracking-wide text-white transition hover:bg-teal-500 sm:inline-flex"
             >
               Registrarme
+            </Link>
+            <Link
+              href="/info/ayuda-rapida"
+              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-white/80 transition-colors hover:text-white"
+            >
+              AYUDA
+              <HelpCircle className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>

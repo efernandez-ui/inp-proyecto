@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { Check, Copy, Facebook, Instagram, Play, Send, Smile, UserRound, Youtube } from "lucide-react";
 import { branches } from "@/pages/landing";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useLocation } from "wouter";
 
-type HelpSection = "help" | "useful-info" | "branches" | "banks" | "jobs" | "client";
+type HelpSection = "help" | "useful-info" | "branches" | "banks" | "jobs" | "client" | "about";
 
 const helpMenuItems: { label: string; section: HelpSection }[] = [
+  { label: "Sobre Nosotros", section: "about" },
   { label: "Bancos", section: "banks" },
   { label: "Información útil", section: "useful-info" },
   { label: "Sucursales", section: "branches" },
@@ -70,12 +72,13 @@ const socialVideoGroups = [
   {
     title: "Bikeservice por Gustavo Morea",
     videos: [
-      "https://www.youtube.com/embed/videoseries?list=PL_t3zL1bQ-5JlcWcSnpf0_LENyHqPALqt",
-      "https://www.youtube.com/embed/b4EtZq2J360",
-      "https://www.youtube.com/embed/dBlhWLn3cP8",
+      "https://www.youtube.com/embed/GxLFr9hIN14",
       "https://www.youtube.com/embed/0WWyYxDz_CY",
       "https://www.youtube.com/embed/90Dhs6FBuq0",
       "https://www.youtube.com/embed/R3Y-dZ6yHgo",
+      "https://www.youtube.com/embed/dBlhWLn3cP8",
+      "https://www.youtube.com/embed/b4EtZq2J360",
+      "https://www.youtube.com/embed/Zce-tFo6l1k",
     ],
   },
   {
@@ -106,7 +109,19 @@ const additionalTutorialVideos = [
 ];
 
 export default function QuickHelp() {
-  const [activeSection, setActiveSection] = useState<HelpSection>("help");
+  const [location, setLocation] = useLocation();
+  const sectionPaths: Record<HelpSection, string> = {
+    help: "/info/ayuda-rapida",
+    "useful-info": "/info/ayuda-rapida/informacion-util",
+    branches: "/info/ayuda-rapida/sucursales",
+    banks: "/info/ayuda-rapida/bancos",
+    jobs: "/info/ayuda-rapida/forma-parte",
+    client: "/info/ayuda-rapida/solicitud-de-cliente",
+    about: "/info/ayuda-rapida/sobre-nosotros",
+  };
+  const activeSection = (Object.keys(sectionPaths) as HelpSection[]).find(
+    (section) => sectionPaths[section] === location,
+  ) ?? "help";
 
   return (
     <div className="flex min-h-screen flex-col bg-intercap-bg pt-24 font-sans text-intercap-blue-dark">
@@ -118,7 +133,7 @@ export default function QuickHelp() {
             <button
               key={item.section}
               type="button"
-              onClick={() => setActiveSection(item.section)}
+              onClick={() => setLocation(sectionPaths[item.section])}
               aria-pressed={activeSection === item.section}
               className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-intercap-blue-main ${activeSection === item.section
                 ? "bg-intercap-blue-main text-white shadow-sm"
@@ -132,11 +147,46 @@ export default function QuickHelp() {
       </nav>
 
       <main className="flex-1 px-4 py-8 sm:px-6 sm:py-10">
-        {activeSection === "client" ? <ClientRequestSection /> : activeSection === "jobs" ? <JobsSection /> : activeSection === "banks" ? <BanksSection /> : activeSection === "useful-info" ? <UsefulInfoSection /> : activeSection === "branches" ? <BranchesSection /> : <FaqSection />}
+        {activeSection === "about" ? <AboutSection /> : activeSection === "client" ? <ClientRequestSection /> : activeSection === "jobs" ? <JobsSection /> : activeSection === "banks" ? <BanksSection /> : activeSection === "useful-info" ? <UsefulInfoSection /> : activeSection === "branches" ? <BranchesSection /> : <FaqSection />}
       </main>
 
       <Footer />
     </div>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section className={`${panelClass} ${panelPaddingClass}`}>
+      <header className="border-b border-slate-200 pb-5">
+        <h1 className={pageTitleClass}>Sobre Nosotros</h1>
+      </header>
+      <div className="space-y-6 pt-7 text-sm leading-7 text-slate-700 sm:text-base">
+        <p><strong className="text-intercap-blue-dark">“Escuchar al cliente para mejorar continuamente”.</strong> En esto se basa nuestra receta, tan simple como infalible. Por esto más de 1.500 casas de repuestos de motos de todo el país nos eligen habitualmente hace más de 30 años.</p>
+
+        <div>
+          <h2 className={sectionTitleClass}>Cómo trabajamos</h2>
+          <p className="mt-2">Nos impulsa estar adelante en tecnología para agilizar procesos comerciales y logísticos:</p>
+          <ul className="mt-3 list-disc space-y-2 pl-5">
+            <li><strong>Portal web</strong> con el catálogo más completo del mercado, herramientas de autogestión para agilizar los negocios y una experiencia de compra profesional.</li>
+            <li>Soluciones de pagos y envíos para nuestros clientes. Brindamos un servicio completo para que puedan realizar cobros con tarjetas en sus mostradores bajando cargas financieras y administrativas.</li>
+            <li>Atención personal a cargo de una fuerza de ventas especializada.</li>
+            <li>Cuatro sucursales localizadas estratégicamente para llegar rápidamente a cualquier punto del país.</li>
+            <li>Centro de distribución central de 5000 m2 con avanzados sistemas de almacenaje.</li>
+            <li>Software CRM para sistematizar y mejorar la atención a los clientes.</li>
+          </ul>
+        </div>
+
+        <div className="space-y-4 border-t border-slate-200 pt-6">
+          <h2 className={sectionTitleClass}>Nuestra historia</h2>
+          <p>Los argentinos amamos las motos y éstas no pueden funcionar sin repuestos de calidad en el momento y el lugar indicado. Decididos a ser protagonistas de un mercado en expansión, desde 1991 nos dedicamos a la distribución mayorista de motopartes. Primero, como distribuidores de lubricantes AMA en la región noreste del país desde nuestro depósito en la ciudad de Resistencia. Más adelante fuimos sumando líneas de productos que hasta el día de hoy nos identifican, como en 1996 cuando sumamos a Pirelli a nuestra cartera de productos, a partir de lo cual nos fuimos erigiendo en líderes del mercado de neumáticos. En 1998 abrimos una segunda sucursal en Tucumán continuando con nuestra expansión allí donde se respira moto.</p>
+          <p>En el año 2000 la apertura de un depósito en Buenos Aires fue la llave de acceso a todo el país, tanto para llegar rápidamente a los clientes como para apoyar a las sucursales del interior. Inicialmente nos instalamos en CABA, pero el crecimiento fue rápido y nos mudamos a Lanús en 2002 y en 2022 a Esteban Echeverría ampliando la superficie y mejorando los sistemas de almacenaje.</p>
+          <p>En 2005 abrimos una sucursal en la ciudad de Mendoza, siguiendo nuestra premisa de estar cerca de nuestros clientes.</p>
+          <p>A lo largo de este tiempo hemos adquirido la experiencia y el talento para brindar el servicio que nuestros clientes esperan para un crecimiento conjunto de los negocios. También forjamos alianzas sustentables con proveedores locales y extranjeros.</p>
+          <p>Nada hubiera sido posible sin el excepcional grupo humano que conforma a Intercap desde sus inicios y que progresivamente se amplía. Aprendiendo de los errores y escuchando a quienes más saben, nuestros clientes, nos entusiasma saber que esta historia sigue escribiéndose.</p>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -552,17 +602,17 @@ function BanksSection() {
               {bank.logo}
             </div>
             <dl className="space-y-2 p-5 text-sm leading-6 text-intercap-blue-dark">
-              <div><dt className="inline">Tipo de cuenta: </dt><dd className="inline">{bank.accountType}</dd></div>
-              {bank.account && <div><dt className="inline">Nro de cuenta: </dt><dd className="inline">{bank.account}</dd></div>}
+              <div><dt className="inline font-bold">Tipo de cuenta: </dt><dd className="inline">{bank.accountType}</dd></div>
+              {bank.account && <div><dt className="inline font-bold">Nro de cuenta: </dt><dd className="inline">{bank.account}</dd></div>}
               <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0"><dt className="inline">C.B.U.: </dt><dd className="inline break-all">{bank.cbu}</dd></div>
+                <div className="min-w-0"><dt className="inline font-bold">C.B.U.: </dt><dd className="inline break-all">{bank.cbu}</dd></div>
                 <CopyButton value={bank.cbu} label="CBU" />
               </div>
               <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0"><dt className="inline">Alias: </dt><dd className="inline break-all">{bank.alias}</dd></div>
+                <div className="min-w-0"><dt className="inline font-bold">Alias: </dt><dd className="inline break-all">{bank.alias}</dd></div>
                 <CopyButton value={bank.alias} label="alias" />
               </div>
-              {bank.branch && <div><dt className="inline">Suc: </dt><dd className="inline">{bank.branch}</dd></div>}
+              {bank.branch && <div><dt className="inline font-bold">Suc: </dt><dd className="inline">{bank.branch}</dd></div>}
             </dl>
           </article>
         ))}
