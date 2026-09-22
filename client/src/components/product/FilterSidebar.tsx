@@ -178,8 +178,11 @@ export function FilterSidebar({ selectedFilters, onFilterChange }: FilterSidebar
               {[
                 { id: 'isHot', label: 'Ofertas' },
                 { id: 'isNew', label: 'Novedades' },
-                { id: 'disp', label: 'Disponible' },
-                { id: 'var', label: 'Variación de precio' }
+                { id: 'var', label: 'Variación de precio' },
+                { id: 'BUE', label: 'En Stock BUE' },
+                { id: 'CUYO', label: 'En Stock CUYO' },
+                { id: 'NEA', label: 'En Stock NEA' },
+                { id: 'NOA', label: 'En Stock NOA' }
               ].map((item) => (
                 <div key={item.id} className="flex items-center space-x-3 group cursor-pointer">
                   <Checkbox 

@@ -21,6 +21,8 @@ export interface Product {
   isNew?: boolean;
 }
 
+export const isStockAvailable = (quantity: number) => quantity > 0;
+
 export const PRODUCTS: Product[] = [
   {
     "id": 1,

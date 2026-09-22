@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Product } from "@/lib/products";
+import { Product, isStockAvailable } from "@/lib/products";
 import { Heart, ArrowRightLeft, Link as LinkIcon, Info, Bike, ShoppingCart, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -41,7 +41,7 @@ export function ProductCard({ product, viewMode = 'grid' }: ProductCardProps) {
   ];
 
   const getStockColor = (qty: number) => {
-    if (qty === 0) return '#ef4444';
+    if (!isStockAvailable(qty)) return '#ef4444';
     if (qty <= 3) return '#f59e0b';
     return '#22c55e';
   };

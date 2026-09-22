@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { PRODUCTS } from "@/lib/products";
+import { PRODUCTS, isStockAvailable } from "@/lib/products";
 import { ProductCard } from "@/components/product/ProductCard";
 import { FilterSidebar } from "@/components/product/FilterSidebar";
 import { Button } from "@/components/ui/button";
@@ -147,6 +147,15 @@ export default function Catalog() {
           return pSub.includes(normSf) || normSf.includes(pSub) || pTitle.includes(normSf);
         });
         if (!matchesSubtype) return false;
+      }
+
+      const depotFilters = filters.state || [];
+      if (depotFilters.length > 0) {
+        const matchesDepot = depotFilters.some((depot: string) => {
+          const stock = product.stock[depot as keyof typeof product.stock];
+          return typeof stock === "number" && isStockAvailable(stock);
+        });
+        if (!matchesDepot) return false;
       }
 
       // Check for attribute existence and match
