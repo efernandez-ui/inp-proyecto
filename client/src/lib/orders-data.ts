@@ -4,6 +4,7 @@ export type OrderItem = {
   sku: string;
   subcode?: string;
   name: string;
+  presentation?: string;
   requestedQty: number;
   allocatedQty: number;
   unitPriceARS: number;
@@ -30,7 +31,17 @@ export type Order = {
   bultos: number;
   weightKg: number;
   paymentTerms: string;
+  customerName?: string;
   totalARS: number;
+  shipments?: {
+    distributionNumber: string;
+    date: string;
+    deliveryNote: string;
+    branch: string;
+    address: string;
+    carrier: string;
+    packages: number;
+  }[];
   items: OrderItem[];
   timelineLogs: { time: string; title: string; desc: string }[];
 };
@@ -161,6 +172,7 @@ export const initialOrders: Order[] = [
                         requestedQty: 10, 
                         allocatedQty: 5, 
                         unitPriceARS: 88000,
+                        fulfillmentDepot: 'Dep. BSAS',
                         stockRegional: { noa: 'low', nea: 'low', bue: 'medium', cuy: 'empty' },
                         substitute: null
                     }
@@ -180,6 +192,7 @@ export const initialOrders: Order[] = [
                 timelineStep: 5,
                 statusKey: 'ENVIADO',
                 statusLabel: 'Enviado',
+                isMultiDepot: true,
                 destiny: 'Sucursal Rosario Centro (Pellegrini 1420)',
                 carrier: 'Expreso Lancioni',
                 trackingNum: '8842910-B',
@@ -187,6 +200,9 @@ export const initialOrders: Order[] = [
                 weightKg: 18.5,
                 paymentTerms: 'Cuenta Corriente 30 Días',
                 totalARS: 1240500,
+                shipments: [
+                    { distributionNumber: '86566', date: '05/08/2026', deliveryNote: 'RX0012-8842', branch: 'Suc Cuyo', address: 'Sucursal Rosario Centro (Pellegrini 1420)', carrier: 'Expreso Lancioni', packages: 3 }
+                ],
                 items: [
                     { 
                         sku: '028009080010', 
@@ -195,6 +211,7 @@ export const initialOrders: Order[] = [
                         requestedQty: 20, 
                         allocatedQty: 10, 
                         unitPriceARS: 3066.67,
+                        fulfillmentDepot: 'Dep. BSAS',
                         stockRegional: { noa: 'medium', nea: 'medium', bue: 'high', cuy: 'low' },
                         substitute: { sku: '028009080010-HD', name: 'TUBO HEXAGONAL 17MM HEAVY DUTY BREMEN', stock: 'Disponible en BUE/NOA', priceARS: 3066.67 }
                     },
@@ -205,6 +222,7 @@ export const initialOrders: Order[] = [
                         requestedQty: 7, 
                         allocatedQty: 5, 
                         unitPriceARS: 57500,
+                        fulfillmentDepot: 'Dep. BSAS',
                         stockRegional: { noa: 'empty', nea: 'low', bue: 'medium', cuy: 'empty' },
                         substitute: { sku: '028009080018-PRO', name: 'JUEGO DE BOCALLAVES 1/2 PROFESSIONAL BREMEN (26 PZS)', stock: 'Disponible en NEA', priceARS: 58000 }
                     },
@@ -215,6 +233,7 @@ export const initialOrders: Order[] = [
                         requestedQty: 12, 
                         allocatedQty: 12, 
                         unitPriceARS: 31250,
+                        fulfillmentDepot: 'Dep. Cuyo',
                         stockRegional: { noa: 'high', nea: 'high', bue: 'high', cuy: 'high' },
                         substitute: null 
                     }
@@ -242,6 +261,9 @@ export const initialOrders: Order[] = [
                 weightKg: 12.0,
                 paymentTerms: 'Cuenta Corriente 30 Días',
                 totalARS: 850300,
+                shipments: [
+                    { distributionNumber: '99120412', date: '28/07/2026', deliveryNote: 'RX0012-8790', branch: 'Suc Nea', address: 'Sucursal Rosario Centro', carrier: 'Andreani Logistics', packages: 2 }
+                ],
                 items: [
                     { 
                         sku: '020010070058', 
@@ -250,6 +272,7 @@ export const initialOrders: Order[] = [
                         requestedQty: 15, 
                         allocatedQty: 10, 
                         unitPriceARS: 42500,
+                        fulfillmentDepot: 'Dep. BSAS',
                         stockRegional: { noa: 'high', nea: 'low', bue: 'medium', cuy: 'empty' },
                         substitute: { sku: '020010070058-EVO', name: 'CDI DIGITAL EVOLUTION YAMAHA NEW CRYPTON', stock: 'Disponible en BUE', priceARS: 43000 }
                     }
@@ -260,6 +283,45 @@ export const initialOrders: Order[] = [
                     { time: '28/07/2026 15:00', title: 'En Preparación', desc: 'Armado.' },
                     { time: '29/07/2026 10:00', title: 'Facturado', desc: 'Factura emitida.' },
                     { time: '29/07/2026 16:00', title: 'Enviado', desc: 'Guía AND-99120412' }
+                ]
+            },
+            {
+                id: 'PED-2026-8850',
+                shortNum: '#10250',
+                branch: 'Suc Noa',
+                date: '10/08/2026 10:00',
+                timelineStep: 5,
+                statusKey: 'ENVIADO',
+                statusLabel: 'Enviado',
+                isMultiDepot: true,
+                destiny: 'Pendiente de definir',
+                carrier: 'Pendiente de definir',
+                trackingNum: 'Pendiente de definir',
+                bultos: 0,
+                weightKg: 0,
+                paymentTerms: 'Pendiente de definir',
+                customerName: 'Cliente Para Operaciones de Contado',
+                totalARS: 485431.72,
+                shipments: [
+                    { distributionNumber: '86211', date: '16/07/2026', deliveryNote: 'RX0022-105903', branch: 'Tucumán', address: 'RP301 KM3.5 MANANTIAL (galpón 52)', carrier: 'TRANSPORTE OPTIMUS TUC.', packages: 2 },
+                    { distributionNumber: '86219', date: '16/07/2026', deliveryNote: 'RX0003-213686', branch: 'Tucumán', address: 'RP301 KM3.5 MANANTIAL (galpón 52)', carrier: 'TRANSPORTE ANDREANI (INTERCAP)', packages: 2 }
+                ],
+                items: [
+                    { sku: '020007010038', subcode: '3019', name: '3019 (VA x 3031-3038-3042-3040-3025-3029-3027-3034) BOBINA ALIM. ENCENDIDO GILERA SMASH/FUTURA 110/ZANELLA ZB 110/SWING/MOTOMEL BIT 110 (VARIAS 110 CC)', presentation: 'Caj 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 11041.76, fulfillmentDepot: 'Dep. Cuyo' },
+                    { sku: '001001270015', subcode: 'UB-311', name: '3.00-18 52P TT UB-311 MONSTER DURTEC TIRES', presentation: 'Uni 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 26969.66, fulfillmentDepot: 'Dep. Cuyo' },
+                    { sku: '018004130034', name: 'GUANTES RADIKAL RIDE FUSE AMARILLO TALLE XL', presentation: 'Uni 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 25927.05, fulfillmentDepot: 'Dep. Cuyo' },
+                    { sku: '005036290004', subcode: 'S4V0210200062', name: 'FILTRO DE AIRE VEDAMOTORS HONDA XRE 300', presentation: 'Uni 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 5368.37, fulfillmentDepot: 'Dep. Cuyo' },
+                    { sku: '001001010414', subcode: '2706300', name: '100/90-18 M/C 56P TL SUPER CITY REAR', presentation: 'Uni 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 107129.55, fulfillmentDepot: 'Dep. BSAS' },
+                    { sku: '001001270010', subcode: 'UB-311', name: '2.75-18 48P TT UB-311 MONSTER DURTEC TIRES', presentation: 'Uni 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 22499.76, fulfillmentDepot: 'Dep. Cuyo' },
+                    { sku: '001001270005', subcode: 'UB-311', name: '2.75-17 47P TT UB-311 MONSTER DURTEC TIRES', presentation: 'Uni 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 21598.27, fulfillmentDepot: 'Dep. Cuyo' },
+                    { sku: '028005060008', subcode: 'BS2462', name: 'EXTRACTOR DE VOLANTE MAGNETICO M26 x P1.0 BIKE SERVICE CON BOLILLA ANTIFRICCION', presentation: 'Bol 1 Uni', requestedQty: 2, allocatedQty: 0, unitPriceARS: 22181.44, fulfillmentDepot: 'Dep. Cuyo' }
+                ],
+                timelineLogs: [
+                    { time: '10/08/2026 10:00', title: 'Pedido recibido', desc: 'Pedido creado para completar con la información indicada.' },
+                    { time: '10/08/2026 10:15', title: 'Pedido en análisis', desc: 'Pedido validado para facturación.' },
+                    { time: '10/08/2026 10:30', title: 'En preparación', desc: 'Productos preparados para despacho.' },
+                    { time: '10/08/2026 10:45', title: 'Facturado', desc: 'Se generaron dos comprobantes de factura.' },
+                    { time: '16/07/2026 16:00', title: 'Enviado', desc: 'Despachado en dos repartos.' }
                 ]
             }
         ];

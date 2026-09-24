@@ -91,3 +91,205 @@
     @apply font-sans antialiased bg-intercap-bg text-intercap-blue-dark;
   }
 }
+
+@keyframes active-order-step-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 rgb(26 121 255 / 28%);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 0 0 7px rgb(26 121 255 / 0%);
+  }
+}
+
+.active-order-step {
+  animation: active-order-step-float 1.8s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+section[aria-label="Productos no entregados"] tbody td:nth-child(3) {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* Pedidos y seguimiento: lenguaje visual compartido para la vista y sus modales. */
+.orders-page,
+.orders-modal {
+  --orders-navy: var(--color-intercap-blue-dark);
+  --orders-blue: var(--color-intercap-blue-main);
+  --orders-border: #e2e8f0;
+  --orders-surface: #ffffff;
+  --orders-surface-muted: #f8fafc;
+  --orders-text-muted: #64748b;
+  --orders-radius: 0.75rem;
+}
+
+.orders-page button,
+.orders-modal button,
+.orders-page input,
+.orders-modal input,
+.orders-modal textarea {
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.orders-page button:focus-visible,
+.orders-modal button:focus-visible,
+.orders-page input:focus-visible,
+.orders-modal input:focus-visible,
+.orders-modal textarea:focus-visible,
+.orders-modal summary:focus-visible {
+  outline: 2px solid var(--orders-blue);
+  outline-offset: 2px;
+}
+
+.orders-toolbar,
+.order-card {
+  border-color: var(--orders-border);
+  border-radius: var(--orders-radius);
+  background: var(--orders-surface);
+}
+
+.orders-toolbar {
+  box-shadow: 0 1px 2px rgb(15 23 42 / 5%);
+}
+
+.orders-toolbar input {
+  height: 2.25rem;
+  border-color: #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.orders-toolbar input:focus {
+  border-color: var(--orders-blue);
+  box-shadow: 0 0 0 3px rgb(26 121 255 / 12%);
+}
+
+.orders-toolbar button {
+  min-height: 2.25rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+.orders-toolbar button:first-of-type {
+  background: var(--orders-blue);
+}
+
+.orders-toolbar button:first-of-type:hover {
+  background: var(--color-brand-blue-700);
+}
+
+.order-card {
+  box-shadow: 0 1px 3px rgb(15 23 42 / 6%);
+}
+
+.order-card:hover {
+  border-color: rgb(26 121 255 / 25%);
+  box-shadow: 0 8px 22px rgb(15 23 42 / 8%);
+}
+
+.orders-modal {
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: var(--orders-radius);
+  color: var(--orders-navy);
+}
+
+.orders-modal > div:first-child {
+  background: var(--orders-navy);
+}
+
+.orders-modal h2 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.orders-modal h3,
+.orders-modal h4 {
+  color: var(--orders-navy);
+  font-weight: 800;
+}
+
+.orders-modal table {
+  color: var(--orders-navy);
+  font-variant-numeric: tabular-nums;
+}
+
+.orders-modal thead {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.orders-modal th {
+  border-color: var(--orders-border);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.orders-modal td {
+  border-color: var(--orders-border);
+  color: #334155;
+  line-height: 1.35rem;
+}
+
+.orders-page table th,
+.orders-page table td,
+.orders-modal table th,
+.orders-modal table td {
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+}
+
+.orders-modal tbody tr {
+  transition: background-color 140ms ease;
+}
+
+.orders-modal tbody tr:hover {
+  background: rgb(239 246 255 / 55%);
+}
+
+.orders-modal input,
+.orders-modal textarea {
+  border-color: #cbd5e1;
+  border-radius: 0.5rem;
+  color: var(--orders-navy);
+}
+
+.orders-modal input:focus,
+.orders-modal textarea:focus {
+  border-color: var(--orders-blue);
+  box-shadow: 0 0 0 3px rgb(26 121 255 / 12%);
+}
+
+.orders-modal input[type="checkbox"] {
+  accent-color: var(--orders-blue);
+}
+
+.orders-modal input[type="number"] {
+  font-variant-numeric: tabular-nums;
+}
+
+.orders-modal details summary {
+  border-radius: 0.375rem;
+  color: var(--orders-blue);
+}
+
+@media (max-width: 640px) {
+  .orders-toolbar > div {
+    align-items: stretch;
+  }
+
+  .orders-toolbar button,
+  .orders-toolbar input {
+    min-height: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active-order-step {
+    animation: none;
+  }
+}
