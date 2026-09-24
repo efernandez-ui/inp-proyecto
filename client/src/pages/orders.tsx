@@ -165,8 +165,9 @@ export default function Orders() {
 function OrderCard({ order, onStep, onPending }: { order: Order; onStep: (step: number) => void; onPending: () => void }) {
   const pending = order.timelineStep >= 4 ? order.items.filter(item => !item.pendingAction).reduce((sum, item) => sum + pendingQuantity(item), 0) : 0;
   const hasMultipleDepots = new Set(order.items.map(item => item.fulfillmentDepot).filter(Boolean)).size > 1;
+  const hidePendingIndicator = ["PED-2026-8810", "PED-2026-8790"].includes(order.id);
   return <article className="order-card rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md sm:p-5">
-    <div className="grid items-center gap-5 xl:grid-cols-[330px_minmax(0,1fr)_auto]">
+    <div className="grid items-center gap-5 xl:grid-cols-[330px_minmax(0,1fr)_150px]">
       <div className="flex flex-wrap items-center gap-2.5 xl:border-r xl:border-slate-100 xl:pr-5">
         <span className="rounded-lg bg-intercap-blue-dark px-3 py-1.5 text-xs font-black tracking-wide text-white">{order.id}</span>
         <span className="inline-flex items-center gap-1 whitespace-nowrap text-xs font-semibold text-slate-500"><CalendarDays className="h-3.5 w-3.5 text-intercap-blue-main" />{order.date.split(" ")[0]}</span>
@@ -195,7 +196,11 @@ function OrderCard({ order, onStep, onPending }: { order: Order; onStep: (step: 
         </div>
       </div>
 
-      <button type="button" onClick={onPending} disabled={order.timelineStep < 4} className={`inline-flex justify-self-start items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-bold xl:justify-self-end ${pending > 0 ? "bg-amber-100 text-amber-800 hover:bg-amber-200" : "bg-slate-100 text-slate-500"}`}><Boxes className="h-3.5 w-3.5" />{pending > 0 ? `${pending} no entregados` : "Sin pendientes"}<ChevronRight className="h-3 w-3" /></button>
+      {!hidePendingIndicator && <button type="button" onClick={onPending} disabled={order.timelineStep < 4} className={`inline-flex min-h-11 w-full max-w-[150px] justify-self-start items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-[11px] font-bold xl:justify-self-end ${pending > 0 ? "bg-amber-100 text-amber-800 hover:bg-amber-200" : "bg-slate-100 text-slate-500"}`}>
+        <Boxes className="h-4 w-4 shrink-0" />
+        {pending > 0 ? <span className="flex flex-col items-center leading-tight"><strong className="text-sm font-black">{pending}</strong><span>no entregados</span></span> : <span>Sin pendientes</span>}
+        <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+      </button>}
     </div>
   </article>;
 }
